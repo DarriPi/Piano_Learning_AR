@@ -1,0 +1,17 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Uu]ser[Ss]ettings/
+
+# VS Code
+.vscode/
+
+# Android
+*.apk
+*.aab
+
+# Logs
+*.log

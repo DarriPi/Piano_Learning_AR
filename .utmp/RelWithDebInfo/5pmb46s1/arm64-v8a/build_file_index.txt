@@ -1,0 +1,2 @@
+C:\Users\Student\Honors_Project\Piano_Learning_AR\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\Student\Honors_Project\Piano_Learning_AR\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
