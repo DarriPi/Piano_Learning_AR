@@ -58,11 +58,15 @@ struct UnityAction_t11A1F3B953B365C072A5DCC32677EE1796A962A7;
 struct UnitySourceGeneratedAssemblyMonoScriptTypes_v1_tC95F24D0C6E6B77389433852BB389F39C692926E;
 struct VertexHelper_tB905FCB02AE67CBEE5F265FE37A5938FC5D136FE;
 struct Void_t4861ACF8F4594C3437BB48B6E56783494B843915;
+struct WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3;
 struct PCMReaderCallback_t3396D9613664F0AFF65FB91018FD0F901CC16F1E;
 struct PCMSetPositionCallback_t8D7135A2FB40647CAEC93F5254AD59E18DEB6072;
 struct CullStateChangedEvent_t6073CD0D951EC1256BF74B8F9107D68FC89B99B8;
-struct U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969;
-struct U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593;
+struct U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2;
+struct U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E;
+struct U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A;
+struct U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B;
+struct U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0;
 struct Section_t50C894D0A717C2368EBAAE5477D4E8626D0B5401;
 
 IL2CPP_EXTERN_C RuntimeClass* ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031_il2cpp_TypeInfo_var;
@@ -70,28 +74,45 @@ IL2CPP_EXTERN_C RuntimeClass* Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il
 IL2CPP_EXTERN_C RuntimeClass* NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var;
-IL2CPP_EXTERN_C RuntimeClass* U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593_il2cpp_TypeInfo_var;
-IL2CPP_EXTERN_C RuntimeClass* U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeField* U3CPrivateImplementationDetailsU3E_t0F5473E849A5A5185A9F4C5246F0C32816C49FCA____7E8B1632A8DC91B501227F189C51666BA1F92D1DA263C027ED9893F35B230419_FieldInfo_var;
 IL2CPP_EXTERN_C RuntimeField* U3CPrivateImplementationDetailsU3E_t0F5473E849A5A5185A9F4C5246F0C32816C49FCA____B2EB299ABB59887CF632EA28B0B589146D02AB106F2506B8316AEFB98C76DCD0_FieldInfo_var;
+IL2CPP_EXTERN_C String_t* _stringLiteral03A26D7058A0CC63F578A30E9CB50ACF5E59F2D4;
 IL2CPP_EXTERN_C String_t* _stringLiteral098A5656DCD15BCF7DA81A7651490671B83D221F;
 IL2CPP_EXTERN_C String_t* _stringLiteral0D8E38213ED661391DA8057DC9CB8087E51D735D;
+IL2CPP_EXTERN_C String_t* _stringLiteral20636C32F8D92D418CB65136EB36A1C5EAD381A5;
 IL2CPP_EXTERN_C String_t* _stringLiteral23831B40AA92FF3C715F3658E13DD647E9BB4CE9;
+IL2CPP_EXTERN_C String_t* _stringLiteral29D3B581031380E3023808390ED8C7BEC981D871;
 IL2CPP_EXTERN_C String_t* _stringLiteral39F8031688D5856B3844D4C72E19D5F410F17749;
-IL2CPP_EXTERN_C String_t* _stringLiteral4AC541E37F7DE4F2580EAA3E5583B63110639098;
+IL2CPP_EXTERN_C String_t* _stringLiteral6C8E4BE9019C35B72A78F964A6B760291CFAA06C;
 IL2CPP_EXTERN_C String_t* _stringLiteral6D2C56060B3F7353031AD314517C27945CC39748;
+IL2CPP_EXTERN_C String_t* _stringLiteral772A9DDD5C1CA3899656759A7689BE0D229DB470;
 IL2CPP_EXTERN_C String_t* _stringLiteral7D0847FD33C0A89047135AD48FE949C6C314279E;
 IL2CPP_EXTERN_C String_t* _stringLiteral9A995176F49AFCEFAF46088D048EA5D6142144F6;
 IL2CPP_EXTERN_C String_t* _stringLiteral9D1345365259E5EB81078CB4A26A538B7842DB37;
+IL2CPP_EXTERN_C String_t* _stringLiteralAF3174DF1C695B405B14FDBF412F118FE493A464;
+IL2CPP_EXTERN_C String_t* _stringLiteralB016DEC2188EA3AD9BFA0996D31A8CA65F0A3A1C;
 IL2CPP_EXTERN_C String_t* _stringLiteralC17C5CFFAF8A299CBDEFC4A0DEBB055A06A402DD;
 IL2CPP_EXTERN_C String_t* _stringLiteralC185622BF616F79E40C1EBF83C4EB494D371E325;
+IL2CPP_EXTERN_C String_t* _stringLiteralCC0AB408EDEC3191BE48F305FA0D9F75B497BBDE;
 IL2CPP_EXTERN_C String_t* _stringLiteralD8DE439FA0EDE5F458C0E826389688640375D179;
+IL2CPP_EXTERN_C String_t* _stringLiteralDC80492BC70E6A68EB842AD6E7298F184A9D2071;
+IL2CPP_EXTERN_C String_t* _stringLiteralEAB4902A55C6F1E3B1A1298C4EC9EEB4E5D087E0;
+IL2CPP_EXTERN_C String_t* _stringLiteralF7A67BBD617ADF6C0F8153A79F887DF015F04D66;
 IL2CPP_EXTERN_C String_t* _stringLiteralFC653E355E6537F3D2B768E0BFD665B2FD4F6602;
 IL2CPP_EXTERN_C const RuntimeMethod* Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* GameObject_AddComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m0E8EFDB9B3D8DF1ADE10C56D3168A9C1BA19BF14_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* Object_FindObjectOfType_TisMicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76_mE5D2488D0533E68C8A3961516B65FF5CA47132EA_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* U3CStartMicrophoneU3Ed__8_System_Collections_IEnumerator_Reset_m5415B8E62F5B71E955802D10D267AE71EBE9DA26_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* U3CStartU3Ed__7_System_Collections_IEnumerator_Reset_m27652DD85FEE36FBAB1D84669AD83E2ACE8E2B25_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* U3CInitializeMicrophoneU3Ed__13_System_Collections_IEnumerator_Reset_mFE7BC03CC1E035641B6BE206FA5540986874D363_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* U3CRestartMicrophoneU3Ed__19_System_Collections_IEnumerator_Reset_m84D0612C36EA92570B65A450F82C2E1863158A90_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* U3CStartMicrophoneU3Ed__15_System_Collections_IEnumerator_Reset_mC76BAB530EE14A38607628D34C7FE6BC81B1E149_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* U3CStartMicrophoneWithRetryU3Ed__14_System_Collections_IEnumerator_Reset_m36C8EA132E07E41ECDADB9788BC1506E3F5FC366_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* U3CStartU3Ed__12_System_Collections_IEnumerator_Reset_m7C626910123FB755AC188471353049CADF708916_RuntimeMethod_var;
 struct Exception_t_marshaled_com;
 struct Exception_t_marshaled_pinvoke;
 
@@ -139,19 +160,43 @@ struct YieldInstruction_tFCE35FD0907950EFEE9BC2890AC664E41C53728D_marshaled_pinv
 struct YieldInstruction_tFCE35FD0907950EFEE9BC2890AC664E41C53728D_marshaled_com
 {
 };
-struct U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969  : public RuntimeObject
+struct U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2  : public RuntimeObject
 {
 	int32_t ___U3CU3E1__state;
 	RuntimeObject* ___U3CU3E2__current;
 	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___U3CU3E4__this;
 };
-struct U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593  : public RuntimeObject
+struct U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E  : public RuntimeObject
+{
+	int32_t ___U3CU3E1__state;
+	RuntimeObject* ___U3CU3E2__current;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___U3CU3E4__this;
+	float ___U3CretryTimerU3E5__2;
+};
+struct U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A  : public RuntimeObject
+{
+	int32_t ___U3CU3E1__state;
+	RuntimeObject* ___U3CU3E2__current;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___U3CU3E4__this;
+};
+struct U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B  : public RuntimeObject
 {
 	int32_t ___U3CU3E1__state;
 	RuntimeObject* ___U3CU3E2__current;
 	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___U3CU3E4__this;
 	float ___U3CtimeoutU3E5__2;
 	float ___U3CtimerU3E5__3;
+	int32_t ___U3ClastPositionU3E5__4;
+	int32_t ___U3CstableCountU3E5__5;
+	float ___U3CverifyTimeoutU3E5__6;
+	float ___U3CverifyTimerU3E5__7;
+};
+struct U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0  : public RuntimeObject
+{
+	int32_t ___U3CU3E1__state;
+	RuntimeObject* ___U3CU3E2__current;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___U3CU3E4__this;
+	bool ___U3CsuccessU3E5__2;
 };
 struct Section_t50C894D0A717C2368EBAAE5477D4E8626D0B5401  : public RuntimeObject
 {
@@ -203,6 +248,18 @@ struct Void_t4861ACF8F4594C3437BB48B6E56783494B843915
 		};
 		uint8_t Void_t4861ACF8F4594C3437BB48B6E56783494B843915__padding[1];
 	};
+};
+struct WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3  : public YieldInstruction_tFCE35FD0907950EFEE9BC2890AC664E41C53728D
+{
+	float ___m_Seconds;
+};
+struct WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_marshaled_pinvoke : public YieldInstruction_tFCE35FD0907950EFEE9BC2890AC664E41C53728D_marshaled_pinvoke
+{
+	float ___m_Seconds;
+};
+struct WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_marshaled_com : public YieldInstruction_tFCE35FD0907950EFEE9BC2890AC664E41C53728D_marshaled_com
+{
+	float ___m_Seconds;
 };
 #pragma pack(push, tp, 1)
 struct __StaticArrayInitTypeSizeU3D120_tCE5F35B252DE449EDE2BA38EFA855ABFBF94EF89 
@@ -406,10 +463,14 @@ struct MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76  : public Mon
 {
 	int32_t ___sampleRate;
 	int32_t ___fftWindowSize;
+	bool ___enablePlayback;
+	bool ___calculateRMS;
 	SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* ___audioBuffer;
 	AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* ___micClip;
 	String_t* ___selectedDevice;
 	bool ___isRecording;
+	bool ___isInitializing;
+	int32_t ___retryCount;
 };
 struct UIBehaviour_tB9D4295827BD2EEDEF0749200C6CA7090C742A9D  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -598,8 +659,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* String_Format_mA8DBB4C2516B9723C5A4
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* MicrophoneManager_GetAudioBuffer_m4A34B8E156D171810E1C2B3DDB46DA764879B66F_inline (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Time_get_time_m3A271BB1B20041144AC5B7863B71AB1F0150374B (const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MonoBehaviour__ctor_m592DB0105CA0BC97AA1C5F4AD27B12D68A3B7C1E (MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__7__ctor_m6BE339379E04747BD7B83D4C8C10C0BE595D63BF (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__8__ctor_m40210ECF0960DA62F4466B4960FDDAC9D5451423 (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__12__ctor_mC85E8E31E8B89D2D1D8CE1226F7C91AB6119950B (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CInitializeMicrophoneU3Ed__13__ctor_mE02962238B18FF9DC1CA2D8CAE05A48F06BFC3D6 (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneWithRetryU3Ed__14__ctor_m2854743CE967202F7A5CB0D026EFB10C000FE704 (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__15__ctor_m6AA5FF1A611259B761FD543C7A21AC9E3BD75AB1 (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) ;
 inline AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B (Component_t39FBE53E5EFCF4409111FB22C15FF73717632EC3* __this, const RuntimeMethod* method)
 {
 	return ((  AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* (*) (Component_t39FBE53E5EFCF4409111FB22C15FF73717632EC3*, const RuntimeMethod*))Component_GetComponent_TisRuntimeObject_m7181F81CAEC2CF53F5D2BC79B7425C16E1F80D33_gshared)(__this, method);
@@ -610,25 +673,38 @@ inline AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* GameObject_AddComp
 	return ((  AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* (*) (GameObject_t76FEDD663AB33C991A9C9A23129337651094216F*, const RuntimeMethod*))GameObject_AddComponent_TisRuntimeObject_m69B93700FACCF372F5753371C6E8FB780800B824_gshared)(__this, method);
 }
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AudioSource_set_clip_mFF441895E274286C88D9C75ED5CA1B1B39528D70 (AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* __this, AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* ___0_value, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AudioSource_Play_m95DF07111C61D0E0F00257A00384D31531D590C3 (AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459 (String_t* ___0_deviceName, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool AudioClip_GetData_m1F6480FFDA2E354A7D8C8DE40F61AAB5AF6B4A1D (AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* __this, SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* ___0_data, int32_t ___1_offsetSamples, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Single_ToString_mE282EDA9CA4F7DF88432D807732837A629D04972 (float* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* String_Concat_m9E3155FB84015C823606188F53B47CB44C444991 (String_t* ___0_str0, String_t* ___1_str1, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Microphone_End_mB368877FCC9EA1522914006671E637848A0F7CC6 (String_t* ___0_deviceName, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* Microphone_Start_mDA38C5376D122F27D9DEFD2AE811BAE460F2242E (String_t* ___0_deviceName, bool ___1_loop, int32_t ___2_lengthSec, int32_t ___3_frequency, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2 (RuntimeObject* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Permission_HasUserAuthorizedPermission_mF4C90E13124E28F6F672200E489CC25A9B645B8B (String_t* ___0_permission, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Permission_RequestUserPermission_mF9CF3A21AAF34B311137C4D00B3AD6A6C2694242 (String_t* ___0_permission, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D (const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2 (RuntimeObject* ___0_message, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_StartMicrophone_mF262E96D6BE9F993A512AA846C3C08FBD407F4AA (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812 (MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71* __this, RuntimeObject* ___0_routine, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void NotSupportedException__ctor_m1398D0CDE19B36AA3DE9392879738C1EA2439CDF (NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Time_get_deltaTime_mC3195000401F0FD167DD2F948FD2BC58330D0865 (const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AudioSource_set_loop_m834A590939D8456008C0F897FD80B0ECFFB7FE56 (AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* __this, bool ___0_value, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AudioSource_set_mute_m6407E0AEE7F088AC69BD8C1D270C2B2049769B09 (AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* __this, bool ___0_value, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AudioSource_set_volume_mD902BBDBBDE0E3C148609BF3C05096148E90F2C0 (AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* __this, float ___0_value, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AudioSource_Play_m95DF07111C61D0E0F00257A00384D31531D590C3 (AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478 (String_t* ___0_value, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459 (String_t* ___0_deviceName, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Debug_LogWarning_m33EF1B897E0C7C6FF538989610BFAFFEF4628CA9 (RuntimeObject* ___0_message, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_RestartMicrophone_mC126D04693073CD193BE3EE9E7A0E3D38EACBE8B (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812 (MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71* __this, RuntimeObject* ___0_routine, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool AudioClip_GetData_m1F6480FFDA2E354A7D8C8DE40F61AAB5AF6B4A1D (AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* __this, SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* ___0_data, int32_t ___1_offsetSamples, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Time_get_frameCount_m4A42E558A71301A216BDC49EC402D62F19C79667 (const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Single_ToString_mE282EDA9CA4F7DF88432D807732837A629D04972 (float* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* String_Concat_m9E3155FB84015C823606188F53B47CB44C444991 (String_t* ___0_str0, String_t* ___1_str1, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_StopMicrophone_m8349274D76D7671D3492B7B8F5F28C9CFACD755E (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRestartMicrophoneU3Ed__19__ctor_m7125D273FDA7DEB015DED1BCBC5092C4FDA5F301 (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Microphone_End_mB368877FCC9EA1522914006671E637848A0F7CC6 (String_t* ___0_deviceName, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AudioSource_Stop_m318F17F17A147C77FF6E0A5A7A6BE057DB90F537 (AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C* ___0_obj, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2 (RuntimeObject* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D (const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2 (RuntimeObject* ___0_message, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* __this, float ___0_seconds, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_StartMicrophoneWithRetry_mB81AB001A16F0B6CCCC25EDB7DF18AA9F7FDD72B (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void NotSupportedException__ctor_m1398D0CDE19B36AA3DE9392879738C1EA2439CDF (NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Permission_HasUserAuthorizedPermission_mF4C90E13124E28F6F672200E489CC25A9B645B8B (String_t* ___0_permission, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Permission_RequestUserPermission_mF9CF3A21AAF34B311137C4D00B3AD6A6C2694242 (String_t* ___0_permission, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_InitializeMicrophone_m703FB4D7A3B87F6E376883F4A8FE6868D0574616 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* Microphone_Start_mDA38C5376D122F27D9DEFD2AE811BAE460F2242E (String_t* ___0_deviceName, bool ___1_loop, int32_t ___2_lengthSec, int32_t ___3_frequency, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float Time_get_deltaTime_mC3195000401F0FD167DD2F948FD2BC58330D0865 (const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_SetupPlayback_m58C2C4895C0627699DD0D1854407B86C217182DB (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_StartMicrophone_mF262E96D6BE9F993A512AA846C3C08FBD407F4AA (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) ;
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* String_Format_mFB7DA489BD99F4670881FF50EC017BFB0A5C0987 (String_t* ___0_format, RuntimeObject* ___1_arg0, RuntimeObject* ___2_arg1, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ScriptableObject__ctor_mD037FDB0B487295EA47F79A4DB1BF1846C9087FF (ScriptableObject_tB3BFDB921A1B1795B38A5417D3B97A89A140436A* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RuntimeHelpers_InitializeArray_m751372AA3F24FBF6DA9B9D687CBFA2DE436CAB9B (RuntimeArray* ___0_array, RuntimeFieldHandle_t6E4C45B6D2EA12FC99185805A7E77527899B25C5 ___1_fldHandle, const RuntimeMethod* method) ;
 #ifdef __clang__
@@ -644,7 +720,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RuntimeHelpers_InitializeArray_m751372AA
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 91965
+// Method Definition Index: 91871
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicDebugger_Start_mCD8A7FC1BE5A7CA6AE0452281D1020EA9DC644C0 (MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -696,7 +772,7 @@ IL_0019:
 		return;
 	}
 }
-// Method Definition Index: 91966
+// Method Definition Index: 91872
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicDebugger_Update_m123FC346262E861206735B1959A8DDC40C29E429 (MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -894,7 +970,7 @@ IL_0110:
 		return;
 	}
 }
-// Method Definition Index: 91967
+// Method Definition Index: 91873
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicDebugger__ctor_m28CAC12B2D3DC3ECEAC3F3A7F208F39AFB83700F (MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4* __this, const RuntimeMethod* method) 
 {
 	{
@@ -910,55 +986,93 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicDebugger__ctor_m28CAC12B2D3DC3ECEAC3F
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 91968
+// Method Definition Index: 91874
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* MicrophoneManager_GetAudioBuffer_m4A34B8E156D171810E1C2B3DDB46DA764879B66F (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:16>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:22>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_0 = __this->___audioBuffer;
 		return L_0;
 	}
 }
-// Method Definition Index: 91969
+// Method Definition Index: 91875
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_Start_m58D66297D780E92C80DBB0AAD878FD15B5D3CCE5 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* L_0 = (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969*)il2cpp_codegen_object_new(U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969_il2cpp_TypeInfo_var);
-		U3CStartU3Ed__7__ctor_m6BE339379E04747BD7B83D4C8C10C0BE595D63BF(L_0, 0, NULL);
-		U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* L_1 = L_0;
+		U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* L_0 = (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A*)il2cpp_codegen_object_new(U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A_il2cpp_TypeInfo_var);
+		U3CStartU3Ed__12__ctor_mC85E8E31E8B89D2D1D8CE1226F7C91AB6119950B(L_0, 0, NULL);
+		U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* L_1 = L_0;
 		NullCheck(L_1);
 		L_1->___U3CU3E4__this = __this;
 		Il2CppCodeGenWriteBarrier((void**)(&L_1->___U3CU3E4__this), (void*)__this);
 		return L_1;
 	}
 }
-// Method Definition Index: 91970
+// Method Definition Index: 91876
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_InitializeMicrophone_m703FB4D7A3B87F6E376883F4A8FE6868D0574616 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* L_0 = (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2*)il2cpp_codegen_object_new(U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2_il2cpp_TypeInfo_var);
+		U3CInitializeMicrophoneU3Ed__13__ctor_mE02962238B18FF9DC1CA2D8CAE05A48F06BFC3D6(L_0, 0, NULL);
+		U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* L_1 = L_0;
+		NullCheck(L_1);
+		L_1->___U3CU3E4__this = __this;
+		Il2CppCodeGenWriteBarrier((void**)(&L_1->___U3CU3E4__this), (void*)__this);
+		return L_1;
+	}
+}
+// Method Definition Index: 91877
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_StartMicrophoneWithRetry_mB81AB001A16F0B6CCCC25EDB7DF18AA9F7FDD72B (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* L_0 = (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0*)il2cpp_codegen_object_new(U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0_il2cpp_TypeInfo_var);
+		U3CStartMicrophoneWithRetryU3Ed__14__ctor_m2854743CE967202F7A5CB0D026EFB10C000FE704(L_0, 0, NULL);
+		U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* L_1 = L_0;
+		NullCheck(L_1);
+		L_1->___U3CU3E4__this = __this;
+		Il2CppCodeGenWriteBarrier((void**)(&L_1->___U3CU3E4__this), (void*)__this);
+		return L_1;
+	}
+}
+// Method Definition Index: 91878
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_StartMicrophone_mF262E96D6BE9F993A512AA846C3C08FBD407F4AA (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B_il2cpp_TypeInfo_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	{
-		U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* L_0 = (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593*)il2cpp_codegen_object_new(U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593_il2cpp_TypeInfo_var);
-		U3CStartMicrophoneU3Ed__8__ctor_m40210ECF0960DA62F4466B4960FDDAC9D5451423(L_0, 0, NULL);
-		U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* L_1 = L_0;
+		U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* L_0 = (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B*)il2cpp_codegen_object_new(U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B_il2cpp_TypeInfo_var);
+		U3CStartMicrophoneU3Ed__15__ctor_m6AA5FF1A611259B761FD543C7A21AC9E3BD75AB1(L_0, 0, NULL);
+		U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* L_1 = L_0;
 		NullCheck(L_1);
 		L_1->___U3CU3E4__this = __this;
 		Il2CppCodeGenWriteBarrier((void**)(&L_1->___U3CU3E4__this), (void*)__this);
 		return L_1;
 	}
 }
-// Method Definition Index: 91971
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_PlayClip_m6518DF42B48E768EAF4E392AB333AAF7B8426DD2 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* ___0_clip, const RuntimeMethod* method) 
+// Method Definition Index: 91879
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_SetupPlayback_m58C2C4895C0627699DD0D1854407B86C217182DB (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
@@ -970,11 +1084,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_PlayClip_m6518DF42B48E
 	}
 	AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* V_0 = NULL;
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:83>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:203>
 		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_0;
 		L_0 = Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B(__this, Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B_RuntimeMethod_var);
 		V_0 = L_0;
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:85>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:204>
 		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_1 = V_0;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_2;
@@ -985,7 +1099,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_PlayClip_m6518DF42B48E
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:87>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:205>
 		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_3;
 		L_3 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(__this, NULL);
 		NullCheck(L_3);
@@ -996,27 +1110,41 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_PlayClip_m6518DF42B48E
 
 IL_001c:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:90>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:207>
 		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_5 = V_0;
-		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_6 = ___0_clip;
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_6 = __this->___micClip;
 		NullCheck(L_5);
 		AudioSource_set_clip_mFF441895E274286C88D9C75ED5CA1B1B39528D70(L_5, L_6, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:91>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:208>
 		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_7 = V_0;
 		NullCheck(L_7);
-		AudioSource_Play_m95DF07111C61D0E0F00257A00384D31531D590C3(L_7, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:92>
+		AudioSource_set_loop_m834A590939D8456008C0F897FD80B0ECFFB7FE56(L_7, (bool)1, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:209>
+		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_8 = V_0;
+		NullCheck(L_8);
+		AudioSource_set_mute_m6407E0AEE7F088AC69BD8C1D270C2B2049769B09(L_8, (bool)0, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:210>
+		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_9 = V_0;
+		NullCheck(L_9);
+		AudioSource_set_volume_mD902BBDBBDE0E3C148609BF3C05096148E90F2C0(L_9, (1.0f), NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:211>
+		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_10 = V_0;
+		NullCheck(L_10);
+		AudioSource_Play_m95DF07111C61D0E0F00257A00384D31531D590C3(L_10, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:212>
 		return;
 	}
 }
-// Method Definition Index: 91972
+// Method Definition Index: 91880
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_Update_m739F5667999744BEB726BC8A5CBD39084CBCF8C2 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral0D8E38213ED661391DA8057DC9CB8087E51D735D);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral29D3B581031380E3023808390ED8C7BEC981D871);
 		s_Il2CppMethodInitialized = true;
 	}
 	int32_t V_0 = 0;
@@ -1026,223 +1154,360 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_Update_m739F5667999744
 	float V_4 = 0.0f;
 	int32_t V_5 = 0;
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:96>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:217>
 		bool L_0 = __this->___isRecording;
-		if (L_0)
-		{
-			goto IL_0009;
-		}
-	}
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:96>
-		return;
-	}
-
-IL_0009:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:98>
-		String_t* L_1 = __this->___selectedDevice;
-		int32_t L_2;
-		L_2 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_1, NULL);
-		V_0 = L_2;
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:99>
-		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_3 = __this->___audioBuffer;
-		NullCheck(L_3);
-		V_1 = ((int32_t)(((RuntimeArray*)L_3)->max_length));
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:102>
-		int32_t L_4 = V_0;
-		int32_t L_5 = V_1;
-		if ((((int32_t)L_4) < ((int32_t)L_5)))
-		{
-			goto IL_0099;
-		}
-	}
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:105>
-		int32_t L_6 = V_0;
-		int32_t L_7 = V_1;
-		V_2 = ((int32_t)il2cpp_codegen_subtract(L_6, L_7));
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:106>
-		int32_t L_8 = V_2;
-		if ((((int32_t)L_8) >= ((int32_t)0)))
+		if (!L_0)
 		{
 			goto IL_002b;
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:106>
-		return;
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_1 = __this->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_2;
+		L_2 = Object_op_Equality_mB6120F782D83091EF56A198FCEBCF066DB4A9605(L_1, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (L_2)
+		{
+			goto IL_002b;
+		}
+	}
+	{
+		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_3 = __this->___audioBuffer;
+		if (!L_3)
+		{
+			goto IL_002b;
+		}
+	}
+	{
+		String_t* L_4 = __this->___selectedDevice;
+		bool L_5;
+		L_5 = String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478(L_4, NULL);
+		if (!L_5)
+		{
+			goto IL_002c;
+		}
 	}
 
 IL_002b:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:108>
-		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_9 = __this->___micClip;
-		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_10 = __this->___audioBuffer;
-		int32_t L_11 = V_2;
-		NullCheck(L_9);
-		bool L_12;
-		L_12 = AudioClip_GetData_m1F6480FFDA2E354A7D8C8DE40F61AAB5AF6B4A1D(L_9, L_10, L_11, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:111>
-		V_3 = (0.0f);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:112>
-		V_5 = 0;
-		goto IL_0065;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:218>
+		return;
 	}
 
-IL_0049:
+IL_002c:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:114>
-		float L_13 = V_3;
-		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_14 = __this->___audioBuffer;
-		int32_t L_15 = V_5;
-		NullCheck(L_14);
-		int32_t L_16 = L_15;
-		float L_17 = (L_14)->GetAt(static_cast<il2cpp_array_size_t>(L_16));
-		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_18 = __this->___audioBuffer;
-		int32_t L_19 = V_5;
-		NullCheck(L_18);
-		int32_t L_20 = L_19;
-		float L_21 = (L_18)->GetAt(static_cast<il2cpp_array_size_t>(L_20));
-		V_3 = ((float)il2cpp_codegen_add(L_13, ((float)il2cpp_codegen_multiply(L_17, L_21))));
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:112>
-		int32_t L_22 = V_5;
-		V_5 = ((int32_t)il2cpp_codegen_add(L_22, 1));
-	}
-
-IL_0065:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:112>
-		int32_t L_23 = V_5;
-		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_24 = __this->___audioBuffer;
-		NullCheck(L_24);
-		if ((((int32_t)L_23) < ((int32_t)((int32_t)(((RuntimeArray*)L_24)->max_length)))))
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:221>
+		String_t* L_6 = __this->___selectedDevice;
+		int32_t L_7;
+		L_7 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_6, NULL);
+		if ((((int32_t)L_7) >= ((int32_t)0)))
 		{
-			goto IL_0049;
+			goto IL_0052;
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:117>
-		float L_25 = V_3;
-		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_26 = __this->___audioBuffer;
-		NullCheck(L_26);
-		float L_27;
-		L_27 = sqrtf(((float)(L_25/((float)((int32_t)(((RuntimeArray*)L_26)->max_length))))));
-		V_4 = L_27;
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:118>
-		String_t* L_28;
-		L_28 = Single_ToString_mE282EDA9CA4F7DF88432D807732837A629D04972((&V_4), NULL);
-		String_t* L_29;
-		L_29 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(_stringLiteral0D8E38213ED661391DA8057DC9CB8087E51D735D, L_28, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:223>
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_29, NULL);
+		Debug_LogWarning_m33EF1B897E0C7C6FF538989610BFAFFEF4628CA9(_stringLiteral29D3B581031380E3023808390ED8C7BEC981D871, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:224>
+		RuntimeObject* L_8;
+		L_8 = MicrophoneManager_RestartMicrophone_mC126D04693073CD193BE3EE9E7A0E3D38EACBE8B(__this, NULL);
+		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_9;
+		L_9 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(__this, L_8, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:225>
+		return;
 	}
 
-IL_0099:
+IL_0052:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:120>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:228>
+		String_t* L_10 = __this->___selectedDevice;
+		int32_t L_11;
+		L_11 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_10, NULL);
+		V_0 = L_11;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:229>
+		int32_t L_12 = V_0;
+		if ((((int32_t)L_12) >= ((int32_t)0)))
+		{
+			goto IL_0063;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:229>
+		return;
+	}
+
+IL_0063:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:231>
+		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_13 = __this->___audioBuffer;
+		NullCheck(L_13);
+		V_1 = ((int32_t)(((RuntimeArray*)L_13)->max_length));
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:233>
+		int32_t L_14 = V_0;
+		int32_t L_15 = V_1;
+		if ((((int32_t)L_14) < ((int32_t)L_15)))
+		{
+			goto IL_00eb;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:235>
+		int32_t L_16 = V_0;
+		int32_t L_17 = V_1;
+		V_2 = ((int32_t)il2cpp_codegen_subtract(L_16, L_17));
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:236>
+		int32_t L_18 = V_2;
+		if ((((int32_t)L_18) >= ((int32_t)0)))
+		{
+			goto IL_0079;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:236>
+		return;
+	}
+
+IL_0079:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:238>
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_19 = __this->___micClip;
+		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_20 = __this->___audioBuffer;
+		int32_t L_21 = V_2;
+		NullCheck(L_19);
+		bool L_22;
+		L_22 = AudioClip_GetData_m1F6480FFDA2E354A7D8C8DE40F61AAB5AF6B4A1D(L_19, L_20, L_21, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:241>
+		bool L_23 = __this->___calculateRMS;
+		if (!L_23)
+		{
+			goto IL_00eb;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:243>
+		V_3 = (0.0f);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:244>
+		V_5 = 0;
+		goto IL_00bb;
+	}
+
+IL_009f:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:245>
+		float L_24 = V_3;
+		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_25 = __this->___audioBuffer;
+		int32_t L_26 = V_5;
+		NullCheck(L_25);
+		int32_t L_27 = L_26;
+		float L_28 = (L_25)->GetAt(static_cast<il2cpp_array_size_t>(L_27));
+		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_29 = __this->___audioBuffer;
+		int32_t L_30 = V_5;
+		NullCheck(L_29);
+		int32_t L_31 = L_30;
+		float L_32 = (L_29)->GetAt(static_cast<il2cpp_array_size_t>(L_31));
+		V_3 = ((float)il2cpp_codegen_add(L_24, ((float)il2cpp_codegen_multiply(L_28, L_32))));
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:244>
+		int32_t L_33 = V_5;
+		V_5 = ((int32_t)il2cpp_codegen_add(L_33, 1));
+	}
+
+IL_00bb:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:244>
+		int32_t L_34 = V_5;
+		int32_t L_35 = V_1;
+		if ((((int32_t)L_34) < ((int32_t)L_35)))
+		{
+			goto IL_009f;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:247>
+		float L_36 = V_3;
+		int32_t L_37 = V_1;
+		float L_38;
+		L_38 = sqrtf(((float)(L_36/((float)L_37))));
+		V_4 = L_38;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:250>
+		int32_t L_39;
+		L_39 = Time_get_frameCount_m4A42E558A71301A216BDC49EC402D62F19C79667(NULL);
+		if (((int32_t)(L_39%((int32_t)60))))
+		{
+			goto IL_00eb;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:251>
+		String_t* L_40;
+		L_40 = Single_ToString_mE282EDA9CA4F7DF88432D807732837A629D04972((&V_4), NULL);
+		String_t* L_41;
+		L_41 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(_stringLiteral0D8E38213ED661391DA8057DC9CB8087E51D735D, L_40, NULL);
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_41, NULL);
+	}
+
+IL_00eb:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:254>
 		return;
 	}
 }
-// Method Definition Index: 91973
+// Method Definition Index: 91881
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_OnApplicationPause_mBC31D294C1D949986D9837194BEEB6AD7C8578A5 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, bool ___0_pauseStatus, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:124>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:258>
 		bool L_0 = ___0_pauseStatus;
 		if (!L_0)
 		{
-			goto IL_001e;
+			goto IL_000a;
 		}
 	}
 	{
-		bool L_1 = __this->___isRecording;
-		if (!L_1)
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:260>
+		MicrophoneManager_StopMicrophone_m8349274D76D7671D3492B7B8F5F28C9CFACD755E(__this, NULL);
+		return;
+	}
+
+IL_000a:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:264>
+		RuntimeObject* L_1;
+		L_1 = MicrophoneManager_RestartMicrophone_mC126D04693073CD193BE3EE9E7A0E3D38EACBE8B(__this, NULL);
+		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_2;
+		L_2 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(__this, L_1, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:266>
+		return;
+	}
+}
+// Method Definition Index: 91882
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* MicrophoneManager_RestartMicrophone_mC126D04693073CD193BE3EE9E7A0E3D38EACBE8B (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* L_0 = (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E*)il2cpp_codegen_object_new(U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E_il2cpp_TypeInfo_var);
+		U3CRestartMicrophoneU3Ed__19__ctor_m7125D273FDA7DEB015DED1BCBC5092C4FDA5F301(L_0, 0, NULL);
+		U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* L_1 = L_0;
+		NullCheck(L_1);
+		L_1->___U3CU3E4__this = __this;
+		Il2CppCodeGenWriteBarrier((void**)(&L_1->___U3CU3E4__this), (void*)__this);
+		return L_1;
+	}
+}
+// Method Definition Index: 91883
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_StopMicrophone_m8349274D76D7671D3492B7B8F5F28C9CFACD755E (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B_RuntimeMethod_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* V_0 = NULL;
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:317>
+		String_t* L_0 = __this->___selectedDevice;
+		bool L_1;
+		L_1 = String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478(L_0, NULL);
+		if (L_1)
 		{
-			goto IL_001e;
+			goto IL_0018;
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:126>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:319>
 		String_t* L_2 = __this->___selectedDevice;
 		Microphone_End_mB368877FCC9EA1522914006671E637848A0F7CC6(L_2, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:127>
+	}
+
+IL_0018:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:322>
 		__this->___isRecording = (bool)0;
-		return;
-	}
-
-IL_001e:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:129>
-		bool L_3 = ___0_pauseStatus;
-		if (L_3)
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:325>
+		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_3;
+		L_3 = Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B(__this, Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B_RuntimeMethod_var);
+		V_0 = L_3;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:326>
+		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_4 = V_0;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_5;
+		L_5 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_4, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_5)
 		{
-			goto IL_0057;
+			goto IL_0044;
 		}
 	}
 	{
-		bool L_4 = __this->___isRecording;
-		if (L_4)
+		bool L_6 = __this->___enablePlayback;
+		if (!L_6)
 		{
-			goto IL_0057;
+			goto IL_0044;
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:131>
-		String_t* L_5 = __this->___selectedDevice;
-		int32_t L_6 = __this->___sampleRate;
-		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_7;
-		L_7 = Microphone_Start_mDA38C5376D122F27D9DEFD2AE811BAE460F2242E(L_5, (bool)0, 1, L_6, NULL);
-		__this->___micClip = L_7;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___micClip), (void*)L_7);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:328>
+		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_7 = V_0;
+		NullCheck(L_7);
+		AudioSource_Stop_m318F17F17A147C77FF6E0A5A7A6BE057DB90F537(L_7, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:329>
+		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_8 = V_0;
+		NullCheck(L_8);
+		AudioSource_set_clip_mFF441895E274286C88D9C75ED5CA1B1B39528D70(L_8, (AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20*)NULL, NULL);
 	}
 
-IL_0042:
+IL_0044:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:132>
-		String_t* L_8 = __this->___selectedDevice;
-		int32_t L_9;
-		L_9 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_8, NULL);
-		if ((((int32_t)L_9) <= ((int32_t)0)))
-		{
-			goto IL_0042;
-		}
-	}
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:133>
-		__this->___isRecording = (bool)1;
-	}
-
-IL_0057:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:135>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:331>
 		return;
 	}
 }
-// Method Definition Index: 91974
+// Method Definition Index: 91884
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager_OnDestroy_m92F0DA2EF7B13569DE880A3A1D5833CA374B1DF7 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:139>
-		bool L_0 = __this->___isRecording;
-		if (!L_0)
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:335>
+		MicrophoneManager_StopMicrophone_m8349274D76D7671D3492B7B8F5F28C9CFACD755E(__this, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:338>
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_0 = __this->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_1;
+		L_1 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_0, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_1)
 		{
-			goto IL_0013;
+			goto IL_0026;
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:140>
-		String_t* L_1 = __this->___selectedDevice;
-		Microphone_End_mB368877FCC9EA1522914006671E637848A0F7CC6(L_1, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:340>
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_2 = __this->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_2, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:341>
+		__this->___micClip = (AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___micClip), (void*)(AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20*)NULL);
 	}
 
-IL_0013:
+IL_0026:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:141>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:343>
 		return;
 	}
 }
-// Method Definition Index: 91975
+// Method Definition Index: 91885
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager__ctor_m383BF67532AE7D1E6CC1D3472A2CB5B68D3964C6 (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
 	{
@@ -1262,8 +1527,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MicrophoneManager__ctor_m383BF67532AE7D1
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 91976
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__7__ctor_m6BE339379E04747BD7B83D4C8C10C0BE595D63BF (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
+// Method Definition Index: 91886
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CInitializeMicrophoneU3Ed__13__ctor_mE02962238B18FF9DC1CA2D8CAE05A48F06BFC3D6 (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
 {
 	{
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
@@ -1272,23 +1537,22 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__7__ctor_m6BE339379E04747BD
 		return;
 	}
 }
-// Method Definition Index: 91977
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__7_System_IDisposable_Dispose_m1F8FCB90DAC320A20EBA917B09E188A7F4936E51 (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91887
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CInitializeMicrophoneU3Ed__13_System_IDisposable_Dispose_mDE6601F9C89345C89C91776A7DB912BBB3863621 (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* __this, const RuntimeMethod* method) 
 {
 	{
 		return;
 	}
 }
-// Method Definition Index: 91978
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CStartU3Ed__7_MoveNext_mF3AEABEE26B4EFE116F309B5EF5B9DCC2DAB7CFF (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91888
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CInitializeMicrophoneU3Ed__13_MoveNext_mD87403FC5B6480FD01CBE2DA9C7C2A29AC7714F0 (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral098A5656DCD15BCF7DA81A7651490671B83D221F);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral7D0847FD33C0A89047135AD48FE949C6C314279E);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralFC653E355E6537F3D2B768E0BFD665B2FD4F6602);
 		s_Il2CppMethodInitialized = true;
 	}
@@ -1308,11 +1572,11 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CStartU3Ed__7_MoveNext_mF3AEABEE26B4EF
 			}
 			case 1:
 			{
-				goto IL_005b;
+				goto IL_0097;
 			}
 			case 2:
 			{
-				goto IL_00bf;
+				goto IL_00b9;
 			}
 		}
 	}
@@ -1323,128 +1587,128 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CStartU3Ed__7_MoveNext_mF3AEABEE26B4EF
 IL_0022:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:20>
-		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteral7D0847FD33C0A89047135AD48FE949C6C314279E, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:22>
-		bool L_3;
-		L_3 = Permission_HasUserAuthorizedPermission_mF4C90E13124E28F6F672200E489CC25A9B645B8B(_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748, NULL);
-		if (L_3)
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:45>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_3 = V_1;
+		NullCheck(L_3);
+		bool L_4 = L_3->___isInitializing;
+		if (!L_4)
 		{
-			goto IL_006e;
+			goto IL_0033;
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:24>
-		Permission_RequestUserPermission_mF9CF3A21AAF34B311137C4D00B3AD6A6C2694242(_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748, NULL);
-		goto IL_0062;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:45>
+		return (bool)0;
 	}
 
-IL_004b:
+IL_0033:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:28>
-		__this->___U3CU3E2__current = NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:46>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_5 = V_1;
+		NullCheck(L_5);
+		L_5->___isInitializing = (bool)1;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:47>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_6 = V_1;
+		NullCheck(L_6);
+		L_6->___retryCount = 0;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:49>
+		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_7;
+		L_7 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
+		NullCheck(L_7);
+		if ((((RuntimeArray*)L_7)->max_length))
+		{
+			goto IL_005c;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:51>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteralFC653E355E6537F3D2B768E0BFD665B2FD4F6602, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:52>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_8 = V_1;
+		NullCheck(L_8);
+		L_8->___isInitializing = (bool)0;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:53>
+		return (bool)0;
+	}
+
+IL_005c:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:56>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_9 = V_1;
+		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_10;
+		L_10 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
+		NullCheck(L_10);
+		int32_t L_11 = 0;
+		String_t* L_12 = (L_10)->GetAt(static_cast<il2cpp_array_size_t>(L_11));
+		NullCheck(L_9);
+		L_9->___selectedDevice = L_12;
+		Il2CppCodeGenWriteBarrier((void**)(&L_9->___selectedDevice), (void*)L_12);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:57>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_13 = V_1;
+		NullCheck(L_13);
+		String_t* L_14 = L_13->___selectedDevice;
+		String_t* L_15;
+		L_15 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(_stringLiteral098A5656DCD15BCF7DA81A7651490671B83D221F, L_14, NULL);
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_15, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:60>
+		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_16 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_16, (0.100000001f), NULL);
+		__this->___U3CU3E2__current = L_16;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_16);
 		__this->___U3CU3E1__state = 1;
 		return (bool)1;
 	}
 
-IL_005b:
+IL_0097:
 	{
 		__this->___U3CU3E1__state = (-1);
-	}
-
-IL_0062:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:27>
-		bool L_4;
-		L_4 = Permission_HasUserAuthorizedPermission_mF4C90E13124E28F6F672200E489CC25A9B645B8B(_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748, NULL);
-		if (!L_4)
-		{
-			goto IL_004b;
-		}
-	}
-
-IL_006e:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:31>
-		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_5;
-		L_5 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
-		NullCheck(L_5);
-		if ((((RuntimeArray*)L_5)->max_length))
-		{
-			goto IL_0082;
-		}
-	}
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:33>
-		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteralFC653E355E6537F3D2B768E0BFD665B2FD4F6602, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:34>
-		return (bool)0;
-	}
-
-IL_0082:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:37>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_6 = V_1;
-		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_7;
-		L_7 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
-		NullCheck(L_7);
-		int32_t L_8 = 0;
-		String_t* L_9 = (L_7)->GetAt(static_cast<il2cpp_array_size_t>(L_8));
-		NullCheck(L_6);
-		L_6->___selectedDevice = L_9;
-		Il2CppCodeGenWriteBarrier((void**)(&L_6->___selectedDevice), (void*)L_9);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:38>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_10 = V_1;
-		NullCheck(L_10);
-		String_t* L_11 = L_10->___selectedDevice;
-		String_t* L_12;
-		L_12 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(_stringLiteral098A5656DCD15BCF7DA81A7651490671B83D221F, L_11, NULL);
-		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_12, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:40>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_13 = V_1;
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_14 = V_1;
-		NullCheck(L_14);
-		RuntimeObject* L_15;
-		L_15 = MicrophoneManager_StartMicrophone_mF262E96D6BE9F993A512AA846C3C08FBD407F4AA(L_14, NULL);
-		NullCheck(L_13);
-		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_16;
-		L_16 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(L_13, L_15, NULL);
-		__this->___U3CU3E2__current = L_16;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_16);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:62>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_17 = V_1;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_18 = V_1;
+		NullCheck(L_18);
+		RuntimeObject* L_19;
+		L_19 = MicrophoneManager_StartMicrophoneWithRetry_mB81AB001A16F0B6CCCC25EDB7DF18AA9F7FDD72B(L_18, NULL);
+		NullCheck(L_17);
+		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_20;
+		L_20 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(L_17, L_19, NULL);
+		__this->___U3CU3E2__current = L_20;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_20);
 		__this->___U3CU3E1__state = 2;
 		return (bool)1;
 	}
 
-IL_00bf:
+IL_00b9:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:41>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:64>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_21 = V_1;
+		NullCheck(L_21);
+		L_21->___isInitializing = (bool)0;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:65>
 		return (bool)0;
 	}
 }
-// Method Definition Index: 91979
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartU3Ed__7_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m88B4F0292F9734DF1DFC274E5C28CA15DF6F5BD2 (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91889
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CInitializeMicrophoneU3Ed__13_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mA48E949808282937C6F11E7484229E1DB3AC2A47 (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* __this, const RuntimeMethod* method) 
 {
 	{
 		RuntimeObject* L_0 = __this->___U3CU3E2__current;
 		return L_0;
 	}
 }
-// Method Definition Index: 91980
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__7_System_Collections_IEnumerator_Reset_m27652DD85FEE36FBAB1D84669AD83E2ACE8E2B25 (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91890
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CInitializeMicrophoneU3Ed__13_System_Collections_IEnumerator_Reset_mFE7BC03CC1E035641B6BE206FA5540986874D363 (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* __this, const RuntimeMethod* method) 
 {
 	{
 		NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A* L_0 = (NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A*)il2cpp_codegen_object_new(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A_il2cpp_TypeInfo_var)));
 		NotSupportedException__ctor_m1398D0CDE19B36AA3DE9392879738C1EA2439CDF(L_0, NULL);
-		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CStartU3Ed__7_System_Collections_IEnumerator_Reset_m27652DD85FEE36FBAB1D84669AD83E2ACE8E2B25_RuntimeMethod_var)));
+		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CInitializeMicrophoneU3Ed__13_System_Collections_IEnumerator_Reset_mFE7BC03CC1E035641B6BE206FA5540986874D363_RuntimeMethod_var)));
 	}
 }
-// Method Definition Index: 91981
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartU3Ed__7_System_Collections_IEnumerator_get_Current_m4F1FAB9B4FF3933ADA73FC8C7BEF69ABC7124E58 (U3CStartU3Ed__7_tD466E7B44A1369347F305132BC9A5493F5C41969* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91891
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CInitializeMicrophoneU3Ed__13_System_Collections_IEnumerator_get_Current_m4981193C42A859095C3353C92D19C3B836F900A3 (U3CInitializeMicrophoneU3Ed__13_tEC1D6E21BD94BADD0B3C2FE752D1D802903A83B2* __this, const RuntimeMethod* method) 
 {
 	{
 		RuntimeObject* L_0 = __this->___U3CU3E2__current;
@@ -1459,8 +1723,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartU3Ed__7_System_Collect
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 91982
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__8__ctor_m40210ECF0960DA62F4466B4960FDDAC9D5451423 (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
+// Method Definition Index: 91892
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRestartMicrophoneU3Ed__19__ctor_m7125D273FDA7DEB015DED1BCBC5092C4FDA5F301 (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
 {
 	{
 		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
@@ -1469,219 +1733,279 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__8__ctor_m40210EC
 		return;
 	}
 }
-// Method Definition Index: 91983
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__8_System_IDisposable_Dispose_mEE1967852CAAB6B4E5EC7045A31BCDBA8F0D87DA (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91893
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRestartMicrophoneU3Ed__19_System_IDisposable_Dispose_mCEF2507364841484F2CE1F01D8E4F9E4EA59DD50 (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* __this, const RuntimeMethod* method) 
 {
 	{
 		return;
 	}
 }
-// Method Definition Index: 91984
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CStartMicrophoneU3Ed__8_MoveNext_m46B1D840050E9BA652DFB1B4DCCEF0257A98F142 (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91894
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CRestartMicrophoneU3Ed__19_MoveNext_mFFC0D838DD3F8BF4D7DB9E1D368546CED6880543 (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* __this, const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
 	if (!s_Il2CppMethodInitialized)
 	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B_RuntimeMethod_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GameObject_AddComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m0E8EFDB9B3D8DF1ADE10C56D3168A9C1BA19BF14_RuntimeMethod_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral4AC541E37F7DE4F2580EAA3E5583B63110639098);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralD8DE439FA0EDE5F458C0E826389688640375D179);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralDC80492BC70E6A68EB842AD6E7298F184A9D2071);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralEAB4902A55C6F1E3B1A1298C4EC9EEB4E5D087E0);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralF7A67BBD617ADF6C0F8153A79F887DF015F04D66);
 		s_Il2CppMethodInitialized = true;
 	}
 	int32_t V_0 = 0;
 	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* V_1 = NULL;
-	AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* V_2 = NULL;
 	{
 		int32_t L_0 = __this->___U3CU3E1__state;
 		V_0 = L_0;
 		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_1 = __this->___U3CU3E4__this;
 		V_1 = L_1;
 		int32_t L_2 = V_0;
-		if (!L_2)
+		switch (L_2)
 		{
-			goto IL_0017;
-		}
-	}
-	{
-		int32_t L_3 = V_0;
-		if ((((int32_t)L_3) == ((int32_t)1)))
-		{
-			goto IL_008b;
+			case 0:
+			{
+				goto IL_002a;
+			}
+			case 1:
+			{
+				goto IL_004a;
+			}
+			case 2:
+			{
+				goto IL_00a9;
+			}
+			case 3:
+			{
+				goto IL_00e8;
+			}
+			case 4:
+			{
+				goto IL_0167;
+			}
 		}
 	}
 	{
 		return (bool)0;
 	}
 
-IL_0017:
+IL_002a:
 	{
 		__this->___U3CU3E1__state = (-1);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:45>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_4 = V_1;
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_5 = V_1;
-		NullCheck(L_5);
-		String_t* L_6 = L_5->___selectedDevice;
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_7 = V_1;
-		NullCheck(L_7);
-		int32_t L_8 = L_7->___sampleRate;
-		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_9;
-		L_9 = Microphone_Start_mDA38C5376D122F27D9DEFD2AE811BAE460F2242E(L_6, (bool)1, 1, L_8, NULL);
-		NullCheck(L_4);
-		L_4->___micClip = L_9;
-		Il2CppCodeGenWriteBarrier((void**)(&L_4->___micClip), (void*)L_9);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:47>
-		__this->___U3CtimeoutU3E5__2 = (1.0f);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:48>
-		__this->___U3CtimerU3E5__3 = (0.0f);
-		goto IL_0092;
-	}
-
-IL_004f:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:52>
-		float L_10 = __this->___U3CtimerU3E5__3;
-		float L_11;
-		L_11 = Time_get_deltaTime_mC3195000401F0FD167DD2F948FD2BC58330D0865(NULL);
-		__this->___U3CtimerU3E5__3 = ((float)il2cpp_codegen_add(L_10, L_11));
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:53>
-		float L_12 = __this->___U3CtimerU3E5__3;
-		float L_13 = __this->___U3CtimeoutU3E5__2;
-		if ((!(((float)L_12) > ((float)L_13))))
-		{
-			goto IL_007b;
-		}
-	}
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:55>
-		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteral4AC541E37F7DE4F2580EAA3E5583B63110639098, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:56>
-		return (bool)0;
-	}
-
-IL_007b:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:58>
-		__this->___U3CU3E2__current = NULL;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:271>
+		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_3 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_3, (0.5f), NULL);
+		__this->___U3CU3E2__current = L_3;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_3);
 		__this->___U3CU3E1__state = 1;
 		return (bool)1;
 	}
 
-IL_008b:
+IL_004a:
 	{
 		__this->___U3CU3E1__state = (-1);
-	}
-
-IL_0092:
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:50>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_14 = V_1;
-		NullCheck(L_14);
-		String_t* L_15 = L_14->___selectedDevice;
-		int32_t L_16;
-		L_16 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_15, NULL);
-		if ((((int32_t)L_16) <= ((int32_t)0)))
-		{
-			goto IL_004f;
-		}
-	}
-	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:61>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_17 = V_1;
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_18 = V_1;
-		NullCheck(L_18);
-		int32_t L_19 = L_18->___fftWindowSize;
-		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_20 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)L_19);
-		NullCheck(L_17);
-		L_17->___audioBuffer = L_20;
-		Il2CppCodeGenWriteBarrier((void**)(&L_17->___audioBuffer), (void*)L_20);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:62>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_21 = V_1;
-		NullCheck(L_21);
-		L_21->___isRecording = (bool)1;
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:65>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_22 = V_1;
-		NullCheck(L_22);
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_23;
-		L_23 = Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B(L_22, Component_GetComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m42DA4DEA19EB60D80CBED7413ADEB27FA033C77B_RuntimeMethod_var);
-		V_2 = L_23;
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:66>
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_24 = V_2;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:274>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_4 = V_1;
+		NullCheck(L_4);
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_5 = L_4->___micClip;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
-		bool L_25;
-		L_25 = Object_op_Equality_mB6120F782D83091EF56A198FCEBCF066DB4A9605(L_24, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
-		if (!L_25)
+		bool L_6;
+		L_6 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_5, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_6)
 		{
-			goto IL_00d4;
+			goto IL_0071;
 		}
 	}
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:67>
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_26 = V_1;
-		NullCheck(L_26);
-		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_27;
-		L_27 = Component_get_gameObject_m57AEFBB14DB39EC476F740BA000E170355DE691B(L_26, NULL);
-		NullCheck(L_27);
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_28;
-		L_28 = GameObject_AddComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m0E8EFDB9B3D8DF1ADE10C56D3168A9C1BA19BF14(L_27, GameObject_AddComponent_TisAudioSource_t871AC2272F896738252F04EE949AEF5B241D3299_m0E8EFDB9B3D8DF1ADE10C56D3168A9C1BA19BF14_RuntimeMethod_var);
-		V_2 = L_28;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:276>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_7 = V_1;
+		NullCheck(L_7);
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_8 = L_7->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_8, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:277>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_9 = V_1;
+		NullCheck(L_9);
+		L_9->___micClip = (AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_9->___micClip), (void*)(AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20*)NULL);
 	}
 
-IL_00d4:
+IL_0071:
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:69>
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_29 = V_2;
-		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_30 = V_1;
-		NullCheck(L_30);
-		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_31 = L_30->___micClip;
-		NullCheck(L_29);
-		AudioSource_set_clip_mFF441895E274286C88D9C75ED5CA1B1B39528D70(L_29, L_31, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:70>
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_32 = V_2;
-		NullCheck(L_32);
-		AudioSource_set_loop_m834A590939D8456008C0F897FD80B0ECFFB7FE56(L_32, (bool)1, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:71>
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_33 = V_2;
-		NullCheck(L_33);
-		AudioSource_set_mute_m6407E0AEE7F088AC69BD8C1D270C2B2049769B09(L_33, (bool)0, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:72>
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_34 = V_2;
-		NullCheck(L_34);
-		AudioSource_Play_m95DF07111C61D0E0F00257A00384D31531D590C3(L_34, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:73>
-		AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* L_35 = V_2;
-		NullCheck(L_35);
-		AudioSource_set_volume_mD902BBDBBDE0E3C148609BF3C05096148E90F2C0(L_35, (1.0f), NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:75>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:281>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_10 = V_1;
+		NullCheck(L_10);
+		String_t* L_11 = L_10->___selectedDevice;
+		bool L_12;
+		L_12 = String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478(L_11, NULL);
+		if (L_12)
+		{
+			goto IL_0089;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:283>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_13 = V_1;
+		NullCheck(L_13);
+		String_t* L_14 = L_13->___selectedDevice;
+		Microphone_End_mB368877FCC9EA1522914006671E637848A0F7CC6(L_14, NULL);
+	}
+
+IL_0089:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:286>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_15 = V_1;
+		NullCheck(L_15);
+		L_15->___isRecording = (bool)0;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:288>
+		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_16 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_16, (0.200000003f), NULL);
+		__this->___U3CU3E2__current = L_16;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_16);
+		__this->___U3CU3E1__state = 2;
+		return (bool)1;
+	}
+
+IL_00a9:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:291>
+		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_17;
+		L_17 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
+		NullCheck(L_17);
+		if ((((RuntimeArray*)L_17)->max_length))
+		{
+			goto IL_012a;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:293>
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteralD8DE439FA0EDE5F458C0E826389688640375D179, NULL);
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:76>
+		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteralDC80492BC70E6A68EB842AD6E7298F184A9D2071, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:295>
+		__this->___U3CretryTimerU3E5__2 = (0.0f);
+		goto IL_0101;
+	}
+
+IL_00cf:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:298>
+		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_18 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_18, (0.5f), NULL);
+		__this->___U3CU3E2__current = L_18;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_18);
+		__this->___U3CU3E1__state = 3;
+		return (bool)1;
+	}
+
+IL_00e8:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:299>
+		float L_19 = __this->___U3CretryTimerU3E5__2;
+		__this->___U3CretryTimerU3E5__2 = ((float)il2cpp_codegen_add(L_19, (0.5f)));
+	}
+
+IL_0101:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:296>
+		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_20;
+		L_20 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
+		NullCheck(L_20);
+		if ((((RuntimeArray*)L_20)->max_length))
+		{
+			goto IL_0116;
+		}
+	}
+	{
+		float L_21 = __this->___U3CretryTimerU3E5__2;
+		if ((((float)L_21) < ((float)(3.0f))))
+		{
+			goto IL_00cf;
+		}
+	}
+
+IL_0116:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:302>
+		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_22;
+		L_22 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
+		NullCheck(L_22);
+		if ((((RuntimeArray*)L_22)->max_length))
+		{
+			goto IL_012a;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:304>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteralEAB4902A55C6F1E3B1A1298C4EC9EEB4E5D087E0, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:305>
+		return (bool)0;
+	}
+
+IL_012a:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:309>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_23 = V_1;
+		StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* L_24;
+		L_24 = Microphone_get_devices_mC2821E200C36C599DDC37927DEC9EA725240812D(NULL);
+		NullCheck(L_24);
+		int32_t L_25 = 0;
+		String_t* L_26 = (L_24)->GetAt(static_cast<il2cpp_array_size_t>(L_25));
+		NullCheck(L_23);
+		L_23->___selectedDevice = L_26;
+		Il2CppCodeGenWriteBarrier((void**)(&L_23->___selectedDevice), (void*)L_26);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:310>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_27 = V_1;
+		NullCheck(L_27);
+		String_t* L_28 = L_27->___selectedDevice;
+		String_t* L_29;
+		L_29 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(_stringLiteralF7A67BBD617ADF6C0F8153A79F887DF015F04D66, L_28, NULL);
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_29, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:312>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_30 = V_1;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_31 = V_1;
+		NullCheck(L_31);
+		RuntimeObject* L_32;
+		L_32 = MicrophoneManager_StartMicrophoneWithRetry_mB81AB001A16F0B6CCCC25EDB7DF18AA9F7FDD72B(L_31, NULL);
+		NullCheck(L_30);
+		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_33;
+		L_33 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(L_30, L_32, NULL);
+		__this->___U3CU3E2__current = L_33;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_33);
+		__this->___U3CU3E1__state = 4;
+		return (bool)1;
+	}
+
+IL_0167:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:313>
 		return (bool)0;
 	}
 }
-// Method Definition Index: 91985
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartMicrophoneU3Ed__8_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mC977FD133EF65E407C4AAC823FB52A828F91EE7E (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91895
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CRestartMicrophoneU3Ed__19_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m24A1505937616EFE21D7389472A43D4E8DEF2236 (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* __this, const RuntimeMethod* method) 
 {
 	{
 		RuntimeObject* L_0 = __this->___U3CU3E2__current;
 		return L_0;
 	}
 }
-// Method Definition Index: 91986
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__8_System_Collections_IEnumerator_Reset_m5415B8E62F5B71E955802D10D267AE71EBE9DA26 (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91896
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CRestartMicrophoneU3Ed__19_System_Collections_IEnumerator_Reset_m84D0612C36EA92570B65A450F82C2E1863158A90 (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* __this, const RuntimeMethod* method) 
 {
 	{
 		NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A* L_0 = (NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A*)il2cpp_codegen_object_new(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A_il2cpp_TypeInfo_var)));
 		NotSupportedException__ctor_m1398D0CDE19B36AA3DE9392879738C1EA2439CDF(L_0, NULL);
-		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CStartMicrophoneU3Ed__8_System_Collections_IEnumerator_Reset_m5415B8E62F5B71E955802D10D267AE71EBE9DA26_RuntimeMethod_var)));
+		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CRestartMicrophoneU3Ed__19_System_Collections_IEnumerator_Reset_m84D0612C36EA92570B65A450F82C2E1863158A90_RuntimeMethod_var)));
 	}
 }
-// Method Definition Index: 91987
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartMicrophoneU3Ed__8_System_Collections_IEnumerator_get_Current_m05030410F0B361F723F2A1AE01C81CC84C06665D (U3CStartMicrophoneU3Ed__8_t59BB81582BDD72F9496F57223D3ED2259370F593* __this, const RuntimeMethod* method) 
+// Method Definition Index: 91897
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CRestartMicrophoneU3Ed__19_System_Collections_IEnumerator_get_Current_mBE9CA949A7CE3A0FF9872681B9CC2F9BBA095DA0 (U3CRestartMicrophoneU3Ed__19_t43332F1D8B30DD1B65B12E1B967C0D92B151ED4E* __this, const RuntimeMethod* method) 
 {
 	{
 		RuntimeObject* L_0 = __this->___U3CU3E2__current;
@@ -1696,7 +2020,878 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartMicrophoneU3Ed__8_Syst
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 91988
+// Method Definition Index: 91898
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__12__ctor_mC85E8E31E8B89D2D1D8CE1226F7C91AB6119950B (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
+{
+	{
+		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
+		int32_t L_0 = ___0_U3CU3E1__state;
+		__this->___U3CU3E1__state = L_0;
+		return;
+	}
+}
+// Method Definition Index: 91899
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__12_System_IDisposable_Dispose_m0A3224B5EAE5E863F0CC7915311526E9DE30BDEF (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* __this, const RuntimeMethod* method) 
+{
+	{
+		return;
+	}
+}
+// Method Definition Index: 91900
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CStartU3Ed__12_MoveNext_m7E8921A99E9E3A63BAE397BED084D5693D5F00D1 (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral7D0847FD33C0A89047135AD48FE949C6C314279E);
+		s_Il2CppMethodInitialized = true;
+	}
+	int32_t V_0 = 0;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* V_1 = NULL;
+	{
+		int32_t L_0 = __this->___U3CU3E1__state;
+		V_0 = L_0;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_1 = __this->___U3CU3E4__this;
+		V_1 = L_1;
+		int32_t L_2 = V_0;
+		switch (L_2)
+		{
+			case 0:
+			{
+				goto IL_0022;
+			}
+			case 1:
+			{
+				goto IL_006c;
+			}
+			case 2:
+			{
+				goto IL_009a;
+			}
+		}
+	}
+	{
+		return (bool)0;
+	}
+
+IL_0022:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:26>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteral7D0847FD33C0A89047135AD48FE949C6C314279E, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:29>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_3 = V_1;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_4 = V_1;
+		NullCheck(L_4);
+		int32_t L_5 = L_4->___fftWindowSize;
+		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_6 = (SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C*)SZArrayNew(SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C_il2cpp_TypeInfo_var, (uint32_t)L_5);
+		NullCheck(L_3);
+		L_3->___audioBuffer = L_6;
+		Il2CppCodeGenWriteBarrier((void**)(&L_3->___audioBuffer), (void*)L_6);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:32>
+		bool L_7;
+		L_7 = Permission_HasUserAuthorizedPermission_mF4C90E13124E28F6F672200E489CC25A9B645B8B(_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748, NULL);
+		if (L_7)
+		{
+			goto IL_007f;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:34>
+		Permission_RequestUserPermission_mF9CF3A21AAF34B311137C4D00B3AD6A6C2694242(_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748, NULL);
+		goto IL_0073;
+	}
+
+IL_005c:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:37>
+		__this->___U3CU3E2__current = NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
+		__this->___U3CU3E1__state = 1;
+		return (bool)1;
+	}
+
+IL_006c:
+	{
+		__this->___U3CU3E1__state = (-1);
+	}
+
+IL_0073:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:36>
+		bool L_8;
+		L_8 = Permission_HasUserAuthorizedPermission_mF4C90E13124E28F6F672200E489CC25A9B645B8B(_stringLiteral6D2C56060B3F7353031AD314517C27945CC39748, NULL);
+		if (!L_8)
+		{
+			goto IL_005c;
+		}
+	}
+
+IL_007f:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:40>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_9 = V_1;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_10 = V_1;
+		NullCheck(L_10);
+		RuntimeObject* L_11;
+		L_11 = MicrophoneManager_InitializeMicrophone_m703FB4D7A3B87F6E376883F4A8FE6868D0574616(L_10, NULL);
+		NullCheck(L_9);
+		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_12;
+		L_12 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(L_9, L_11, NULL);
+		__this->___U3CU3E2__current = L_12;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_12);
+		__this->___U3CU3E1__state = 2;
+		return (bool)1;
+	}
+
+IL_009a:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:41>
+		return (bool)0;
+	}
+}
+// Method Definition Index: 91901
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartU3Ed__12_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m48395480932399A0DB0204B83EAC8DA434E53F53 (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* __this, const RuntimeMethod* method) 
+{
+	{
+		RuntimeObject* L_0 = __this->___U3CU3E2__current;
+		return L_0;
+	}
+}
+// Method Definition Index: 91902
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartU3Ed__12_System_Collections_IEnumerator_Reset_m7C626910123FB755AC188471353049CADF708916 (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* __this, const RuntimeMethod* method) 
+{
+	{
+		NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A* L_0 = (NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A*)il2cpp_codegen_object_new(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A_il2cpp_TypeInfo_var)));
+		NotSupportedException__ctor_m1398D0CDE19B36AA3DE9392879738C1EA2439CDF(L_0, NULL);
+		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CStartU3Ed__12_System_Collections_IEnumerator_Reset_m7C626910123FB755AC188471353049CADF708916_RuntimeMethod_var)));
+	}
+}
+// Method Definition Index: 91903
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartU3Ed__12_System_Collections_IEnumerator_get_Current_m0266B80EA8FB9D21CF6E16DC73C8A2AE4E2F1B68 (U3CStartU3Ed__12_t6F9A0F917B17929B712EDAC49EC055DC9BA2AC5A* __this, const RuntimeMethod* method) 
+{
+	{
+		RuntimeObject* L_0 = __this->___U3CU3E2__current;
+		return L_0;
+	}
+}
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+// Method Definition Index: 91904
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__15__ctor_m6AA5FF1A611259B761FD543C7A21AC9E3BD75AB1 (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
+{
+	{
+		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
+		int32_t L_0 = ___0_U3CU3E1__state;
+		__this->___U3CU3E1__state = L_0;
+		return;
+	}
+}
+// Method Definition Index: 91905
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__15_System_IDisposable_Dispose_mA2D9E02A7D9C86D367273C3F3B61076B45E41793 (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* __this, const RuntimeMethod* method) 
+{
+	{
+		return;
+	}
+}
+// Method Definition Index: 91906
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CStartMicrophoneU3Ed__15_MoveNext_mB7440E2A04A6135A445EA0D9C6EDA8DD25FE01E4 (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral6C8E4BE9019C35B72A78F964A6B760291CFAA06C);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral772A9DDD5C1CA3899656759A7689BE0D229DB470);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralB016DEC2188EA3AD9BFA0996D31A8CA65F0A3A1C);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralCC0AB408EDEC3191BE48F305FA0D9F75B497BBDE);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralD8DE439FA0EDE5F458C0E826389688640375D179);
+		s_Il2CppMethodInitialized = true;
+	}
+	int32_t V_0 = 0;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* V_1 = NULL;
+	int32_t V_2 = 0;
+	int32_t V_3 = 0;
+	{
+		int32_t L_0 = __this->___U3CU3E1__state;
+		V_0 = L_0;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_1 = __this->___U3CU3E4__this;
+		V_1 = L_1;
+		int32_t L_2 = V_0;
+		switch (L_2)
+		{
+			case 0:
+			{
+				goto IL_0026;
+			}
+			case 1:
+			{
+				goto IL_005e;
+			}
+			case 2:
+			{
+				goto IL_0114;
+			}
+			case 3:
+			{
+				goto IL_01c8;
+			}
+		}
+	}
+	{
+		return (bool)0;
+	}
+
+IL_0026:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:120>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_3 = V_1;
+		NullCheck(L_3);
+		String_t* L_4 = L_3->___selectedDevice;
+		bool L_5;
+		L_5 = String_IsNullOrEmpty_mEA9E3FB005AC28FE02E69FCF95A7B8456192B478(L_4, NULL);
+		if (L_5)
+		{
+			goto IL_0065;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:122>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_6 = V_1;
+		NullCheck(L_6);
+		String_t* L_7 = L_6->___selectedDevice;
+		Microphone_End_mB368877FCC9EA1522914006671E637848A0F7CC6(L_7, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:123>
+		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_8 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_8, (0.0500000007f), NULL);
+		__this->___U3CU3E2__current = L_8;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_8);
+		__this->___U3CU3E1__state = 1;
+		return (bool)1;
+	}
+
+IL_005e:
+	{
+		__this->___U3CU3E1__state = (-1);
+	}
+
+IL_0065:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:127>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_9 = V_1;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_10 = V_1;
+		NullCheck(L_10);
+		String_t* L_11 = L_10->___selectedDevice;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_12 = V_1;
+		NullCheck(L_12);
+		int32_t L_13 = L_12->___sampleRate;
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_14;
+		L_14 = Microphone_Start_mDA38C5376D122F27D9DEFD2AE811BAE460F2242E(L_11, (bool)1, 1, L_13, NULL);
+		NullCheck(L_9);
+		L_9->___micClip = L_14;
+		Il2CppCodeGenWriteBarrier((void**)(&L_9->___micClip), (void*)L_14);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:129>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_15 = V_1;
+		NullCheck(L_15);
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_16 = L_15->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_17;
+		L_17 = Object_op_Equality_mB6120F782D83091EF56A198FCEBCF066DB4A9605(L_16, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_17)
+		{
+			goto IL_0098;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:131>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteral6C8E4BE9019C35B72A78F964A6B760291CFAA06C, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:132>
+		return (bool)0;
+	}
+
+IL_0098:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:135>
+		__this->___U3CtimeoutU3E5__2 = (3.0f);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:136>
+		__this->___U3CtimerU3E5__3 = (0.0f);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:137>
+		__this->___U3ClastPositionU3E5__4 = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:138>
+		__this->___U3CstableCountU3E5__5 = 0;
+		goto IL_011b;
+	}
+
+IL_00be:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:142>
+		float L_18 = __this->___U3CtimerU3E5__3;
+		float L_19;
+		L_19 = Time_get_deltaTime_mC3195000401F0FD167DD2F948FD2BC58330D0865(NULL);
+		__this->___U3CtimerU3E5__3 = ((float)il2cpp_codegen_add(L_18, L_19));
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:144>
+		float L_20 = __this->___U3CtimerU3E5__3;
+		float L_21 = __this->___U3CtimeoutU3E5__2;
+		if ((!(((float)L_20) > ((float)L_21))))
+		{
+			goto IL_00ea;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:146>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteral772A9DDD5C1CA3899656759A7689BE0D229DB470, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:147>
+		return (bool)0;
+	}
+
+IL_00ea:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:151>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_22 = V_1;
+		NullCheck(L_22);
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_23 = L_22->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_24;
+		L_24 = Object_op_Equality_mB6120F782D83091EF56A198FCEBCF066DB4A9605(L_23, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_24)
+		{
+			goto IL_0104;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:153>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(_stringLiteralCC0AB408EDEC3191BE48F305FA0D9F75B497BBDE, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:154>
+		return (bool)0;
+	}
+
+IL_0104:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:157>
+		__this->___U3CU3E2__current = NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
+		__this->___U3CU3E1__state = 2;
+		return (bool)1;
+	}
+
+IL_0114:
+	{
+		__this->___U3CU3E1__state = (-1);
+	}
+
+IL_011b:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:140>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_25 = V_1;
+		NullCheck(L_25);
+		String_t* L_26 = L_25->___selectedDevice;
+		int32_t L_27;
+		L_27 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_26, NULL);
+		if ((((int32_t)L_27) <= ((int32_t)0)))
+		{
+			goto IL_00be;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:161>
+		__this->___U3CverifyTimeoutU3E5__6 = (1.0f);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:162>
+		__this->___U3CverifyTimerU3E5__7 = (0.0f);
+		goto IL_01cf;
+	}
+
+IL_0144:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:166>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_28 = V_1;
+		NullCheck(L_28);
+		String_t* L_29 = L_28->___selectedDevice;
+		int32_t L_30;
+		L_30 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_29, NULL);
+		V_2 = L_30;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:167>
+		int32_t L_31 = V_2;
+		if ((((int32_t)L_31) <= ((int32_t)0)))
+		{
+			goto IL_0182;
+		}
+	}
+	{
+		int32_t L_32 = V_2;
+		int32_t L_33 = __this->___U3ClastPositionU3E5__4;
+		if ((!(((uint32_t)L_32) == ((uint32_t)L_33))))
+		{
+			goto IL_0182;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:169>
+		int32_t L_34 = __this->___U3CstableCountU3E5__5;
+		V_3 = L_34;
+		int32_t L_35 = V_3;
+		__this->___U3CstableCountU3E5__5 = ((int32_t)il2cpp_codegen_add(L_35, 1));
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:170>
+		int32_t L_36 = __this->___U3CstableCountU3E5__5;
+		if ((((int32_t)L_36) <= ((int32_t)5)))
+		{
+			goto IL_019f;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:172>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogWarning_m33EF1B897E0C7C6FF538989610BFAFFEF4628CA9(_stringLiteralB016DEC2188EA3AD9BFA0996D31A8CA65F0A3A1C, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:173>
+		return (bool)0;
+	}
+
+IL_0182:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:178>
+		__this->___U3CstableCountU3E5__5 = 0;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:179>
+		int32_t L_37 = V_2;
+		if ((((int32_t)L_37) <= ((int32_t)0)))
+		{
+			goto IL_019f;
+		}
+	}
+	{
+		int32_t L_38 = __this->___U3ClastPositionU3E5__4;
+		if ((((int32_t)L_38) <= ((int32_t)0)))
+		{
+			goto IL_019f;
+		}
+	}
+	{
+		int32_t L_39 = V_2;
+		int32_t L_40 = __this->___U3ClastPositionU3E5__4;
+		if ((!(((uint32_t)L_39) == ((uint32_t)L_40))))
+		{
+			goto IL_01e0;
+		}
+	}
+
+IL_019f:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:186>
+		int32_t L_41 = V_2;
+		__this->___U3ClastPositionU3E5__4 = L_41;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:187>
+		float L_42 = __this->___U3CverifyTimerU3E5__7;
+		float L_43;
+		L_43 = Time_get_deltaTime_mC3195000401F0FD167DD2F948FD2BC58330D0865(NULL);
+		__this->___U3CverifyTimerU3E5__7 = ((float)il2cpp_codegen_add(L_42, L_43));
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:188>
+		__this->___U3CU3E2__current = NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)NULL);
+		__this->___U3CU3E1__state = 3;
+		return (bool)1;
+	}
+
+IL_01c8:
+	{
+		__this->___U3CU3E1__state = (-1);
+	}
+
+IL_01cf:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:164>
+		float L_44 = __this->___U3CverifyTimerU3E5__7;
+		float L_45 = __this->___U3CverifyTimeoutU3E5__6;
+		if ((((float)L_44) < ((float)L_45)))
+		{
+			goto IL_0144;
+		}
+	}
+
+IL_01e0:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:191>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_46 = V_1;
+		NullCheck(L_46);
+		L_46->___isRecording = (bool)1;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:193>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_47 = V_1;
+		NullCheck(L_47);
+		bool L_48 = L_47->___enablePlayback;
+		if (!L_48)
+		{
+			goto IL_01f5;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:195>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_49 = V_1;
+		NullCheck(L_49);
+		MicrophoneManager_SetupPlayback_m58C2C4895C0627699DD0D1854407B86C217182DB(L_49, NULL);
+	}
+
+IL_01f5:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:198>
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteralD8DE439FA0EDE5F458C0E826389688640375D179, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:199>
+		return (bool)0;
+	}
+}
+// Method Definition Index: 91907
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartMicrophoneU3Ed__15_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_mE1FE8FD071AA278DB047EFBBB6782AA306D64110 (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* __this, const RuntimeMethod* method) 
+{
+	{
+		RuntimeObject* L_0 = __this->___U3CU3E2__current;
+		return L_0;
+	}
+}
+// Method Definition Index: 91908
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneU3Ed__15_System_Collections_IEnumerator_Reset_mC76BAB530EE14A38607628D34C7FE6BC81B1E149 (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* __this, const RuntimeMethod* method) 
+{
+	{
+		NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A* L_0 = (NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A*)il2cpp_codegen_object_new(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A_il2cpp_TypeInfo_var)));
+		NotSupportedException__ctor_m1398D0CDE19B36AA3DE9392879738C1EA2439CDF(L_0, NULL);
+		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CStartMicrophoneU3Ed__15_System_Collections_IEnumerator_Reset_mC76BAB530EE14A38607628D34C7FE6BC81B1E149_RuntimeMethod_var)));
+	}
+}
+// Method Definition Index: 91909
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartMicrophoneU3Ed__15_System_Collections_IEnumerator_get_Current_m92DC83D325E61D61B7EF8D17EFE12BEFB7A4B7F5 (U3CStartMicrophoneU3Ed__15_t9BEEFDD0F1B5F86134F5205D92B4373156BAA92B* __this, const RuntimeMethod* method) 
+{
+	{
+		RuntimeObject* L_0 = __this->___U3CU3E2__current;
+		return L_0;
+	}
+}
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+// Method Definition Index: 91910
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneWithRetryU3Ed__14__ctor_m2854743CE967202F7A5CB0D026EFB10C000FE704 (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* __this, int32_t ___0_U3CU3E1__state, const RuntimeMethod* method) 
+{
+	{
+		Object__ctor_mE837C6B9FA8C6D5D109F4B2EC885D79919AC0EA2(__this, NULL);
+		int32_t L_0 = ___0_U3CU3E1__state;
+		__this->___U3CU3E1__state = L_0;
+		return;
+	}
+}
+// Method Definition Index: 91911
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneWithRetryU3Ed__14_System_IDisposable_Dispose_mFAD7E6CE6B3B589824CA15CC56756388790F80BD (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* __this, const RuntimeMethod* method) 
+{
+	{
+		return;
+	}
+}
+// Method Definition Index: 91912
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool U3CStartMicrophoneWithRetryU3Ed__14_MoveNext_m0F7824866996A40B32A7A5B3D8EDC30944F14ABB (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* __this, const RuntimeMethod* method) 
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral03A26D7058A0CC63F578A30E9CB50ACF5E59F2D4);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral20636C32F8D92D418CB65136EB36A1C5EAD381A5);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralAF3174DF1C695B405B14FDBF412F118FE493A464);
+		s_Il2CppMethodInitialized = true;
+	}
+	int32_t V_0 = 0;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* V_1 = NULL;
+	int32_t V_2 = 0;
+	{
+		int32_t L_0 = __this->___U3CU3E1__state;
+		V_0 = L_0;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_1 = __this->___U3CU3E4__this;
+		V_1 = L_1;
+		int32_t L_2 = V_0;
+		switch (L_2)
+		{
+			case 0:
+			{
+				goto IL_0022;
+			}
+			case 1:
+			{
+				goto IL_0050;
+			}
+			case 2:
+			{
+				goto IL_00fc;
+			}
+		}
+	}
+	{
+		return (bool)0;
+	}
+
+IL_0022:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:69>
+		__this->___U3CsuccessU3E5__2 = (bool)0;
+		goto IL_0123;
+	}
+
+IL_0035:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:73>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_3 = V_1;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_4 = V_1;
+		NullCheck(L_4);
+		RuntimeObject* L_5;
+		L_5 = MicrophoneManager_StartMicrophone_mF262E96D6BE9F993A512AA846C3C08FBD407F4AA(L_4, NULL);
+		NullCheck(L_3);
+		Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B* L_6;
+		L_6 = MonoBehaviour_StartCoroutine_m4CAFF732AA28CD3BDC5363B44A863575530EC812(L_3, L_5, NULL);
+		__this->___U3CU3E2__current = L_6;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_6);
+		__this->___U3CU3E1__state = 1;
+		return (bool)1;
+	}
+
+IL_0050:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:76>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_7 = V_1;
+		NullCheck(L_7);
+		bool L_8 = L_7->___isRecording;
+		if (!L_8)
+		{
+			goto IL_00a4;
+		}
+	}
+	{
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_9 = V_1;
+		NullCheck(L_9);
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_10 = L_9->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_11;
+		L_11 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_10, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_11)
+		{
+			goto IL_00a4;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:79>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_12 = V_1;
+		NullCheck(L_12);
+		String_t* L_13 = L_12->___selectedDevice;
+		int32_t L_14;
+		L_14 = Microphone_GetPosition_m13F4C8EBE8536893D9AD8388B0E5B46D62E6A459(L_13, NULL);
+		V_2 = L_14;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:80>
+		int32_t L_15 = V_2;
+		if ((((int32_t)L_15) <= ((int32_t)0)))
+		{
+			goto IL_0089;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:82>
+		__this->___U3CsuccessU3E5__2 = (bool)1;
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:83>
+		goto IL_0137;
+	}
+
+IL_0089:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:87>
+		int32_t L_16 = V_2;
+		int32_t L_17 = L_16;
+		RuntimeObject* L_18 = Box(il2cpp_defaults.int32_class, &L_17);
+		String_t* L_19;
+		L_19 = String_Format_mA8DBB4C2516B9723C5A41E6CB1E2FAF4BBE96DD8(_stringLiteral20636C32F8D92D418CB65136EB36A1C5EAD381A5, L_18, NULL);
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogWarning_m33EF1B897E0C7C6FF538989610BFAFFEF4628CA9(L_19, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:88>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_20 = V_1;
+		NullCheck(L_20);
+		MicrophoneManager_StopMicrophone_m8349274D76D7671D3492B7B8F5F28C9CFACD755E(L_20, NULL);
+	}
+
+IL_00a4:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:92>
+		bool L_21 = __this->___U3CsuccessU3E5__2;
+		if (L_21)
+		{
+			goto IL_0123;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:94>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_22 = V_1;
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_23 = V_1;
+		NullCheck(L_23);
+		int32_t L_24 = L_23->___retryCount;
+		NullCheck(L_22);
+		L_22->___retryCount = ((int32_t)il2cpp_codegen_add(L_24, 1));
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:95>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_25 = V_1;
+		NullCheck(L_25);
+		int32_t L_26 = L_25->___retryCount;
+		if ((((int32_t)L_26) >= ((int32_t)3)))
+		{
+			goto IL_0123;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:97>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_27 = V_1;
+		NullCheck(L_27);
+		int32_t L_28 = L_27->___retryCount;
+		int32_t L_29 = L_28;
+		RuntimeObject* L_30 = Box(il2cpp_defaults.int32_class, &L_29);
+		int32_t L_31 = 3;
+		RuntimeObject* L_32 = Box(il2cpp_defaults.int32_class, &L_31);
+		String_t* L_33;
+		L_33 = String_Format_mFB7DA489BD99F4670881FF50EC017BFB0A5C0987(_stringLiteral03A26D7058A0CC63F578A30E9CB50ACF5E59F2D4, L_30, L_32, NULL);
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogWarning_m33EF1B897E0C7C6FF538989610BFAFFEF4628CA9(L_33, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:98>
+		WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3* L_34 = (WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3*)il2cpp_codegen_object_new(WaitForSeconds_tF179DF251655B8DF044952E70A60DF4B358A3DD3_il2cpp_TypeInfo_var);
+		WaitForSeconds__ctor_m579F95BADEDBAB4B3A7E302C6EE3995926EF2EFC(L_34, (0.5f), NULL);
+		__this->___U3CU3E2__current = L_34;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___U3CU3E2__current), (void*)L_34);
+		__this->___U3CU3E1__state = 2;
+		return (bool)1;
+	}
+
+IL_00fc:
+	{
+		__this->___U3CU3E1__state = (-1);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:101>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_35 = V_1;
+		NullCheck(L_35);
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_36 = L_35->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_37;
+		L_37 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_36, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_37)
+		{
+			goto IL_0123;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:103>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_38 = V_1;
+		NullCheck(L_38);
+		AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* L_39 = L_38->___micClip;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		Object_Destroy_mE97D0A766419A81296E8D4E5C23D01D3FE91ACBB(L_39, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:104>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_40 = V_1;
+		NullCheck(L_40);
+		L_40->___micClip = (AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20*)NULL;
+		Il2CppCodeGenWriteBarrier((void**)(&L_40->___micClip), (void*)(AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20*)NULL);
+	}
+
+IL_0123:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:71>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_41 = V_1;
+		NullCheck(L_41);
+		int32_t L_42 = L_41->___retryCount;
+		if ((((int32_t)L_42) >= ((int32_t)3)))
+		{
+			goto IL_0137;
+		}
+	}
+	{
+		bool L_43 = __this->___U3CsuccessU3E5__2;
+		if (!L_43)
+		{
+			goto IL_0035;
+		}
+	}
+
+IL_0137:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:110>
+		bool L_44 = __this->___U3CsuccessU3E5__2;
+		if (L_44)
+		{
+			goto IL_015b;
+		}
+	}
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:112>
+		int32_t L_45 = 3;
+		RuntimeObject* L_46 = Box(il2cpp_defaults.int32_class, &L_45);
+		String_t* L_47;
+		L_47 = String_Format_mA8DBB4C2516B9723C5A41E6CB1E2FAF4BBE96DD8(_stringLiteralAF3174DF1C695B405B14FDBF412F118FE493A464, L_46, NULL);
+		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
+		Debug_LogError_mB00B2B4468EF3CAF041B038D840820FB84C924B2(L_47, NULL);
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:113>
+		MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* L_48 = V_1;
+		NullCheck(L_48);
+		L_48->___isRecording = (bool)0;
+	}
+
+IL_015b:
+	{
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:115>
+		return (bool)0;
+	}
+}
+// Method Definition Index: 91913
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartMicrophoneWithRetryU3Ed__14_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m237F5776F3014D11FC362662787A0BCF451DBBC3 (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* __this, const RuntimeMethod* method) 
+{
+	{
+		RuntimeObject* L_0 = __this->___U3CU3E2__current;
+		return L_0;
+	}
+}
+// Method Definition Index: 91914
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CStartMicrophoneWithRetryU3Ed__14_System_Collections_IEnumerator_Reset_m36C8EA132E07E41ECDADB9788BC1506E3F5FC366 (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* __this, const RuntimeMethod* method) 
+{
+	{
+		NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A* L_0 = (NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A*)il2cpp_codegen_object_new(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&NotSupportedException_t1429765983D409BD2986508963C98D214E4EBF4A_il2cpp_TypeInfo_var)));
+		NotSupportedException__ctor_m1398D0CDE19B36AA3DE9392879738C1EA2439CDF(L_0, NULL);
+		IL2CPP_RAISE_MANAGED_EXCEPTION(L_0, ((RuntimeMethod*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&U3CStartMicrophoneWithRetryU3Ed__14_System_Collections_IEnumerator_Reset_m36C8EA132E07E41ECDADB9788BC1506E3F5FC366_RuntimeMethod_var)));
+	}
+}
+// Method Definition Index: 91915
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* U3CStartMicrophoneWithRetryU3Ed__14_System_Collections_IEnumerator_get_Current_m6588D65E0C7B20D0700DFE1EDB2D51B4AC646DCB (U3CStartMicrophoneWithRetryU3Ed__14_tBED073A0DD9E70BDAB76825F59E21828947122F0* __this, const RuntimeMethod* method) 
+{
+	{
+		RuntimeObject* L_0 = __this->___U3CU3E2__current;
+		return L_0;
+	}
+}
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+// Method Definition Index: 91916
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Readme__ctor_m69C325C4C171DCB0312B646A9034AA91EA8C39C6 (Readme_tE17B99201D0F52BD5727638AD3F41072A65B3BBB* __this, const RuntimeMethod* method) 
 {
 	{
@@ -1712,7 +2907,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Readme__ctor_m69C325C4C171DCB0312B646A90
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 91989
+// Method Definition Index: 91917
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Section__ctor_m5F732533E4DFC0167D965E5F5DB332E46055399B (Section_t50C894D0A717C2368EBAAE5477D4E8626D0B5401* __this, const RuntimeMethod* method) 
 {
 	{
@@ -1728,7 +2923,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Section__ctor_m5F732533E4DFC0167D965E5F5
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// Method Definition Index: 91990
+// Method Definition Index: 91918
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC90C99D73A3E UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (const RuntimeMethod* method) 
 {
 	static bool s_Il2CppMethodInitialized;
@@ -1762,7 +2957,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC
 		return L_6;
 	}
 }
-// Method Definition Index: 91991
+// Method Definition Index: 91919
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (UnitySourceGeneratedAssemblyMonoScriptTypes_v1_tC95F24D0C6E6B77389433852BB389F39C692926E* __this, const RuntimeMethod* method) 
 {
 	{
@@ -1867,11 +3062,11 @@ IL2CPP_EXTERN_C void MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC90C99D73A3E_ma
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
-// Method Definition Index: 91968
+// Method Definition Index: 91874
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* MicrophoneManager_GetAudioBuffer_m4A34B8E156D171810E1C2B3DDB46DA764879B66F_inline (MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* __this, const RuntimeMethod* method) 
 {
 	{
-		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:16>
+		//<source_info:C:/Users/Student/Honors_Project/Piano_Learning_AR/Assets/Scripts/MicrophoneManager.cs:22>
 		SingleU5BU5D_t89DEFE97BCEDB5857010E79ECE0F52CF6E93B87C* L_0 = __this->___audioBuffer;
 		return L_0;
 	}

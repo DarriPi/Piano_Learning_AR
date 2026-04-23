@@ -366,6 +366,7 @@ UnityEngine.AudioSource::get_generatorObject_Injected
 UnityEngine.AudioSource::PlayHelper_Injected
 UnityEngine.AudioSource::PlayOneShotHelper_Injected
 UnityEngine.AudioSource::SetPitch_Injected
+UnityEngine.AudioSource::Stop_Injected
 UnityEngine.AudioSource::set_generatorObject_Injected
 UnityEngine.AudioSource::set_loop_Injected
 UnityEngine.AudioSource::set_mute_Injected
