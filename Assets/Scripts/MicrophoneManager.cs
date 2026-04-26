@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -18,6 +19,9 @@ public class MicrophoneManager : MonoBehaviour
     private bool isInitializing = false;
     private int retryCount = 0;
     private const int MAX_RETRIES = 3;
+    // ... inside MicropohoneManager class, add these fields at the top:
+    private List<int> lastLoggedNotes = new List<int>();
+    private float nextLogTime = 0f;
 
     public float[] GetAudioBuffer() => audioBuffer;
 
@@ -237,6 +241,20 @@ public class MicrophoneManager : MonoBehaviour
 
             micClip.GetData(audioBuffer, startPosition);
 
+            List<int> notes = AudioPitchDetector.DetectPitches(audioBuffer, sampleRate);
+            if (notes.Count > 0)
+            {
+                // ** Testing code that can be removed later - only log if notes change to avoid spam **
+                if (Time.time >= nextLogTime && !ListsEqual(notes, lastLoggedNotes))
+                {
+                    Debug.Log("Detected notes: " + string.Join(", ", notes));
+                    lastLoggedNotes = new List<int>(notes);
+                    nextLogTime = Time.time + 1f;   // max 1 log per second
+                }
+
+                // TODO: later pass these notes to your AR piano visualisation
+            }
+
             // RMS calculation (debug)
             if (calculateRMS)
             {
@@ -340,5 +358,14 @@ public class MicrophoneManager : MonoBehaviour
             Destroy(micClip);
             micClip = null;
         }
+    }
+
+    // Helper method for the class:
+    private bool ListsEqual(List<int> a, List<int> b)
+    {
+        if (a.Count != b.Count) return false;
+        for (int i = 0; i < a.Count; i++)
+            if (a[i] != b[i]) return false;
+        return true;
     }
 }

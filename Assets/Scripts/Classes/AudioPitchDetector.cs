@@ -10,6 +10,10 @@ public static class AudioPitchDetector
     private const float A2 = 0.14128f;
     private const float A3 = 0.01168f;
 
+    // ---- Noise gate ----
+    // Calibrate this value for your environment (see Step 3 below)
+    public static float noiseFloorRMS = 0.00000948f;
+
     /// <summary>
     /// Detects pitches from raw audio and returns MIDI note numbers.
     /// </summary>
@@ -26,12 +30,20 @@ public static class AudioPitchDetector
             return new List<int>();
         }
 
+        // --- Noise gate: skip if RMS is below noise floor ---
+        float sumSquares = 0f;
+        for (int i = 0; i < N; i++)
+            sumSquares += buffer[i] * buffer[i];
+        float rms = Mathf.Sqrt(sumSquares / N);
+        if (rms < noiseFloorRMS)
+            return new List<int>();
+
         // 1. Apply Blackman-Harris window
         float[] windowed = new float[N];
         for (int i = 0; i < N; i++)
             windowed[i] = buffer[i] * BlackmanHarrisWindow(i, N);
 
-        // 2. Prepare real/imaginary arrays (copy windowed data to real part)
+        // 2. Prepare real/imaginary arrays
         float[] real = new float[N];
         float[] imag = new float[N];
         System.Array.Copy(windowed, real, N);
@@ -39,14 +51,14 @@ public static class AudioPitchDetector
         // 3. Forward FFT (in-place, radix-2)
         FFT(real, imag, false);
 
-        // 4. Compute magnitude spectrum (first half only)
+        // 4. Compute magnitude spectrum
         float[] magnitude = new float[N / 2];
         float maxMag = 0f;
         for (int i = 0; i < N / 2; i++)
         {
             float mag = Mathf.Sqrt(real[i] * real[i] + imag[i] * imag[i]);
             magnitude[i] = mag;
-            if (mag > maxMag) maxMag = mag;
+            if (mag > maxMag) maxMag = Mathf.Max(maxMag, mag);
         }
 
         if (maxMag < 1e-6f) return new List<int>();
@@ -62,13 +74,12 @@ public static class AudioPitchDetector
                 magnitude[k] >= magnitude[k + 1])
             {
                 float alpha = magnitude[k - 1];
-                float beta = magnitude[k];
+                float beta  = magnitude[k];
                 float gamma = magnitude[k + 1];
                 float p = 0.5f * (alpha - gamma) / (alpha - 2f * beta + gamma);
                 float refinedBin = k + p;
                 float freq = refinedBin * sampleRate / N;
 
-                // Keep only piano range (A0=27.5 Hz to C8≈4186 Hz)
                 if (freq >= 27.5f && freq <= 4186.0f)
                     peaks.Add((freq, beta));
             }
@@ -82,24 +93,22 @@ public static class AudioPitchDetector
             noteCandidates.Add((midi, peak.freq, peak.mag));
         }
 
-        // 7. Remove overtones (harmonic filter)
+        // 7. Remove overtones
         List<int> finalNotes = RemoveOvertones(noteCandidates);
         return finalNotes;
     }
 
-    // ---------- Helper Methods ----------
+    // ---------- Helper Methods (unchanged) ----------
     private static float BlackmanHarrisWindow(int n, int N)
     {
         float factor = 2f * Mathf.PI * n / (N - 1);
         return A0 - A1 * Mathf.Cos(factor) + A2 * Mathf.Cos(2f * factor) - A3 * Mathf.Cos(3f * factor);
     }
 
-    // In‑place radix‑2 FFT (Cooley‑Tukey)
     private static void FFT(float[] real, float[] imag, bool inverse)
     {
         int n = real.Length;
         int bits = (int)Mathf.Log(n, 2);
-        // Bit‑reversal permutation
         for (int i = 0; i < n; i++)
         {
             int j = ReverseBits(i, bits);
@@ -122,7 +131,7 @@ public static class AudioPitchDetector
                 for (int j = 0; j < halfLen; j++)
                 {
                     int even = i + j;
-                    int odd = even + halfLen;
+                    int odd  = even + halfLen;
                     float tRe = curRe * real[odd] - curIm * imag[odd];
                     float tIm = curRe * imag[odd] + curIm * real[odd];
                     real[odd] = real[even] - tRe;
@@ -159,7 +168,6 @@ public static class AudioPitchDetector
         return rev;
     }
 
-    // Remove higher note if it lies at an integer frequency ratio and is weaker (likely a harmonic)
     private static List<int> RemoveOvertones(List<(int note, float freq, float mag)> candidates)
     {
         candidates.Sort((a, b) => a.freq.CompareTo(b.freq));
