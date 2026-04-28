@@ -145,4 +145,4 @@ MonoBehaviour:
   sampleRate: 48000
   fftWindowSize: 8192
   enablePlayback: 0
-  calculateRMS: 0
+  calculateRMS: 1
