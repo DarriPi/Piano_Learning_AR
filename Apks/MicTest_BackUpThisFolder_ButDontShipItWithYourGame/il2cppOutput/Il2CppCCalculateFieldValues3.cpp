@@ -69,6 +69,7 @@ struct CacheDict_2_tB695739D50653F4D4C3DA03BCF07CC868196FB15;
 struct Comparison_1_t236C83451572505C1D483C9DFB0550F3470A17B8;
 struct Comparison_1_tC4095859478B8917FB775BFC44AB4189177C5BD1;
 struct Comparison_1_t9FCAC8C8CE160A96C5AAD2DE1D353DCE8A2FEEFC;
+struct Comparison_1_tE6FFB771257D7F18024E8F86EF63176030DE8EB5;
 struct Comparison_1_t2018CA0ED02A280E24DB112F562FB22B91B0517D;
 struct ConcurrentDictionary_2_tE0296B741D9F887264D805ED46C4249B8F5EFC9C;
 struct ConcurrentDictionary_2_t289EA16AA3198E74A1ED327115892A1325FDE582;
@@ -141,6 +142,7 @@ struct Dictionary_2_t6D39865003E656D60A88B22671895E4EA1590710;
 struct Dictionary_2_t6D87EEAC3CF8634A366F5EB4F579B288457E54BE;
 struct Dictionary_2_t9422155976AA5669B953F2FA792954DC4DFD250B;
 struct Dictionary_2_t489B023479196B8FC9709A9F834FC38729BD9493;
+struct Dictionary_2_t17BB14695909F39BA5B9F9F51F527D09419C12FC;
 struct Dictionary_2_t30736317A47AFC36A7F4FEE0E6487EDC529FB11E;
 struct Dictionary_2_tB7384CC9CF91445916636D030326748F9389E113;
 struct Dictionary_2_t16EB036F58C554F0E7A81CEBC658E3BD16785165;
@@ -789,8 +791,10 @@ struct InstanceTypeU5BU5D_t9B58BD52ED9D0AD118EA3EB38A7EB248FBEF6581;
 struct Int32U5BU5D_t19C97395396A72ECAF310612F0760F165060314C;
 struct IntPtrU5BU5D_tFD177F8C806A6921AD7150264CCC62FA00CAD832;
 struct InternedStringU5BU5D_t0B851758733FC0B118D84BE83AED10A0404C18D5;
+struct KeyLaneU5BU5D_tF6A2177A9A4A5D4C12A54B9953286DFFDC38267C;
 struct LigatureSubstitutionRecordU5BU5D_t04186B1B45C8D4F2AAB2299EE24668D39B4E9B50;
 struct LineInfoU5BU5D_t37598F2175B291797270D1161DC29B6296FB169D;
+struct LineRendererU5BU5D_t5AA0E11EC99A18A11BCCCABDF088C854E50D394A;
 struct LinkInfoU5BU5D_tB7EB23E47AF29CCBEC884F9D0DB95BC97F62AE51;
 struct MarkToBaseAdjustmentRecordU5BU5D_t4F120A507E14039BC63574D1815FF2E7B9D73911;
 struct MarkToMarkAdjustmentRecordU5BU5D_t09E9394A7451C53E2DD62ACB4FD0CF5F52159061;
@@ -1080,6 +1084,7 @@ struct InteractableGroupView_t4695AEEAC02CB5688E0EFC091EF6BAAA9E54D483;
 struct Interface_t1933710862740A9C3915823DC12B6E0C639EBCC6;
 struct Item_t8FB06293B90EA7EFB12B01F043466C7F11BF5BE7;
 struct KerningTable_t040C3FE3B519B12AADE1C5B00628581551D5AB6B;
+struct KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6;
 struct LODGroupDataPool_t57D46380972427D64D13BDEE9A02B718FE30F569;
 struct Label_t62950E4799E95CF18174A39B76BA906CF71B085D;
 struct LayoutElement_tB1F24CC11AF4AA87015C8D8EE06D22349C5BF40A;
@@ -1104,6 +1109,7 @@ struct MeshCollider_tB525E4DDE383252364ED0BDD32CF2B53914EE455;
 struct MeshFilter_t6D1CE2473A1E45AC73013400585A1163BF66B2F5;
 struct MeshRenderer_t4B7747212F0B88244BB7790C61AE124BFC15BAAE;
 struct MethodInfo_t;
+struct MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76;
 struct NavigationEventRepeatHelper_tF2D207BF8C6E1E3DA1FA14957CB77CEDA117ACDF;
 struct NestedActionHook_t09716612CE85AF26CAE690E88A4E87C64782CFD0;
 struct NetworkStream_tF39C3684B6D572BF47F518AD1DB1F4B12CEE4AE0;
@@ -1292,7 +1298,6 @@ struct UriParser_t920B0868286118827C08B08A15A9456AF6C19D81;
 struct Values_t08893C0FEB4A16CCD51BCE81B088E7579AF6E481;
 struct Vector3Control_t32D7E4836F56C2FDC61BF0D96ED455DEFA6C949A;
 struct VertexHelper_tB905FCB02AE67CBEE5F265FE37A5938FC5D136FE;
-struct VisualEffectAsset_t0CD57FD9980CD68033BD96DA356697F92A69E688;
 struct VisualElement_t2667F9D19E62C7A315927506C06F223AB9234115;
 struct Void_t4861ACF8F4594C3437BB48B6E56783494B843915;
 struct WaitCallback_tFB2C7FD58D024BBC2B0333DC7A4CB63B8DEBD5D3;
@@ -1608,6 +1613,9 @@ struct AssemblyParser_t0443E4C779D5AA3F81ADC7255343118305083598  : public Runtim
 {
 };
 struct Attribute_tFDA8EFEFB0711976D22474794576DAF28F7440AA  : public RuntimeObject
+{
+};
+struct AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04  : public RuntimeObject
 {
 };
 struct AudioSampleProvider_t602353124A2F6F2AEC38E56C3C21932344F712E2  : public RuntimeObject
@@ -2635,9 +2643,6 @@ struct UriHelper_tDE60EC9B07466916279EC0867FD20BAFA8F55635  : public RuntimeObje
 struct Utils_t2C7EFB76A8FEADF19C7776920502306079606AD7  : public RuntimeObject
 {
 };
-struct VFXManager_tBD98CA24D5E15AFD9DAA3AF6B51F348C173A7E2E  : public RuntimeObject
-{
-};
 struct ValidationHelper_tA6AE681FCDFA9BE8E3EF31C28A624AADF973A25C  : public RuntimeObject
 {
 };
@@ -2772,6 +2777,9 @@ struct U3CLayerTransitionU3Ed__19_tDA119EFEA5953C3CF5814695BBD7B6E14533C7DF  : p
 	float ___U3CstartWeightU3E5__3;
 };
 struct U3CU3Ec_t412446423AF63CC7F415C3FB01AF9E32425F768B  : public RuntimeObject
+{
+};
+struct U3CU3Ec_tCAA74F1EADEB2DBD8DB93B57945C4A9F9A0035F8  : public RuntimeObject
 {
 };
 struct Mobile_t304A73480DF447472BDB16BA19A9E4FE2C8CB2DD  : public RuntimeObject
@@ -3099,6 +3107,19 @@ struct U3CU3COnEnableU3Eg__BlitRoutineU7C11_0U3Ed_tCB7551CEEE1D25F8DEF2EFDA0856A
 	int32_t ___U3CU3E1__state;
 	RuntimeObject* ___U3CU3E2__current;
 	MeshBlit_t9D600A08969A0445BA824C999446D164ED93366D* ___U3CU3E4__this;
+};
+struct U3CInitializeMicrophoneU3Ed__15_tF90D2AE76FB9E7FCF75A66D5AD6BDA43F145B6AE  : public RuntimeObject
+{
+	int32_t ___U3CU3E1__state;
+	RuntimeObject* ___U3CU3E2__current;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___U3CU3E4__this;
+};
+struct U3CRestartMicrophoneU3Ed__21_t6C164498365CF48AAED65649A6C356F2FB25C60A  : public RuntimeObject
+{
+	int32_t ___U3CU3E1__state;
+	RuntimeObject* ___U3CU3E2__current;
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___U3CU3E4__this;
+	float ___U3CretryTimerU3E5__2;
 };
 struct U3CU3Ec_t28C7FDE5C1BDC2484F9D3E43A13830C0CA48A80B  : public RuntimeObject
 {
@@ -6362,53 +6383,6 @@ struct UnsafeStreamRange_tF5953324FD7FC591B632D6464C49C83C9429AAA9
 	int32_t ___LastOffset;
 	int32_t ___NumberOfBlocks;
 };
-struct VFXBatchInfo_t8E6084B732F522146481D1D45F41ACB6B8EF0790 
-{
-	uint32_t ___capacity;
-	uint32_t ___activeInstanceCount;
-};
-struct VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48 
-{
-	VisualEffectAsset_t0CD57FD9980CD68033BD96DA356697F92A69E688* ___vfxAsset;
-	uint32_t ___activeBatchCount;
-	uint32_t ___inactiveBatchCount;
-	uint32_t ___activeInstanceCount;
-	uint32_t ___unbatchedInstanceCount;
-	uint32_t ___totalInstanceCapacity;
-	uint32_t ___maxInstancePerBatchCapacity;
-	uint64_t ___totalGPUSizeInBytes;
-	uint64_t ___totalCPUSizeInBytes;
-};
-struct VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48_marshaled_pinvoke
-{
-	VisualEffectAsset_t0CD57FD9980CD68033BD96DA356697F92A69E688* ___vfxAsset;
-	uint32_t ___activeBatchCount;
-	uint32_t ___inactiveBatchCount;
-	uint32_t ___activeInstanceCount;
-	uint32_t ___unbatchedInstanceCount;
-	uint32_t ___totalInstanceCapacity;
-	uint32_t ___maxInstancePerBatchCapacity;
-	uint64_t ___totalGPUSizeInBytes;
-	uint64_t ___totalCPUSizeInBytes;
-};
-struct VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48_marshaled_com
-{
-	VisualEffectAsset_t0CD57FD9980CD68033BD96DA356697F92A69E688* ___vfxAsset;
-	uint32_t ___activeBatchCount;
-	uint32_t ___inactiveBatchCount;
-	uint32_t ___activeInstanceCount;
-	uint32_t ___unbatchedInstanceCount;
-	uint32_t ___totalInstanceCapacity;
-	uint32_t ___maxInstancePerBatchCapacity;
-	uint64_t ___totalGPUSizeInBytes;
-	uint64_t ___totalCPUSizeInBytes;
-};
-struct VFXCameraXRSettings_t03DB07CF170D5B4B66546F8DE78FED3CF9755D92 
-{
-	uint32_t ___viewTotal;
-	uint32_t ___viewCount;
-	uint32_t ___viewOffset;
-};
 struct Vector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7 
 {
 	float ___x;
@@ -7772,6 +7746,12 @@ struct AllocatorHandle_t3CA09720B1F89F91A8DDBA95E74C28A1EC3E3148
 {
 	uint16_t ___Index;
 	uint16_t ___Version;
+};
+struct Peak_tC8E5C347CA725E95786A7FB53968F96222DB3AEB 
+{
+	float ___frequency;
+	float ___magnitude;
+	int32_t ___bin;
 };
 struct Block_tBD2149E220F819A66A4A0A18F237932ACD9011DE 
 {
@@ -10813,6 +10793,14 @@ struct KeyCode_t75B9ECCC26D858F55040DDFF9523681E996D17E9
 {
 	int32_t ___value__;
 };
+struct KeyLane_t45814DE6BCE1980A96035103717B12AAA451432B  : public RuntimeObject
+{
+	int32_t ___midiNote;
+	String_t* ___noteName;
+	bool ___isBlackKey;
+	Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2 ___worldPosition;
+	int32_t ___laneIndex;
+};
 struct LODGroupCullingData_t511A004D7CBAE84368FCAA62A0348C24CB46EABF 
 {
 	float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E ___worldSpaceReferencePoint;
@@ -11966,40 +11954,6 @@ struct UriSyntaxFlags_t6CAAB5E302AE2F84F42D8C4AF2FA8656EC5F97C8
 struct V64DebugView_t0B1182DE831E8DCC53C85904B1F3D75DC1D7F82F  : public RuntimeObject
 {
 	v64_t9C4037532D386FF1E9B95E5FBD01FEF472AC1F96 ___m_Value;
-};
-struct VFXCameraBufferTypes_tB2A685C8F14B79B609D1EBA82D45B18ED4546CE8 
-{
-	int32_t ___value__;
-};
-struct VFXEventAttribute_tA764A595356174BA39C782A8A64B47B39FB3F518  : public RuntimeObject
-{
-	intptr_t ___m_Ptr;
-	bool ___m_Owner;
-	VisualEffectAsset_t0CD57FD9980CD68033BD96DA356697F92A69E688* ___m_VfxAsset;
-};
-struct VFXEventAttribute_tA764A595356174BA39C782A8A64B47B39FB3F518_marshaled_pinvoke
-{
-	intptr_t ___m_Ptr;
-	int32_t ___m_Owner;
-	VisualEffectAsset_t0CD57FD9980CD68033BD96DA356697F92A69E688* ___m_VfxAsset;
-};
-struct VFXEventAttribute_tA764A595356174BA39C782A8A64B47B39FB3F518_marshaled_com
-{
-	intptr_t ___m_Ptr;
-	int32_t ___m_Owner;
-	VisualEffectAsset_t0CD57FD9980CD68033BD96DA356697F92A69E688* ___m_VfxAsset;
-};
-struct VFXExpressionValues_t361C45D33F7B5E9D85F8185EF47AA9ACF43063F5  : public RuntimeObject
-{
-	intptr_t ___m_Ptr;
-};
-struct VFXExpressionValues_t361C45D33F7B5E9D85F8185EF47AA9ACF43063F5_marshaled_pinvoke
-{
-	intptr_t ___m_Ptr;
-};
-struct VFXExpressionValues_t361C45D33F7B5E9D85F8185EF47AA9ACF43063F5_marshaled_com
-{
-	intptr_t ___m_Ptr;
 };
 struct VRTextureUsage_t57FAA0077810142A461D74EDC5E33FC3D78BD2E8 
 {
@@ -27195,6 +27149,20 @@ struct InteractableObjectLabel_t711F74FA688458A54F9F6561E78E9D307454A57B  : publ
 struct KHRSimpleControllerProfile_tBF1045A17B7BD98FD10C545E2C8122B233B9C439  : public OpenXRInteractionFeature_t643728BC4EB54CC2852F8D9921027BEE62E7682E
 {
 };
+struct KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
+{
+	float ___keyboardWidth;
+	float ___keyboardDepth;
+	float ___laneHeight;
+	KeyLaneU5BU5D_tF6A2177A9A4A5D4C12A54B9953286DFFDC38267C* ___keyLanes;
+};
+struct LaneVisualiser_tDE190EEE8C0D519A51D1E77EB65F37B2C26B00ED  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
+{
+	KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6* ___keyboardMapper;
+	Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* ___laneMaterial;
+	float ___laneHeight;
+	LineRendererU5BU5D_t5AA0E11EC99A18A11BCCCABDF088C854E50D394A* ___laneLines;
+};
 struct ListSnapPoseDelegateRoundedBoxVisual_tAFC195489CF9D15687712D98BB4E8349D192CBC3  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
 	ListSnapPoseDelegate_t25742384649205D352FEDFF83B3121CD009A503F* ____listSnapPoseDelegate;
@@ -27348,6 +27316,13 @@ struct MetaQuestTouchPlusControllerProfile_t444CF9B55F9B40D0610DDE5C8B86A42CCB4F
 };
 struct MetaQuestTouchProControllerProfile_t500A1EE24A09A774FC66856B0757C0B94B8A2D38  : public OpenXRInteractionFeature_t643728BC4EB54CC2852F8D9921027BEE62E7682E
 {
+};
+struct MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
+{
+	MicrophoneManager_tE957D14922E22046A6555A28281C1AA3550AAB76* ___micManager;
+	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* ___statusText;
+	float ___lastVolume;
+	float ___lastLogTime;
 };
 struct MicroGestureUnityEventWrapper_t9262EC6702AA29C7892F187329E36632E3349C71  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -30235,6 +30210,24 @@ struct AssemblyParser_t0443E4C779D5AA3F81ADC7255343118305083598_StaticFields
 	Func_1_t62C8E3733F3F8BB3CDE7571082A512701276E260* ____assembliesDelegate;
 	RuntimeSettings_t09E547BE5F742B9C5735308FB6ACEC26EF550CA4* ____prebakedRuntimeSettings;
 };
+struct AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields
+{
+	bool ___useAGC;
+	float ___manualGain;
+	float ___targetRMS;
+	float ___noiseFloorMultiplier;
+	float ___harmonicTolerance;
+	int32_t ___maxHarmonicCheck;
+	int32_t ___maxFundamentals;
+	float ___minNoteDurationSec;
+	int32_t ___minPeakDistanceBins;
+	float ___relPeakThreshold;
+	float ___absMinMagnitude;
+	bool ___logMidiToConsole;
+	float ____noiseFloor;
+	Dictionary_2_t17BB14695909F39BA5B9F9F51F527D09419C12FC* ____activeNotes;
+	StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* ___NoteNames;
+};
 struct AudioSettings_t66C4BCA1E463B061E2EC9063FB882ACED20D47BD_StaticFields
 {
 	AudioConfigurationChangeHandler_tE071B0CBA3B3A77D3E41F5FCB65B4017885B3177* ___OnAudioConfigurationChanged;
@@ -31061,10 +31054,6 @@ struct UriHelper_tDE60EC9B07466916279EC0867FD20BAFA8F55635_StaticFields
 {
 	CharU5BU5D_t799905CF001DD5F13F7DBB310181FC4D8B7D0AAB* ___HexUpperChars;
 };
-struct VFXManager_tBD98CA24D5E15AFD9DAA3AF6B51F348C173A7E2E_StaticFields
-{
-	VFXCameraXRSettings_t03DB07CF170D5B4B66546F8DE78FED3CF9755D92 ___kDefaultCameraXRSettings;
-};
 struct ValidationHelper_tA6AE681FCDFA9BE8E3EF31C28A624AADF973A25C_StaticFields
 {
 	StringU5BU5D_t7674CD946EC0CE7B3AE0BE70E6EE85F2ECD9F248* ___EmptyArray;
@@ -31134,6 +31123,11 @@ struct U3CU3Ec_t412446423AF63CC7F415C3FB01AF9E32425F768B_StaticFields
 	U3CU3Ec_t412446423AF63CC7F415C3FB01AF9E32425F768B* ___U3CU3E9;
 	Func_2_t20D2A8C4D064E72B901CA13A2A4DFFADEA092F9D* ___U3CU3E9__19_1;
 	Func_2_t7AF8146EC94DFCBB0F1B3E70111C1FB21D39F00E* ___U3CU3E9__19_0;
+};
+struct U3CU3Ec_tCAA74F1EADEB2DBD8DB93B57945C4A9F9A0035F8_StaticFields
+{
+	U3CU3Ec_tCAA74F1EADEB2DBD8DB93B57945C4A9F9A0035F8* ___U3CU3E9;
+	Comparison_1_tE6FFB771257D7F18024E8F86EF63176030DE8EB5* ___U3CU3E9__20_0;
 };
 struct Mobile_t304A73480DF447472BDB16BA19A9E4FE2C8CB2DD_StaticFields
 {
@@ -32656,6 +32650,11 @@ struct DebugManager_tB497DAE8D9055CB6B970EBD98704022045F1E608_StaticFields
 {
 	DebugManager_tB497DAE8D9055CB6B970EBD98704022045F1E608* ___U3CInstanceU3Ek__BackingField;
 	Action_1_tD69CAD284EC33F961BA808B620C80788EC03F443* ___OnReady;
+};
+struct KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6_StaticFields
+{
+	KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6* ___U3CInstanceU3Ek__BackingField;
+	BooleanU5BU5D_tD317D27C31DB892BE79FAE3AEBC0B3FFB73DE9B4* ___IsBlack;
 };
 struct LockedBodyPose_t8D5A89A1A2560F943FEAFD0CC27D60D014B00D0E_StaticFields
 {
@@ -39632,24 +39631,30 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11988[1] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11989[1] = 
 {
 	static_cast<int32_t>(offsetof(VCProviderAnalytics_t0D585C39525F8F60AC99D0B36CDEA25E5D29C356, ___Mode)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11991[5] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11991[3] = 
 {
-	static_cast<int32_t>(sizeof(RuntimeObject)),0,0,0,0,};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11993[3] = 
+	static_cast<int32_t>(offsetof(Peak_tC8E5C347CA725E95786A7FB53968F96222DB3AEB, ___frequency)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(Peak_tC8E5C347CA725E95786A7FB53968F96222DB3AEB, ___magnitude)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(Peak_tC8E5C347CA725E95786A7FB53968F96222DB3AEB, ___bin)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11992[2] = 
 {
-	static_cast<int32_t>(offsetof(VFXEventAttribute_tA764A595356174BA39C782A8A64B47B39FB3F518, ___m_Ptr)),static_cast<int32_t>(offsetof(VFXEventAttribute_tA764A595356174BA39C782A8A64B47B39FB3F518, ___m_Owner)),static_cast<int32_t>(offsetof(VFXEventAttribute_tA764A595356174BA39C782A8A64B47B39FB3F518, ___m_VfxAsset)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11994[1] = 
+	static_cast<int32_t>(offsetof(U3CU3Ec_tCAA74F1EADEB2DBD8DB93B57945C4A9F9A0035F8_StaticFields, ___U3CU3E9)),static_cast<int32_t>(offsetof(U3CU3Ec_tCAA74F1EADEB2DBD8DB93B57945C4A9F9A0035F8_StaticFields, ___U3CU3E9__20_0)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11993[20] = 
 {
-	static_cast<int32_t>(offsetof(VFXExpressionValues_t361C45D33F7B5E9D85F8185EF47AA9ACF43063F5, ___m_Ptr)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11995[3] = 
+	0,0,0,0,static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___useAGC)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___manualGain)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___targetRMS)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___noiseFloorMultiplier)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___harmonicTolerance)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___maxHarmonicCheck)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___maxFundamentals)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___minNoteDurationSec)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___minPeakDistanceBins)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___relPeakThreshold)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___absMinMagnitude)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___logMidiToConsole)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ____noiseFloor)),0,static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ____activeNotes)),static_cast<int32_t>(offsetof(AudioPitchDetector_t9A6DBE4AC748100BD9E6D6BA07C7C3C17C3F5E04_StaticFields, ___NoteNames)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11994[5] = 
 {
-	static_cast<int32_t>(offsetof(VFXCameraXRSettings_t03DB07CF170D5B4B66546F8DE78FED3CF9755D92, ___viewTotal)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXCameraXRSettings_t03DB07CF170D5B4B66546F8DE78FED3CF9755D92, ___viewCount)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXCameraXRSettings_t03DB07CF170D5B4B66546F8DE78FED3CF9755D92, ___viewOffset)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11996[9] = 
+	static_cast<int32_t>(offsetof(KeyLane_t45814DE6BCE1980A96035103717B12AAA451432B, ___midiNote)),static_cast<int32_t>(offsetof(KeyLane_t45814DE6BCE1980A96035103717B12AAA451432B, ___noteName)),static_cast<int32_t>(offsetof(KeyLane_t45814DE6BCE1980A96035103717B12AAA451432B, ___isBlackKey)),static_cast<int32_t>(offsetof(KeyLane_t45814DE6BCE1980A96035103717B12AAA451432B, ___worldPosition)),static_cast<int32_t>(offsetof(KeyLane_t45814DE6BCE1980A96035103717B12AAA451432B, ___laneIndex)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11995[8] = 
 {
-	static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___vfxAsset)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___activeBatchCount)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___inactiveBatchCount)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___activeInstanceCount)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___unbatchedInstanceCount)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___totalInstanceCapacity)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___maxInstancePerBatchCapacity)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___totalGPUSizeInBytes)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchedEffectInfo_t9FD17831A7E3BF5267119337DDDA16BAEAF64D48, ___totalCPUSizeInBytes)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11997[2] = 
+	static_cast<int32_t>(offsetof(KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6, ___keyboardWidth)),static_cast<int32_t>(offsetof(KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6, ___keyboardDepth)),static_cast<int32_t>(offsetof(KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6, ___laneHeight)),static_cast<int32_t>(offsetof(KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6, ___keyLanes)),0,0,static_cast<int32_t>(offsetof(KeyboardMapper_t17363803389BAFB253DCC224CF5D03DB9D565AF6_StaticFields, ___IsBlack)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11996[4] = 
 {
-	static_cast<int32_t>(offsetof(VFXBatchInfo_t8E6084B732F522146481D1D45F41ACB6B8EF0790, ___capacity)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(VFXBatchInfo_t8E6084B732F522146481D1D45F41ACB6B8EF0790, ___activeInstanceCount)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11998[1] = 
+	static_cast<int32_t>(offsetof(LaneVisualiser_tDE190EEE8C0D519A51D1E77EB65F37B2C26B00ED, ___keyboardMapper)),static_cast<int32_t>(offsetof(LaneVisualiser_tDE190EEE8C0D519A51D1E77EB65F37B2C26B00ED, ___laneMaterial)),static_cast<int32_t>(offsetof(LaneVisualiser_tDE190EEE8C0D519A51D1E77EB65F37B2C26B00ED, ___laneHeight)),static_cast<int32_t>(offsetof(LaneVisualiser_tDE190EEE8C0D519A51D1E77EB65F37B2C26B00ED, ___laneLines)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11997[4] = 
 {
-	static_cast<int32_t>(offsetof(VFXManager_tBD98CA24D5E15AFD9DAA3AF6B51F348C173A7E2E_StaticFields, ___kDefaultCameraXRSettings)),};
+	static_cast<int32_t>(offsetof(MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4, ___micManager)),static_cast<int32_t>(offsetof(MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4, ___statusText)),static_cast<int32_t>(offsetof(MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4, ___lastVolume)),static_cast<int32_t>(offsetof(MicDebugger_t948F736DDAE324780C635BCC9BD59A38A9A3CBE4, ___lastLogTime)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11998[3] = 
+{
+	static_cast<int32_t>(offsetof(U3CInitializeMicrophoneU3Ed__15_tF90D2AE76FB9E7FCF75A66D5AD6BDA43F145B6AE, ___U3CU3E1__state)),static_cast<int32_t>(offsetof(U3CInitializeMicrophoneU3Ed__15_tF90D2AE76FB9E7FCF75A66D5AD6BDA43F145B6AE, ___U3CU3E2__current)),static_cast<int32_t>(offsetof(U3CInitializeMicrophoneU3Ed__15_tF90D2AE76FB9E7FCF75A66D5AD6BDA43F145B6AE, ___U3CU3E4__this)),};
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable11999[4] = 
+{
+	static_cast<int32_t>(offsetof(U3CRestartMicrophoneU3Ed__21_t6C164498365CF48AAED65649A6C356F2FB25C60A, ___U3CU3E1__state)),static_cast<int32_t>(offsetof(U3CRestartMicrophoneU3Ed__21_t6C164498365CF48AAED65649A6C356F2FB25C60A, ___U3CU3E2__current)),static_cast<int32_t>(offsetof(U3CRestartMicrophoneU3Ed__21_t6C164498365CF48AAED65649A6C356F2FB25C60A, ___U3CU3E4__this)),static_cast<int32_t>(offsetof(U3CRestartMicrophoneU3Ed__21_t6C164498365CF48AAED65649A6C356F2FB25C60A, ___U3CretryTimerU3E5__2)),};
