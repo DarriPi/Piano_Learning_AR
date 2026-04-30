@@ -69,6 +69,7 @@
   <Project Path="Unity.XR.CoreUtils.Editor.csproj" />
   <Project Path="Unity.AI.Navigation.Editor.csproj" />
   <Project Path="Unity.XR.OpenXR.Editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Oculus.Interaction.UnityXR.csproj" />
   <Project Path="Unity.Multiplayer.Center.Common.csproj" />
   <Project Path="Unity.XR.Management.Editor.csproj" />
@@ -101,7 +102,6 @@
   <Project Path="Meta.XR.Guides.Editor.csproj" />
   <Project Path="Unity.XR.OpenXR.Features.MetaQuestSupport.csproj" />
   <Project Path="Meta.XR.ImmersiveDebugger.Interface.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Meta.XR.Editor.UPST.Notifications.csproj" />
   <Project Path="Unity.CollabProxy.Editor.csproj" />
   <Project Path="Oculus.Interaction.Samples.Editor.csproj" />
