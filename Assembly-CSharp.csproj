@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\Debug\LaneVisualiser.cs" />
     <Compile Include="Assets\Scripts\Core\GameModeManager.cs" />
     <Compile Include="Assets\Scripts\Classes\AudioPitchDetector.cs" />
+    <Compile Include="Assets\Scripts\Data\SongData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
