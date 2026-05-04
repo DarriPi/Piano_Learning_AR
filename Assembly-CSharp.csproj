@@ -52,13 +52,21 @@
     <Compile Include="Assets\Scripts\Core\InputDetector.cs" />
     <Compile Include="Assets\Scripts\TestMode\TestModeKeyboard.cs" />
     <Compile Include="Assets\TutorialInfo\Readme.cs" />
+    <Compile Include="Assets\Scripts\Debug\QuickTestRunner.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteSpawner.cs" />
     <Compile Include="Assets\Scripts\MicDebugger.cs" />
     <Compile Include="Assets\Scripts\MicrophoneManager.cs" />
     <Compile Include="Assets\Scripts\Core\KeyboardMapper.cs" />
+    <Compile Include="Assets\Scripts\Audio\PitchDetector.cs" />
     <Compile Include="Assets\Scripts\Debug\LaneVisualiser.cs" />
+    <Compile Include="Assets\Scripts\Audio\StubAudioDetector.cs" />
     <Compile Include="Assets\Scripts\Core\GameModeManager.cs" />
     <Compile Include="Assets\Scripts\Classes\AudioPitchDetector.cs" />
+    <Compile Include="Assets\Scripts\Notes\NotePool.cs" />
     <Compile Include="Assets\Scripts\Data\SongData.cs" />
+    <Compile Include="Assets\Scripts\Audio\IAudioDetector.cs" />
+    <Compile Include="Assets\Scripts\Core\FeedbackController.cs" />
+    <Compile Include="Assets\Scripts\Notes\NoteObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

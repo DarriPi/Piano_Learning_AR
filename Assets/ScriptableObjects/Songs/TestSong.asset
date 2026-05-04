@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestSong
   m_EditorClassIdentifier: Assembly-CSharp::SongData
   songName: TestSong
-  bpm: 80
+  bpm: 30
   notes:
   - midiNote: 64
     beatTime: 0
