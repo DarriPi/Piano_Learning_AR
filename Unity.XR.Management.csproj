@@ -51,8 +51,8 @@
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\IXRLoaderPreInit.cs" />
     <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\AssemblyInfo.cs" />
-    <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\XRConfigurationData.cs" />
     <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\XRGeneralSettings.cs" />
+    <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\XRConfigurationData.cs" />
     <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\XRManagementAnalytics.cs" />
     <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\XRManagerSettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.xr.management@ca5b202bb583\Runtime\XRLoader.cs" />

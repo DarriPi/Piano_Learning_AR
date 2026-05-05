@@ -51,12 +51,14 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Core\InputDetector.cs" />
     <Compile Include="Assets\Scripts\TestMode\TestModeKeyboard.cs" />
+    <Compile Include="Assets\Scripts\Visual\NoteLabelManager.cs" />
     <Compile Include="Assets\TutorialInfo\Readme.cs" />
     <Compile Include="Assets\Scripts\Debug\QuickTestRunner.cs" />
     <Compile Include="Assets\Scripts\Notes\NoteSpawner.cs" />
     <Compile Include="Assets\Scripts\MicDebugger.cs" />
     <Compile Include="Assets\Scripts\MicrophoneManager.cs" />
     <Compile Include="Assets\Scripts\Core\KeyboardMapper.cs" />
+    <Compile Include="Assets\Scripts\Visual\NeonGrid.cs" />
     <Compile Include="Assets\Scripts\Audio\PitchDetector.cs" />
     <Compile Include="Assets\Scripts\Debug\LaneVisualiser.cs" />
     <Compile Include="Assets\Scripts\Audio\StubAudioDetector.cs" />
