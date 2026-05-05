@@ -53,9 +53,12 @@ public class InputDetector : MonoBehaviour
 
     private void FireNote(int midiNote, bool isDown)
     {
-        Debug.Log($"[InputDetector] FireNote called: MIDI {midiNote}, isDown {isDown}");
-        Debug.Log($"[InputDetector] testKeyboard is null: {testKeyboard == null}");
         testKeyboard?.SimulateKeyPress(midiNote, isDown);
         OnNoteInput?.Invoke(midiNote, isDown);
+        Debug.Log($"[Input] MIDI {midiNote} ({(isDown ? "DOWN" : "UP")})");
+
+        // Add this:
+        if (isDown)
+            NoteSpawner.Instance?.CheckHit(midiNote);
     }
 }
