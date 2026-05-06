@@ -372,7 +372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &136345265
 ParticleSystemRenderer:
   serializedVersion: 7
@@ -5404,7 +5404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &176933601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5552,13 +5552,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: -0.724, z: -0.162}
+  m_LocalRotation: {x: 0.008670248, y: -0.97770554, z: 0.20911495, w: 0.016963061}
+  m_LocalPosition: {x: 0.009, y: 0.326, z: 1.199}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1251751567}
-  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.155, y: -178.145, z: -0.619}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5649,7 +5649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4fba59fa83e7d45abfba2e9ebc1279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameModeManager
-  currentMode: 1
+  currentMode: 0
   arModeObjects: {fileID: 413758238}
   testModeObjects: {fileID: 1251751566}
   onModeChanged:
@@ -6121,7 +6121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &611386313
 Transform:
   m_ObjectHideFlags: 0
@@ -6660,7 +6660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1069568169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7077,7 +7077,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1393214443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7289,7 +7289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1589393437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7520,6 +7520,7 @@ MonoBehaviour:
   keyboardWidth: 1.22
   keyboardDepth: 0.15
   laneHeight: 0.02
+  spawnDistance: 2
   keyLanes:
   - midiNote: 0
     noteName: 
@@ -7910,7 +7911,7 @@ Transform:
   m_GameObject: {fileID: 1656448861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.9, z: 2.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7924,14 +7925,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656448861}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc8b6e46d5afc4147bc779a1947d7e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaneVisualiser
-  keyboardMapper: {fileID: 1656448862}
-  laneMaterial: {fileID: 0}
-  laneHeight: 2
+  mapper: {fileID: 1656448862}
+  laneMaterial: {fileID: 2100000, guid: 6475924e8c260e947bf2ee7348a8cbdd, type: 2}
 --- !u!1 &1657189845
 GameObject:
   m_ObjectHideFlags: 0
@@ -8258,7 +8258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1825363792
 Transform:
   m_ObjectHideFlags: 0
@@ -8363,7 +8363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1875691590
 ParticleSystemRenderer:
   serializedVersion: 7
@@ -13198,7 +13198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1999061926
 MonoBehaviour:
   m_ObjectHideFlags: 0

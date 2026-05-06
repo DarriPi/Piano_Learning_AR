@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [System.Serializable]
 public class KeyLane
@@ -21,6 +19,7 @@ public class KeyboardMapper : MonoBehaviour
     public float keyboardWidth = 1.22f; // Total width of the keyboard in meters
     public float keyboardDepth = 0.15f; // Depth of the keys in meters
     public float laneHeight = 0.02f; // Height of the lane above the keyboard in meters
+    public float spawnDistance = 2.0f; // Distance from which notes will spawn towards the player
 
     [Header("Runtime Data")]
     public KeyLane[] keyLanes = new KeyLane[76]; // Array to hold the KeyLane data for each key
@@ -80,7 +79,7 @@ public class KeyboardMapper : MonoBehaviour
                 pos = new Vector3(currentWhiteX, laneHeight, 0f);
                 currentWhiteX += whiteKeyWidth; // Move to the next white key position
             } // For black keys, we position them between the white keys. The X position is calculated based on the current white key position.
-            else 
+            else
             {
                 // For black keys, we need to position them between the white keys. The X position is calculated based on the current white key position.
                 float blackX = currentWhiteX - (whiteKeyWidth / 2f); // Position black key between white keys
@@ -93,7 +92,7 @@ public class KeyboardMapper : MonoBehaviour
                 midiNote = midi,
                 noteName = name,
                 isBlackKey = black,
-                worldPosition = pos,
+                worldPosition = transform.position + transform.rotation * pos,
                 laneIndex = laneIdx
             };
             laneIdx++;
@@ -105,6 +104,13 @@ public class KeyboardMapper : MonoBehaviour
         // This method can be called if the keyboard dimensions 
         // change at runtime, to recalculate the positions of the lanes
         GenerateDefaultLanes();
+    }
+
+    public Vector3 GetSpawnPosition(int midiNote)
+    {
+        KeyLane lane = GetLane(midiNote);
+        if (lane == null) return Vector3.zero;
+        return lane.worldPosition + transform.forward * -spawnDistance;
     }
 
     public KeyLane GetLane(int midiNote)
@@ -127,12 +133,20 @@ public class KeyboardMapper : MonoBehaviour
     void OnDrawGizmos()
     {
         if (keyLanes == null || keyLanes.Length == 0) return;
-        
+
         foreach (var lane in keyLanes)
         {
             if (lane == null) continue;
+            // Draw hit position marker
             Gizmos.color = lane.isBlackKey ? Color.black : Color.white;
-            Gizmos.DrawWireCube(lane.worldPosition, new  Vector3(0.018f, 0.002f, 0.12f)); // Draw a
+            Gizmos.DrawWireCube(lane.worldPosition, new Vector3(0.018f, 0.002f, 0.12f));
+
+            // Draw lane travel path along Z toward user
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(
+                lane.worldPosition,
+                lane.worldPosition + transform.forward * -spawnDistance
+            );
         }
     }
 #endif

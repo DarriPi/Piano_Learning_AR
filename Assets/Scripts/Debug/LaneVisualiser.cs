@@ -1,45 +1,46 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LaneVisualiser : MonoBehaviour
 {
-    [SerializeField] private KeyboardMapper keyboardMapper; // Reference to the KeyboardMapper component
-    [SerializeField] private Material laneMaterial; // Material to use for the lane visualization
-    [SerializeField] private float laneHeight = 2.0f; // Height of the lane above the keyboard
+    [SerializeField] private KeyboardMapper mapper;
+    [SerializeField] private Material laneMaterial;
+    //[SerializeField] private float laneLineLength = 2.0f; // How far behind keyboard lines extend
 
-    private LineRenderer[] laneLines; // LineRenderer component to visualize the lane
+    private LineRenderer[] laneLines;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Lane lines for a 76 key keyboard (E1 to G7)
         laneLines = new LineRenderer[76];
-
-        for (int i = 0; i < laneLines.Length; i++)
+        for (int i = 0; i < 76; i++)
         {
             var go = new GameObject($"LaneLine_{i}");
             go.transform.SetParent(transform);
-
             var lr = go.AddComponent<LineRenderer>();
             lr.material = laneMaterial;
-            lr.startWidth = lr.endWidth = keyboardMapper.keyLanes[i].isBlackKey ? 0.004f : 0.008f; // Thinner for black keys
+            lr.startWidth = lr.endWidth = mapper.keyLanes[i].isBlackKey ? 0.004f : 0.007f;
             lr.positionCount = 2;
-            lr.useWorldSpace = true;
             laneLines[i] = lr;
         }
         UpdateLines();
     }
 
-    // Update is called once per frame
+    public void RefreshLanes()
+    {
+        UpdateLines();
+    }
+
     void UpdateLines()
     {
-        for (int i = 0; i < laneLines.Length; i++)
+        for (int i = 0; i < 76; i++)
         {
-            Vector3 botton = keyboardMapper.keyLanes[i].worldPosition;
-            Vector3 top = botton + Vector3.up * laneHeight;
-            laneLines[i].SetPosition(0, botton);
-            laneLines[i].SetPosition(1, top);
+            // Hit position - where note lands at the key
+            Vector3 hitPosition = mapper.keyLanes[i].worldPosition;
+
+            // Spawn position - behind the keyboard along Z
+            Vector3 spawnPosition = mapper.GetSpawnPosition(mapper.keyLanes[i].midiNote);
+
+            laneLines[i].SetPosition(0, hitPosition);    // Front - player side
+            laneLines[i].SetPosition(1, spawnPosition);  // Back - far side of keyboard
         }
     }
 }
-

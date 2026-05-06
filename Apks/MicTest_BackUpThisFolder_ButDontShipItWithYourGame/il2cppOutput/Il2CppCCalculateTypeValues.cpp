@@ -42786,6 +42786,7 @@ struct OVRGridCube_tFE8F792286A2BC747DB19455AF4878AF5EBD55E6  : public MonoBehav
 {
 	int32_t ___GridKey;
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___CubeGrid;
+	bool ___CubeGridOn;
 	bool ___CubeSwitchColorOld;
 	bool ___CubeSwitchColor;
 	int32_t ___gridSizeX;
@@ -43312,6 +43313,7 @@ struct OVRSceneSampleController_tE32CCD76C42E4B6CFA3DC925A58391ADEE725E97  : pub
 	OVRPlayerController_t6DEB1668590462765911AEAB2DA399DA8BD99575* ___playerController;
 	OVRCameraRig_t7FC2BB0D30DED2B7F0C8914AF2B66E9F4CF891A9* ___cameraController;
 	String_t* ___layerName;
+	bool ___visionMode;
 	OVRGridCube_tFE8F792286A2BC747DB19455AF4878AF5EBD55E6* ___gridCube;
 };
 struct OVRSceneVolume_tCC45DB52610BEC6D6DF652DDFD4056010ABAB8CA  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
