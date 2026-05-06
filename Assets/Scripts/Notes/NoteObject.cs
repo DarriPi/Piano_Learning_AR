@@ -4,70 +4,82 @@ public enum NoteType { Tap, Hold }
 
 public class NoteObject : MonoBehaviour
 {
-    [HideInInspector] public int midiNote; // MIDI note number
-    [HideInInspector] public NoteType noteType; // note type (tap or hold)
-    [HideInInspector] public float holdDuration;  // in seconds
-    [HideInInspector] public float targetHitTime; // world clock time
+    [HideInInspector] public int midiNote;
+    [HideInInspector] public NoteType noteType;
+    [HideInInspector] public float holdDuration;    // seconds
+    [HideInInspector] public float targetHitTime;   // world-clock time
 
-    private Vector3 targetPosition; // position where the note should be hit
-    private float noteSpeed; // speed at which the note moves towards the target position
-    private bool isActive; // whether the note is active and should be moving
-    private bool wasHit; // whether the note was successfully hit
-    private MeshRenderer meshRenderer; // reference to the MeshRenderer component for visual feedback
-    private TrailRenderer trailRenderer; // reference to the TrailRenderer component for visual feedback
+    private Vector3 targetPosition;
+    private Vector3 moveDirection;
+    private float moveSpeed;
+    private bool isActive;
+    private bool wasHit;
 
-    // Visual state
-    private static readonly int EmissiveColor = Shader.PropertyToID("_EmissiveColor");
+    private MeshRenderer meshRenderer;
+    private TrailRenderer trailRenderer;
 
-    public void Initialise(KeyLane lane, float speed, float spawnDepth,
-                       float hitTime, NoteType type, float holdSec, Material mat)
+    private static readonly int EmissiveColor = Shader.PropertyToID("_EmissionColor");
+    private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+    private MaterialPropertyBlock _mpb;
+
+    public void Initialise(KeyLane lane, Vector3 direction, float speed,
+        float spawnDistance, float hitTime, NoteType type, float holdSec,
+        Material mat)
     {
         midiNote = lane.midiNote;
         noteType = type;
         holdDuration = holdSec;
         targetHitTime = hitTime;
-        noteSpeed = speed;
+
+        moveDirection = direction.normalized;
+        moveSpeed = speed;
+
+        // Target is the lane’s world position (where the note must be at hitTime)
         targetPosition = lane.worldPosition;
-        isActive = true;
-        wasHit = false;
 
-        // Spawn BEHIND the keyboard, travelling forward (toward player)
-        transform.position = lane.worldPosition - Vector3.forward * spawnDepth;
+        // Spawn behind the keyboard: target - direction * spawnDistance
+        transform.position = targetPosition - moveDirection * spawnDistance;
 
-        // Scale: width stays narrow, depth (Z) stretches for hold notes
+        // Rotate the note so its forward (Z) faces the movement direction
+        if (moveDirection != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+
+        // Scale: tap = small cube; hold = stretched bar along movement direction
         float holdLength = type == NoteType.Hold ? holdSec * speed : 0f;
-        float noteDepth = Mathf.Max(0.02f, holdLength);
-
+        float noteLength = Mathf.Max(0.02f, holdLength);
         transform.localScale = new Vector3(
-            lane.isBlackKey ? 0.012f : 0.020f,  // X — key width
-            0.008f,                              // Y — flat, sits just above keys
-            noteDepth                            // Z — length along travel direction
+            lane.isBlackKey ? 0.012f : 0.020f,   // lateral width
+            0.02f,                                // thin vertical height
+            noteLength                            // length along forward (Z)
         );
 
-        // Assign material (instanced so each note can have unique color)
+        // Material setup with instanced property block for performance
         meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = new Material(mat);
+        meshRenderer.sharedMaterial = mat;          // use shared for GPU instancing
         SetNeonColor(lane.isBlackKey);
 
         trailRenderer = GetComponent<TrailRenderer>();
         if (trailRenderer != null)
         {
-            trailRenderer.material = meshRenderer.material;
+            trailRenderer.material = mat;
             trailRenderer.time = 0.08f;
         }
+
+        isActive = true;
+        wasHit = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isActive) return;
 
-        // Move toward player (positive Z = forward)
-        transform.position += Vector3.forward * noteSpeed * Time.deltaTime;
+        // Move toward the target
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
-        // Miss: note has passed the keyboard surface (5cm overshoot tolerance)
-        if (transform.position.z > targetPosition.z + 0.05f)
+        // Check if the note has passed the target (overshot)
+        if (Vector3.Dot(transform.position - targetPosition, moveDirection) >= 0)
         {
+            // Note reached or passed the target without being hit -> miss
             OnMissed();
         }
     }
@@ -75,8 +87,6 @@ public class NoteObject : MonoBehaviour
     public void OnHit(bool correct)
     {
         wasHit = true;
-
-        // If correct, we can add visual feedback here (e.g., flash color, play sound)
         if (correct)
         {
             FeedbackController.Instance?.TriggerHit(midiNote);
@@ -85,45 +95,39 @@ public class NoteObject : MonoBehaviour
         else
         {
             SetMissColor();
-            Invoke(nameof(ReturnToPool), 0.3f); // delay to show miss color
+            Invoke(nameof(ReturnToPool), 0.3f);
         }
     }
 
-    public void OnMissed()
+    private void OnMissed()
     {
         if (!wasHit)
-        {
-            FeedbackController.Instance?.TriggerHit(midiNote);
-        }
+            FeedbackController.Instance?.TriggerMiss(midiNote);
         ReturnToPool();
     }
 
     private void SetNeonColor(bool isBlack)
     {
+        if (_mpb == null) _mpb = new MaterialPropertyBlock();
         Color[] palette = {
-            new Color(0f, 1f, 1f),      // Cyan
-            new Color(0.8f, 0f, 1f),    // Magenta
-            new Color(0f, 0.5f, 1f),    // Electric Blue
-            new Color(1f, 0f, 0.8f),    // Hot Pink
+            new Color(0f, 1f, 1f),        // Cyan
+            new Color(0.8f, 0f, 1f),      // Magenta/Purple
+            new Color(0f, 0.5f, 1f),      // Electric Blue
+            new Color(1f, 0f, 0.8f)       // Hot Pink
         };
-
-        int paletteIdx = (midiNote / 12) % palette.Length;
-        Color c = palette[paletteIdx];
-
-        // These two lines are what most people miss:
-        meshRenderer.material.EnableKeyword("_EMISSION");
-        meshRenderer.material.globalIlluminationFlags =
-            MaterialGlobalIlluminationFlags.RealtimeEmissive;
-
-        meshRenderer.material.SetColor(EmissiveColor, c * 3f);
-        meshRenderer.material.color = c * 0.6f;
+        Color c = palette[(midiNote / 12) % palette.Length];
+        _mpb.SetColor(EmissiveColor, c * 3f);
+        _mpb.SetColor(BaseColor, c * 0.6f);
+        meshRenderer.SetPropertyBlock(_mpb);
     }
 
     private void SetMissColor()
     {
+        if (_mpb == null) _mpb = new MaterialPropertyBlock();
         Color red = new Color(1f, 0.2f, 0f);
-        meshRenderer.material.SetColor(EmissiveColor, red * 2f);
-        meshRenderer.material.color = red;
+        _mpb.SetColor(EmissiveColor, red * 2f);
+        _mpb.SetColor(BaseColor, red);
+        meshRenderer.SetPropertyBlock(_mpb);
     }
 
     private void ReturnToPool()

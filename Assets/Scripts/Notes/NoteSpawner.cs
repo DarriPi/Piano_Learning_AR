@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -9,9 +9,9 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private SongData currentSong;
 
     [Header("Timing Parameters")]
-    [SerializeField] public float noteSpeed = 2.5f;        // metres/sec
-    [SerializeField] public float spawnDepth = 1.5f;  // metres behind keyboard
-    [SerializeField] public float timingOffset = 0.0f;     // calibration offset
+    [SerializeField] public float noteSpeed = 2.5f;        // metres/sec (now horizontal speed)
+    [SerializeField] public float spawnDistance = 0.5f;    // metres behind the keyboard
+    [SerializeField] public float timingOffset = 0.0f;
 
     [Header("References")]
     [SerializeField] private KeyboardMapper mapper;
@@ -19,15 +19,13 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private Material tapNoteMaterial;
     [SerializeField] private Material holdNoteMaterial;
 
-    private float songClock = 0f;       // seconds since song start
+    private float songClock = 0f;
     private bool isPlaying = false;
     private int nextNoteIdx = 0;
-
-    // Active notes tracked for hit detection
     private List<NoteObject> activeNotes = new();
 
-    // Pre-compute how many seconds before hit to spawn note
-    private float SpawnLeadTime => spawnDepth / noteSpeed;
+    // Pre‑compute how many seconds before hit to spawn note
+    private float SpawnLeadTime => spawnDistance / noteSpeed;
 
     void Awake()
     {
@@ -35,34 +33,14 @@ public class NoteSpawner : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-        // Find whichever IAudioDetector is active in scene
-        var detector = FindAnyObjectByType<StubAudioDetector>() as IAudioDetector
-            ?? FindAnyObjectByType<PitchDetector>() as IAudioDetector;
-
-        if (detector != null)
-        {
-            detector.OnNoteDetected += (midi, confidence) =>
-            {
-                if (confidence >= 0.7f)
-                    CheckHit(midi);
-            };
-            detector.StartListening();
-        }
-    }
-
     public void StartSong(SongData song = null)
     {
         if (song != null) currentSong = song;
         if (currentSong == null) { Debug.LogWarning("No SongData assigned!"); return; }
-
-        songClock = -SpawnLeadTime;  // Start before first note so notes have travel time
+        songClock = -SpawnLeadTime;
         nextNoteIdx = 0;
         isPlaying = true;
         activeNotes.Clear();
-
-        Debug.Log($"[NoteSpawner] Starting: {currentSong.songName} @ {currentSong.bpm} BPM");
     }
 
     public void StopSong()
@@ -76,16 +54,12 @@ public class NoteSpawner : MonoBehaviour
     void Update()
     {
         if (!isPlaying || currentSong == null) return;
-
         songClock += Time.deltaTime;
 
-        // Spawn notes that should appear now
         while (nextNoteIdx < currentSong.notes.Count)
         {
             var ev = currentSong.notes[nextNoteIdx];
             float hitTime = currentSong.BeatToSeconds(ev.beatTime) + timingOffset;
-
-            // Spawn when: current clock >= hitTime - lead time
             if (songClock >= hitTime - SpawnLeadTime)
             {
                 SpawnNote(ev, hitTime);
@@ -93,8 +67,6 @@ public class NoteSpawner : MonoBehaviour
             }
             else break;
         }
-
-        // Remove cleared notes from active list
         activeNotes.RemoveAll(n => n == null || !n.gameObject.activeSelf);
     }
 
@@ -112,26 +84,25 @@ public class NoteSpawner : MonoBehaviour
         var noteType = isHold ? NoteType.Hold : NoteType.Tap;
         var mat = isHold ? holdNoteMaterial : tapNoteMaterial;
 
+        // Movement direction: from back of keyboard to front (player)
+        Vector3 moveDir = mapper.transform.forward;   // must point toward the player
+
         NoteObject note = pool.Get();
         note.transform.SetParent(null);
-        note.Initialise(lane, noteSpeed, spawnDepth, hitTime, noteType, holdSec, mat);
-
+        note.Initialise(lane, moveDir, noteSpeed, spawnDistance, hitTime, noteType, holdSec, mat);
         activeNotes.Add(note);
     }
 
-    // Called by InputDetector when a note is played
     public void CheckHit(int midiNote)
     {
         float now = songClock;
         float window = 0.15f;   // ±150ms hit window
-
         NoteObject best = null;
         float bestDelta = float.MaxValue;
 
         foreach (var note in activeNotes)
         {
             if (note == null || note.midiNote != midiNote) continue;
-
             float delta = Mathf.Abs(note.targetHitTime - now);
             if (delta < window && delta < bestDelta)
             {

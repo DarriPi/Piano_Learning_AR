@@ -95,7 +95,6 @@ struct List_1_t41896DF347A129D13205BBFADE03DFB21E05E459;
 struct List_1_t4A80BCCFB0BC8742C8BB601365DB07226750573A;
 struct List_1_t70EE7982F45810D4B024CF720D910E67974A3094;
 struct List_1_tB0B308D151FBF226396B20253C1FF11CF7D10D3A;
-struct UnityEvent_1_tFE94844E0086443D87D620E4DCEFFEDA08BA19DE;
 struct KeyValuePair_2U5BU5D_t744F484D1E4FCF67CEF020E3C1D29CE675C61C77;
 struct KeyValuePair_2U5BU5D_t105762EC2DE353037ECAD13437FC19081314CE67;
 struct KeyValuePair_2U5BU5D_t23EB7B590043EB535E2B7A8C2765588E9D6DC674;
@@ -280,7 +279,6 @@ struct GameObject_t76FEDD663AB33C991A9C9A23129337651094216F;
 struct Gradient_tA7FEBE2FDB4929FFF6C997134841046F713DAC1E;
 struct GraphicsBuffer_t91FACD3CD78588C25C361C453D1A2FE055EC4AF1;
 struct IDictionary_t6D03155AF1FA9083817AA5B6AD7DEEACC26AB220;
-struct InputActionReference_t64730C6B41271E0983FC21BFB416169F5D6BC4A1;
 struct InputEvent_t10F727342D1A79DCFC06529C203BB61C194AEBC5;
 struct Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3;
 struct MaterialPropertyBlock_t2308669579033A857EFE6E4831909F638B27411D;
@@ -3402,8 +3400,6 @@ struct ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C
 	String_t* ___Title;
 	int32_t ___Button;
 	int32_t ___ButtonMode;
-	InputActionReference_t64730C6B41271E0983FC21BFB416169F5D6BC4A1* ___InputActionReference;
-	UnityEvent_1_tFE94844E0086443D87D620E4DCEFFEDA08BA19DE* ___CallbackWithContext;
 	UnityEvent_tDC2C3548799DBC91D1E3F3DE60083A66F4751977* ___Callback;
 };
 struct ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C_marshaled_pinvoke
@@ -3411,8 +3407,6 @@ struct ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C_marshaled_pin
 	char* ___Title;
 	int32_t ___Button;
 	int32_t ___ButtonMode;
-	InputActionReference_t64730C6B41271E0983FC21BFB416169F5D6BC4A1* ___InputActionReference;
-	UnityEvent_1_tFE94844E0086443D87D620E4DCEFFEDA08BA19DE* ___CallbackWithContext;
 	UnityEvent_tDC2C3548799DBC91D1E3F3DE60083A66F4751977* ___Callback;
 };
 struct ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C_marshaled_com
@@ -3420,8 +3414,6 @@ struct ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C_marshaled_com
 	Il2CppChar* ___Title;
 	int32_t ___Button;
 	int32_t ___ButtonMode;
-	InputActionReference_t64730C6B41271E0983FC21BFB416169F5D6BC4A1* ___InputActionReference;
-	UnityEvent_1_tFE94844E0086443D87D620E4DCEFFEDA08BA19DE* ___CallbackWithContext;
 	UnityEvent_tDC2C3548799DBC91D1E3F3DE60083A66F4751977* ___Callback;
 };
 struct JsonValue_t01DB320267C848E729A400EF2345979978F851D2 
@@ -10105,12 +10097,6 @@ struct ButtonClickActionU5BU5D_tF4F7652B56313FBAF9FD3DCEC7E302D3F1DA772A  : publ
 		m_Items[index] = value;
 		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___Title), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___InputActionReference), (void*)NULL);
-		#endif
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___CallbackWithContext), (void*)NULL);
-		#endif
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
 		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___Callback), (void*)NULL);
 		#endif
 	}
@@ -10126,12 +10112,6 @@ struct ButtonClickActionU5BU5D_tF4F7652B56313FBAF9FD3DCEC7E302D3F1DA772A  : publ
 	{
 		m_Items[index] = value;
 		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___Title), (void*)NULL);
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___InputActionReference), (void*)NULL);
-		#endif
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___CallbackWithContext), (void*)NULL);
-		#endif
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
 		Il2CppCodeGenWriteBarrier((void**)&((m_Items + index)->___Callback), (void*)NULL);
 		#endif
@@ -34150,24 +34130,12 @@ IL_0069:
 		*(ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_22 = L_24;
 		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_22)->___Title), (void*)NULL);
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_22)->___InputActionReference), (void*)NULL);
-		#endif
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_22)->___CallbackWithContext), (void*)NULL);
-		#endif
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
 		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_22)->___Callback), (void*)NULL);
 		#endif
 		ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C* L_25 = V_1;
 		ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C L_26 = V_2;
 		*(ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_25 = L_26;
 		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_25)->___Title), (void*)NULL);
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_25)->___InputActionReference), (void*)NULL);
-		#endif
-		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
-		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_25)->___CallbackWithContext), (void*)NULL);
-		#endif
 		#if IL2CPP_ENABLE_STRICT_WRITE_BARRIERS
 		Il2CppCodeGenWriteBarrier((void**)&(((ButtonClickAction_t8939474B9E19930B4546768B72C22DA5A7115A0C*)L_25)->___Callback), (void*)NULL);
 		#endif

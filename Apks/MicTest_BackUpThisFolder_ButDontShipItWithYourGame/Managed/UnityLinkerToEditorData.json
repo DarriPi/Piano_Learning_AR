@@ -565,6 +565,14 @@
             "icon": null
           },
           {
+            "name": "TrailRenderer",
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity"
+            ],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
             "name": "Transform",
             "scenes": [],
             "dependencyType": 1,
@@ -1026,13 +1034,17 @@
         "dependencies": [
           {
             "name": "ParticleSystem",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
           {
             "name": "ParticleSystemRenderer",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           }
