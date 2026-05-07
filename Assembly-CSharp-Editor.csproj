@@ -1303,8 +1303,8 @@
     <ProjectReference Include="Meta.XR.MultiplayerBlocks.Shared.csproj" />
     <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.Shared.csproj" />
     <ProjectReference Include="Oculus.Interaction.Editor.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.2D.Runtime.csproj" />
     <ProjectReference Include="MidiPlayer.Demo.csproj" />
+    <ProjectReference Include="Unity.RenderPipelines.Universal.2D.Runtime.csproj" />
     <ProjectReference Include="Meta.XR.Editor.PlayCompanion.csproj" />
     <ProjectReference Include="MidiPlayer.Run.csproj" />
     <ProjectReference Include="Meta.XR.Editor.Guide.About.csproj" />

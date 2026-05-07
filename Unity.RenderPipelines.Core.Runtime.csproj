@@ -192,9 +192,9 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\Stripping\IStripper.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\Debugging\Prefabs\Scripts\DebugUIHandlerGroup.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\Lighting\ProbeVolume\ProbeVolumeAsset.cs" />
-    <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\RenderPipeline\RenderPipelineGlobalSettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\Utilities\BitArray.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\Common\DynamicResolutionHandler.cs" />
+    <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\RenderPipeline\RenderPipelineGlobalSettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\PostProcessing\LensFlareOcclusionPermutation.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\Camera\CameraHistory.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@d6dfd1e235d5\Runtime\Debugging\DebugDisplaySettingsStats.cs" />

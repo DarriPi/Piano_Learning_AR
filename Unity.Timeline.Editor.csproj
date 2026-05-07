@@ -159,8 +159,8 @@
     <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\Items\MarkerItem.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\Undo\ApplyDefaultUndoAttribute.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\treeview\Control.cs" />
-    <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\Signals\SignalEmitterInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\Window\TimelineWindow_Navigator.cs" />
+    <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\Signals\SignalEmitterInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\ObjectIdExtension.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\Undo\UndoScope.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@7f8b2fb101b6\Editor\TimelineSelection.cs" />

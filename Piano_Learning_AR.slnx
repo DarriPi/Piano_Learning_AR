@@ -66,10 +66,10 @@
   <Project Path="Unity.XR.Hands.Analytics.Editor.csproj" />
   <Project Path="Meta.XR.BuildingBlocks.DepthAPI.Editor.csproj" />
   <Project Path="Meta.XR.ImmersiveDebugger.Editor.csproj" />
+  <Project Path="MidiPlayer.Editor.csproj" />
   <Project Path="Unity.XR.CoreUtils.Editor.csproj" />
   <Project Path="MidiPlayer.Demo.csproj" />
   <Project Path="Unity.AI.Navigation.Editor.csproj" />
-  <Project Path="MidiPlayer.Editor.csproj" />
   <Project Path="MidiPlayer.Run.csproj" />
   <Project Path="Unity.XR.OpenXR.Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />

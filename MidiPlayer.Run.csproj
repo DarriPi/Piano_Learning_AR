@@ -106,8 +106,8 @@
     <Compile Include="Assets\MidiPlayer\Scripts\NAudio\MidiInMessageEventArgs.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\MPTKGameObject\MPTKEnum.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\NAudio\MidiController.cs" />
-    <Compile Include="Assets\MidiPlayer\Scripts\MPTKGameObject\MidiFileEditorPlayer.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\FluidSynth\fluid_dsp_float.cs" />
+    <Compile Include="Assets\MidiPlayer\Scripts\MPTKGameObject\MidiFileEditorPlayer.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\MPTKSoundFont\HiGen.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\NAudio\SequencerSpecificEvent.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\MPTKSoundFont\HiInstrument.cs" />
@@ -130,8 +130,8 @@
     <Compile Include="Assets\MidiPlayer\Scripts\FluidSynth\fluid_defsfont.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\NAudio\RawMetaEvent.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\MPTKGameObject\MPTKEffectSoundFont.cs" />
-    <Compile Include="Assets\MidiPlayer\Scripts\MPTKSoundFont\SFLoad.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\FluidSynth\fluid_tuning.cs" />
+    <Compile Include="Assets\MidiPlayer\Scripts\MPTKSoundFont\SFLoad.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\MPTKUtil\MaestroException.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\FluidSynth\fluid_chorus.cs" />
     <Compile Include="Assets\MidiPlayer\Scripts\MPTKGameObject\MidiPlayerGlobal.cs" />
