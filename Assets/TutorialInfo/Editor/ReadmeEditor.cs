@@ -1,128 +1,164 @@
-﻿using UnityEngine;
-using UnityEditor;
+using MidiPlayerTK;
 using System.IO;
-using UnityEngine.UIElements;
+using UnityEditor;
+using UnityEngine;
 
-[CustomEditor(typeof(Readme))]
-[InitializeOnLoad]
-sealed class ReadmeEditor : Editor
+namespace MidiPlayerTK
 {
-    const string k_ShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
-    const string k_ReadmeSourceDirectory = "Assets/TutorialInfo";
-
-    static ReadmeEditor()
-        => EditorApplication.delayCall += SelectReadmeAutomatically;
-
-    static void SelectReadmeAutomatically()
+    [CustomEditor(typeof(Readme))]
+    [InitializeOnLoad]
+    public class ReadmeEditor : Editor
     {
-        if (!SessionState.GetBool(k_ShowedReadmeSessionStateName, false))
-        {
-            var readme = SelectReadme();
-            SessionState.SetBool(k_ShowedReadmeSessionStateName, true);
 
-            if (readme && !readme.loadedLayout)
-            {
-                EditorUtility.LoadWindowLayout(Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt"));
-                readme.loadedLayout = true;
-            }
-        }
-    }
+        //static string kShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
 
-    static Readme SelectReadme()
-    {
-        var ids = AssetDatabase.FindAssets("Readme t:Readme");
-        if (ids.Length != 1)
+        static float kSpace = 16f;
+
+        static ReadmeEditor()
         {
-            Debug.Log("Couldn't find a readme");
-            return null;
+            //EditorApplication.delayCall += SelectReadmeAutomatically;
         }
 
-        var readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(ids[0]));
-        Selection.objects = new UnityEngine.Object[] { readmeObject };
-        return (Readme)readmeObject;
-    }
-    
-    void RemoveTutorial()
-    {
-        if (EditorUtility.DisplayDialog("Remove Readme Assets",
-            
-            $"All contents under {k_ReadmeSourceDirectory} will be removed, are you sure you want to proceed?",
-            "Proceed",
-            "Cancel"))
+        //static void SelectReadmeAutomatically()
+        //{
+        //    if (!SessionState.GetBool(kShowedReadmeSessionStateName, false))
+        //    {
+        //        var readme = SelectReadme();
+        //        SessionState.SetBool(kShowedReadmeSessionStateName, true);
+
+        //        if (readme && !readme.loadedLayout)
+        //        {
+        //            LoadLayout();
+        //            readme.loadedLayout = true;
+        //        }
+        //    }
+        //}
+
+        //static void LoadLayout()
+        //{
+        //    var assembly = typeof(EditorApplication).Assembly;
+        //    var windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
+        //    var method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
+        //    method.Invoke(null, new object[] { Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt"), false });
+        //}
+
+        [MenuItem(Constant.MENU_MAESTRO + "/Show Tutorial Instructions", false, 70)]
+        static Readme SelectReadme()
         {
-            if (Directory.Exists(k_ReadmeSourceDirectory))
+            var ids = AssetDatabase.FindAssets("Readme t:Readme");
+            if (ids.Length == 1)
             {
-                FileUtil.DeleteFileOrDirectory(k_ReadmeSourceDirectory);
-                FileUtil.DeleteFileOrDirectory(k_ReadmeSourceDirectory + ".meta");
+                var readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(ids[0]));
+
+                Selection.objects = new UnityEngine.Object[] { readmeObject };
+
+                return (Readme)readmeObject;
             }
             else
             {
-                Debug.Log($"Could not find the Readme folder at {k_ReadmeSourceDirectory}");
+                Debug.Log("Couldn't find a readme");
+                return null;
             }
-
-            var readmeAsset = SelectReadme();
-            if (readmeAsset != null)
-            {
-                var path = AssetDatabase.GetAssetPath(readmeAsset);
-                FileUtil.DeleteFileOrDirectory(path + ".meta");
-                FileUtil.DeleteFileOrDirectory(path);
-            }
-
-            AssetDatabase.Refresh();
         }
-    }
 
-    //Remove ImGUI
-    protected sealed override void OnHeaderGUI() { }
-    public sealed override void OnInspectorGUI() { }
-
-    public override VisualElement CreateInspectorGUI()
-    {
-        var readme = (Readme)target;
-
-        VisualElement root = new();
-        root.styleSheets.Add(readme.commonStyle);
-        root.styleSheets.Add(EditorGUIUtility.isProSkin ? readme.darkStyle : readme.lightStyle);
-
-        VisualElement ChainWithClass(VisualElement created, string className)
+        [MenuItem(Constant.MENU_MAESTRO + "/Open Logs Folder", false, 71)]
+        static void OpenFolder(MenuCommand menuCommand)
         {
-            created.AddToClassList(className);
-            return created;
+            Application.OpenURL("file://" + Application.persistentDataPath);
         }
 
-        //Header
-        VisualElement title = new();
-        title.AddToClassList("title");
-        title.Add(ChainWithClass(new Image() { image = readme.icon }, "title__icon"));
-        title.Add(ChainWithClass(new Label(readme.title), "title__text"));
-        root.Add(title);
-
-        //Content
-        foreach (var section in readme.sections)
+        protected override void OnHeaderGUI()
         {
-            VisualElement part = new();
-            part.AddToClassList("section");
+            var readme = (Readme)target;
+            Init();
 
-            if (!string.IsNullOrEmpty(section.heading))
-                part.Add(ChainWithClass(new Label(section.heading), "section__header"));
+            var iconWidth = Mathf.Min(EditorGUIUtility.currentViewWidth / 3f - 20f, 128f);
 
-            if (!string.IsNullOrEmpty(section.text))
-                part.Add(ChainWithClass(new Label(section.text), "section__body"));
-
-            if (!string.IsNullOrEmpty(section.linkText))
+            GUILayout.BeginHorizontal("In BigTitle");
             {
-                var link = ChainWithClass(new Label(section.linkText), "section__link");
-                link.RegisterCallback<ClickEvent>(evt => Application.OpenURL(section.url));
-                part.Add(link);
+                GUILayout.Label(readme.icon, GUILayout.Width(iconWidth), GUILayout.Height(iconWidth));
+                GUILayout.Label(readme.title, TitleStyle);
             }
-
-            root.Add(part);
+            GUILayout.EndHorizontal();
         }
 
-        var button = new Button(RemoveTutorial) { text = "Remove Readme Assets" };
-        button.AddToClassList("remove-readme-button");
-        root.Add(button);
+        public override void OnInspectorGUI()
+        {
+            var readme = (Readme)target;
+            Init();
 
-        return root;
+            foreach (var section in readme.sections)
+            {
+                if (!string.IsNullOrEmpty(section.heading))
+                {
+                    GUILayout.Label(section.heading, HeadingStyle);
+                }
+                if (!string.IsNullOrEmpty(section.text))
+                {
+                    GUILayout.Label(section.text, BodyStyle);
+                }
+                if (!string.IsNullOrEmpty(section.linkText))
+                {
+                    if (LinkLabel(new GUIContent(section.linkText)))
+                    {
+                        Application.OpenURL(section.url);
+                    }
+                }
+                GUILayout.Space(kSpace);
+            }
+        }
+
+
+        bool m_Initialized;
+
+        GUIStyle LinkStyle { get { return m_LinkStyle; } }
+        [SerializeField] GUIStyle m_LinkStyle;
+
+        GUIStyle TitleStyle { get { return m_TitleStyle; } }
+        [SerializeField] GUIStyle m_TitleStyle;
+
+        GUIStyle HeadingStyle { get { return m_HeadingStyle; } }
+        [SerializeField] GUIStyle m_HeadingStyle;
+
+        GUIStyle BodyStyle { get { return m_BodyStyle; } }
+        [SerializeField] GUIStyle m_BodyStyle;
+
+        void Init()
+        {
+            if (m_Initialized)
+                return;
+            m_BodyStyle = new GUIStyle(EditorStyles.label);
+            m_BodyStyle.wordWrap = true;
+            m_BodyStyle.fontSize = 14;
+
+            m_TitleStyle = new GUIStyle(m_BodyStyle);
+            m_TitleStyle.fontSize = 26;
+
+            m_HeadingStyle = new GUIStyle(m_BodyStyle);
+            m_HeadingStyle.fontSize = 18;
+
+            m_LinkStyle = new GUIStyle(m_BodyStyle);
+            m_LinkStyle.wordWrap = false;
+            // Match selection color which works nicely for both light and dark skins
+            m_LinkStyle.normal.textColor = new Color(0x00 / 255f, 0x78 / 255f, 0xDA / 255f, 1f);
+            m_LinkStyle.stretchWidth = false;
+
+            m_Initialized = true;
+        }
+
+        bool LinkLabel(GUIContent label, params GUILayoutOption[] options)
+        {
+            var position = GUILayoutUtility.GetRect(label, LinkStyle, options);
+
+            Handles.BeginGUI();
+            Handles.color = LinkStyle.normal.textColor;
+            Handles.DrawLine(new Vector3(position.xMin, position.yMax), new Vector3(position.xMax, position.yMax));
+            Handles.color = Color.white;
+            Handles.EndGUI();
+
+            EditorGUIUtility.AddCursorRect(position, MouseCursor.Link);
+
+            return GUI.Button(position, label, LinkStyle);
+        }
     }
 }

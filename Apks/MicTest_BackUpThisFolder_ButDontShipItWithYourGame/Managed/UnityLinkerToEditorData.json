@@ -124,6 +124,12 @@
             "icon": null
           },
           {
+            "name": "AudioChorusFilter",
+            "scenes": [],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
             "name": "AudioClip",
             "scenes": [
               "Assets/Scenes/SampleScene.unity"
@@ -132,10 +138,22 @@
             "icon": null
           },
           {
+            "name": "AudioFilter",
+            "scenes": [],
+            "dependencyType": 1,
+            "icon": null
+          },
+          {
             "name": "AudioListener",
             "scenes": [
               "Assets/Scenes/SampleScene.unity"
             ],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "AudioLowPassFilter",
+            "scenes": [],
             "dependencyType": 0,
             "icon": null
           },
@@ -150,6 +168,12 @@
             "scenes": [
               "Assets/Scenes/SampleScene.unity"
             ],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "AudioReverbFilter",
+            "scenes": [],
             "dependencyType": 0,
             "icon": null
           },
@@ -232,6 +256,12 @@
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 1,
+            "icon": null
+          },
+          {
+            "name": "FlareLayer",
+            "scenes": [],
+            "dependencyType": 0,
             "icon": null
           },
           {
@@ -566,9 +596,7 @@
           },
           {
             "name": "TrailRenderer",
-            "scenes": [
-              "Assets/Scenes/SampleScene.unity"
-            ],
+            "scenes": [],
             "dependencyType": 0,
             "icon": null
           },
@@ -1034,17 +1062,13 @@
         "dependencies": [
           {
             "name": "ParticleSystem",
-            "scenes": [
-              "Assets/Scenes/SampleScene.unity"
-            ],
+            "scenes": [],
             "dependencyType": 0,
             "icon": null
           },
           {
             "name": "ParticleSystemRenderer",
-            "scenes": [
-              "Assets/Scenes/SampleScene.unity"
-            ],
+            "scenes": [],
             "dependencyType": 0,
             "icon": null
           }
@@ -1109,6 +1133,12 @@
             "name": "PhysicsManager",
             "scenes": [],
             "dependencyType": 1,
+            "icon": null
+          },
+          {
+            "name": "PhysicsMaterial",
+            "scenes": [],
+            "dependencyType": 0,
             "icon": null
           },
           {

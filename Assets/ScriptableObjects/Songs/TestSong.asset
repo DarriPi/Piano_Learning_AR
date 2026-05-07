@@ -15,27 +15,12 @@ MonoBehaviour:
   songName: TestSong
   bpm: 30
   notes:
-  - midiNote: 70
-    beatTime: 5
-    duration: 0
-  - midiNote: 0
+  - midiNote: 28
     beatTime: 1
     duration: 0
-  - midiNote: 70
+  - midiNote: 65
     beatTime: 2
     duration: 0
-  - midiNote: 0
-    beatTime: 3
-    duration: 0
-  - midiNote: 70
+  - midiNote: 103
     beatTime: 4
-    duration: 0
-  - midiNote: 0
-    beatTime: 5
-    duration: 0
-  - midiNote: 64
-    beatTime: 6
-    duration: 0
-  - midiNote: 0
-    beatTime: 6
-    duration: 0
+    duration: 1
