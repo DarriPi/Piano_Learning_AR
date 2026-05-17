@@ -49,30 +49,23 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Core\InputDetector.cs" />
-    <Compile Include="Assets\Scripts\TestMode\TestModeKeyboard.cs" />
     <Compile Include="Assets\ThirdParty\ARMusicRepo\MidiNoteVisualiser.cs" />
-    <Compile Include="Assets\Scripts\Visual\NoteLabelManager.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardVisualizer.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Demo\SongLauncher.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\FallingNotes\FallingNote.cs" />
     <Compile Include="Assets\TutorialInfo\Readme.cs" />
-    <Compile Include="Assets\Scripts\Debug\QuickTestRunner.cs" />
     <Compile Include="Assets\ThirdParty\ARMusicRepo\MidiNoteLaneGrid.cs" />
-    <Compile Include="Assets\Scripts\Notes\NoteSpawner.cs" />
-    <Compile Include="Assets\Scripts\MicDebugger.cs" />
-    <Compile Include="Assets\Scripts\MicrophoneManager.cs" />
-    <Compile Include="Assets\Scripts\Core\KeyboardMapper.cs" />
-    <Compile Include="Assets\Scripts\Visual\NeonGrid.cs" />
-    <Compile Include="Assets\Scripts\Audio\PitchDetector.cs" />
-    <Compile Include="Assets\Scripts\Instructions.cs" />
-    <Compile Include="Assets\Scripts\Debug\LaneVisualiser.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Core\NoteUtils.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Core\Song.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Midi\MidiSongLoader.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Core\PianoNote.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardConfig.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardCalibrator.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Demo\FallingNotesDemo.cs" />
     <Compile Include="Assets\ThirdParty\ARMusicRepo\AnchorSpawner.cs" />
-    <Compile Include="Assets\Scripts\Audio\StubAudioDetector.cs" />
-    <Compile Include="Assets\Scripts\Core\GameModeManager.cs" />
-    <Compile Include="Assets\Scripts\Classes\AudioPitchDetector.cs" />
-    <Compile Include="Assets\Scripts\Notes\NotePool.cs" />
-    <Compile Include="Assets\Scripts\Data\SongData.cs" />
-    <Compile Include="Assets\Scripts\Audio\IAudioDetector.cs" />
-    <Compile Include="Assets\Scripts\Core\FeedbackController.cs" />
-    <Compile Include="Assets\Scripts\Notes\NoteObject.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardLayout.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Midi\MidiFileParser.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\FallingNotes\FallingNotesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

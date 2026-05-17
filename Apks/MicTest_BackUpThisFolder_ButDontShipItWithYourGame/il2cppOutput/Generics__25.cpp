@@ -23363,7 +23363,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* Dictionary_2_System_Collection
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
-// Method Definition Index: 81825
+// Method Definition Index: 81821
 IL2CPP_MANAGED_FORCE_INLINE IL2CPP_METHOD_ATTR int32_t CoroutineHandle_GetHashCode_mAF7D1A81CE88AE015E9E38EC76C6BFDEAF55B9D6_inline (CoroutineHandle_t8D81E23380F6BB1E635E8B8C15D49E6728292681* __this, const RuntimeMethod* method) 
 {
 	{

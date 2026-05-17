@@ -72,7 +72,6 @@
   <Project Path="Unity.AI.Navigation.Editor.csproj" />
   <Project Path="MidiPlayer.Run.csproj" />
   <Project Path="Unity.XR.OpenXR.Editor.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Oculus.Interaction.UnityXR.csproj" />
   <Project Path="Unity.Multiplayer.Center.Common.csproj" />
   <Project Path="Unity.XR.Management.Editor.csproj" />
@@ -83,6 +82,7 @@
   <Project Path="Unity.InputSystem.ForUI.csproj" />
   <Project Path="Meta.XR.Editor.RemoteContent.csproj" />
   <Project Path="Unity.AI.Navigation.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.Collections.CodeGen.csproj" />
   <Project Path="Meta.XR.MetaWand.Editor.csproj" />
   <Project Path="Unity.XR.Management.csproj" />

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 561c89c4830eb944080080190c784841, type: 3}
+  m_Name: Default76KeyConfig
+  m_EditorClassIdentifier: Assembly-CSharp::PianoLearningCore.KeyboardConfig
+  startMidiNote: 28
+  endMidiNote: 103
+  whiteKeyWidth: 0.0235
+  whiteKeyLength: 0.15
+  blackKeyWidth: 0.013
+  blackKeyLength: 0.095
+  blackKeyHeightAboveWhite: 0.012
+  hitLineZ: 0

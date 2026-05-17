@@ -125,7 +125,9 @@
           },
           {
             "name": "AudioChorusFilter",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
@@ -153,7 +155,9 @@
           },
           {
             "name": "AudioLowPassFilter",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
@@ -173,12 +177,22 @@
           },
           {
             "name": "AudioReverbFilter",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
           {
             "name": "AudioSource",
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity"
+            ],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "Behaviour",
             "scenes": [
               "Assets/Scenes/SampleScene.unity"
             ],
