@@ -22,6 +22,7 @@
   <Project Path="Unity.XR.OpenXR.csproj" />
   <Project Path="Oculus.Interaction.csproj" />
   <Project Path="Unity.Burst.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Oculus.VR.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Flow.Editor.csproj" />
   <Project Path="Oculus.VR.Scripts.Editor.csproj" />
@@ -82,7 +83,6 @@
   <Project Path="Unity.InputSystem.ForUI.csproj" />
   <Project Path="Meta.XR.Editor.RemoteContent.csproj" />
   <Project Path="Unity.AI.Navigation.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.Collections.CodeGen.csproj" />
   <Project Path="Meta.XR.MetaWand.Editor.csproj" />
   <Project Path="Unity.XR.Management.csproj" />

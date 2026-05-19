@@ -16,8 +16,8 @@ static Il2CppMethodPointer s_methodPointers[2] =
 };
 static const int32_t s_InvokerIndices[2] = 
 {
-	32284,
-	19520,
+	32343,
+	19571,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_MidiPlayer_Editor_CodeGenModule;
 const Il2CppCodeGenModule g_MidiPlayer_Editor_CodeGenModule = 
