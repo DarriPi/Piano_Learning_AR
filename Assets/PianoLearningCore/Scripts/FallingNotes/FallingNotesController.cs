@@ -142,6 +142,22 @@ namespace PianoLearningCore
             }
         }
 
+        // ---------------- Query ----------------
+
+        /// <summary>
+        /// Returns the first currently-active <see cref="FallingNote"/> whose MIDI number matches,
+        /// or null if none is on screen. Used by NoteEvaluator to flash feedback colours.
+        /// </summary>
+        public FallingNote FindActiveNote(int midiNumber)
+        {
+            foreach (var fn in _activeNotes)
+            {
+                if (fn != null && fn.note.midiNumber == midiNumber)
+                    return fn;
+            }
+            return null;
+        }
+
         // ---------------- Spawning ----------------
 
         private void SpawnUpcomingNotes()

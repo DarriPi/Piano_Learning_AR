@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace PianoLearningCore
@@ -24,6 +25,10 @@ namespace PianoLearningCore
         private float _width;  // size along X
         private float _thickness; // size along Y
 
+        private MeshRenderer _renderer;
+        private Color        _originalColor;
+        private Coroutine    _feedbackCoroutine;
+
         public void Initialize(PianoNote n, FallingNotesController controller, KeyboardLayout layout)
         {
             note = n;
@@ -42,6 +47,10 @@ namespace PianoLearningCore
 
             // Set scale once - it doesn't change over time.
             transform.localScale = new Vector3(_width, _thickness, _length);
+
+            _renderer = GetComponent<MeshRenderer>();
+            if (_renderer != null)
+                _originalColor = GetMaterialColor(_renderer.material);
 
             UpdatePosition();
         }
@@ -68,6 +77,38 @@ namespace PianoLearningCore
         public bool IsFullyPast(float currentTime)
         {
             return currentTime > note.startTime + note.duration;
+        }
+
+        /// <summary>
+        /// Flash the note block with <paramref name="color"/> for <paramref name="duration"/> seconds,
+        /// then restore the original material color. Any in-progress flash is cancelled first.
+        /// </summary>
+        public void SetFeedbackColor(Color color, float duration)
+        {
+            if (_renderer == null) return;
+            if (_feedbackCoroutine != null) StopCoroutine(_feedbackCoroutine);
+            _feedbackCoroutine = StartCoroutine(FeedbackColorRoutine(color, duration));
+        }
+
+        private IEnumerator FeedbackColorRoutine(Color color, float duration)
+        {
+            SetMaterialColor(_renderer.material, color);
+            yield return new WaitForSeconds(duration);
+            SetMaterialColor(_renderer.material, _originalColor);
+            _feedbackCoroutine = null;
+        }
+
+        private static Color GetMaterialColor(Material m)
+        {
+            if (m.HasProperty("_BaseColor")) return m.GetColor("_BaseColor");
+            if (m.HasProperty("_Color"))     return m.GetColor("_Color");
+            return Color.white;
+        }
+
+        private static void SetMaterialColor(Material m, Color c)
+        {
+            if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", c);
+            else if (m.HasProperty("_Color")) m.SetColor("_Color", c);
         }
     }
 }
