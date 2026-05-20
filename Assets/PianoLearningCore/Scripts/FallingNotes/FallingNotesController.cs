@@ -43,8 +43,17 @@ namespace PianoLearningCore
         [Tooltip("If true, playback starts automatically once a song is loaded.")]
         public bool autoStart = true;
 
-        [Tooltip("Wait this many seconds at the start of playback so the first notes can fall in from the back.")]
+        [Tooltip("Real-time countdown (seconds) before the song starts. Counts down at real " +
+                 "speed regardless of playbackSpeed, so the player always has the same prep time. " +
+                 "Each remaining whole second is logged to the Console for debugging.")]
         public float startDelay = 0f;
+
+        [Tooltip("Multiplier on song playback speed. 1.0 = normal tempo. 0.5 = half speed " +
+                 "(notes fall slower, hit window is wider in real time — great for testing or " +
+                 "for beginner difficulty). Affects everything that reads CurrentTime, " +
+                 "including the NoteEvaluator hit window, so timing scoring stays consistent.")]
+        [Range(0.1f, 2f)]
+        public float playbackSpeed = 1f;
 
         // ----- Public read-only state -----
 
@@ -62,6 +71,7 @@ namespace PianoLearningCore
 
         private int _nextSpawnIndex;
         private readonly List<FallingNote> _activeNotes = new List<FallingNote>();
+        private int _lastCountdownLogged = int.MaxValue;
 
         private void Awake()
         {
@@ -77,18 +87,39 @@ namespace PianoLearningCore
         {
             if (!IsPlaying || Song == null) return;
 
-            CurrentTime += Time.deltaTime;
+            // Pre-roll: count down in REAL time so the player always gets the same prep
+            // window regardless of playbackSpeed. Once we cross zero, playbackSpeed kicks in.
+            if (CurrentTime < 0f)
+            {
+                CurrentTime += Time.deltaTime;
+                LogCountdownIfChanged();
+            }
+            else
+            {
+                if (_lastCountdownLogged != 0)
+                {
+                    Debug.Log("[FallingNotesController] GO!");
+                    _lastCountdownLogged = 0;
+                }
+                CurrentTime += Time.deltaTime * playbackSpeed;
+            }
 
             SpawnUpcomingNotes();
             DespawnFinishedNotes();
 
-            if (Song != null
-                && _nextSpawnIndex >= Song.notes.Count
-                && _activeNotes.Count == 0)
+            if (_nextSpawnIndex >= Song.notes.Count && _activeNotes.Count == 0)
             {
                 IsFinished = true;
                 IsPlaying = false;
             }
+        }
+
+        private void LogCountdownIfChanged()
+        {
+            int secondsLeft = Mathf.CeilToInt(-CurrentTime);
+            if (secondsLeft <= 0 || secondsLeft == _lastCountdownLogged) return;
+            _lastCountdownLogged = secondsLeft;
+            Debug.Log($"[FallingNotesController] Starting in {secondsLeft}...");
         }
 
         // ---------------- Public controls ----------------
@@ -100,6 +131,7 @@ namespace PianoLearningCore
             CurrentTime = -startDelay; // negative time = pre-roll
             _nextSpawnIndex = 0;
             IsFinished = false;
+            _lastCountdownLogged = int.MaxValue;
             if (autoStart) Play();
         }
 
@@ -118,6 +150,7 @@ namespace PianoLearningCore
             IsFinished = false;
             CurrentTime = -startDelay;
             _nextSpawnIndex = 0;
+            _lastCountdownLogged = int.MaxValue;
             ClearActiveNotes();
         }
 

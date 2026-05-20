@@ -6,18 +6,21 @@ namespace PianoLearningCore
 {
     /// <summary>
     /// Compares notes detected by <see cref="PianoAudioDetector"/> against the notes
-    /// currently expected by <see cref="FallingNotesController"/>, and fires events for
-    /// correct hits, wrong notes, and missed notes.
+    /// currently expected by <see cref="FallingNotesController"/>, drives the visual
+    /// feedback colours on the falling-note blocks, and tracks the score.
     ///
-    /// Also drives the visual feedback colours on the falling note blocks.
+    /// Listens to <see cref="PianoAudioDetector.OnNoteOn"/>, which fires exactly once
+    /// per detected keystroke (debounced and harmonic-suppressed upstream). This means
+    /// each press is judged once, not many times per second as the raw detection feed
+    /// would do.
     ///
     /// Scoring (per note):
-    ///   Correct  : +100 × timing multiplier (1.0 at perfect, 0.5 at edge of window)
-    ///   Incorrect: +0   (wrong note played while another was expected)
-    ///   Missed   : +0   (note passed the hit window without any detection)
+    ///   Correct  : pointsPerNote * timingMultiplier (1.0 at perfect, edgeFraction at window edge)
+    ///   Incorrect: 0  (a wrong note was played while another was expected)
+    ///   Missed   : 0  (a note passed its hit window without being played)
     ///
-    /// Attach this to any GameObject. Wire up the two references in the Inspector,
-    /// then call ResetScore() before each song.
+    /// Attach this to any GameObject (or the same one as PianoAudioDetector for clarity).
+    /// Wire up the two References in the Inspector and call ResetScore() before each song.
     /// </summary>
     [DisallowMultipleComponent]
     public class NoteEvaluator : MonoBehaviour
@@ -27,20 +30,29 @@ namespace PianoLearningCore
         // ----------------------------------------------------------------
 
         [Header("References")]
-        [Tooltip("The PianoAudioDetector that supplies detected MIDI notes each frame.")]
+        [Tooltip("The PianoAudioDetector that supplies note-on events.")]
         public PianoAudioDetector audioDetector;
 
-        [Tooltip("The FallingNotesController driving playback.")]
+        [Tooltip("The FallingNotesController driving song playback.")]
         public FallingNotesController fallingNotesController;
 
         [Header("Timing")]
-        [Tooltip("Seconds before/after a note's start time in which a detection counts as correct. " +
-                 "±150 ms is a comfortable window that still rewards accurate playing.")]
+        [Tooltip("Seconds before/after a note's start time in which a press counts as correct. " +
+                 "+/-150 ms is a comfortable window that still rewards accurate playing.")]
         public float hitWindowSeconds = 0.15f;
 
-        [Tooltip("Extra seconds after the hit window closes before a note is officially marked missed. " +
-                 "Gives a small grace period for slow analysisInterval ticks.")]
-        public float missGraceSeconds = 0.06f;
+        [Tooltip("Extra seconds after the hit window closes before a note is marked missed. " +
+                 "Gives a small grace period for FFT-detection latency.")]
+        public float missGraceSeconds = 0.05f;
+
+        [Header("Scoring")]
+        [Tooltip("Maximum points awarded for a perfectly-timed hit.")]
+        public int pointsPerNote = 100;
+
+        [Range(0.1f, 1f)]
+        [Tooltip("Fraction of pointsPerNote awarded for a hit at the very edge of the window. " +
+                 "0.5 = a barely-on-time hit is worth half a perfect hit.")]
+        public float edgeWindowScoreFraction = 0.5f;
 
         [Header("Visual Feedback")]
         public Color correctColor   = new Color(0.15f, 0.90f, 0.30f, 1f); // green
@@ -48,23 +60,27 @@ namespace PianoLearningCore
         public Color missedColor    = new Color(0.50f, 0.50f, 0.50f, 1f); // grey
 
         [Tooltip("How long (seconds) the feedback colour stays on a note block.")]
-        public float feedbackDuration = 0.30f;
+        public float feedbackDuration = 0.40f;
+
+        [Header("Debug")]
+        [Tooltip("Print one line per HIT / WRONG / MISS to the Console.")]
+        public bool logEvents = false;
 
         // ----------------------------------------------------------------
         // Events
         // ----------------------------------------------------------------
 
-        /// <summary>A detected note matched the expected note within the hit window.</summary>
-        public event Action<int> OnNoteCorrect;
+        /// <summary>A detected note matched an expected note in the hit window. (midi, points)</summary>
+        public event Action<int, int> OnNoteCorrect;
 
-        /// <summary>A note was detected but it didn't match anything expected right now.</summary>
+        /// <summary>A note was played that didn't match any expected note in the hit window.</summary>
         public event Action<int> OnNoteIncorrect;
 
-        /// <summary>An expected note passed its hit window without being detected.</summary>
+        /// <summary>An expected note passed its hit window without being played.</summary>
         public event Action<int> OnNoteMissed;
 
-        /// <summary>Fired after every song note has been judged (last note missed or correct).</summary>
-        public event Action<int, int, int, int> OnSongComplete; // score, correct, incorrect, missed
+        /// <summary>Fires once all song notes have been judged. (score, correct, incorrect, missed)</summary>
+        public event Action<int, int, int, int> OnSongComplete;
 
         // ----------------------------------------------------------------
         // Public read-only scoring
@@ -74,15 +90,18 @@ namespace PianoLearningCore
         public int NotesCorrect   { get; private set; }
         public int NotesIncorrect { get; private set; }
         public int NotesMissed    { get; private set; }
-
-        /// <summary>Total notes in the song (set when a song is loaded).</summary>
         public int TotalNotes     { get; private set; }
+
+        /// <summary>NotesCorrect as a percentage of TotalNotes (0..100).</summary>
+        public float AccuracyPercent => TotalNotes == 0
+            ? 0f
+            : NotesCorrect / (float)TotalNotes * 100f;
 
         // ----------------------------------------------------------------
         // Internals
         // ----------------------------------------------------------------
 
-        // Indices (into Song.notes) that have already been judged (hit or missed).
+        // Song-note indices already judged (hit or missed); prevents double-counting.
         private readonly HashSet<int> _judgedIndices = new HashSet<int>();
         private bool _songCompleteFired;
 
@@ -93,13 +112,13 @@ namespace PianoLearningCore
         private void OnEnable()
         {
             if (audioDetector != null)
-                audioDetector.OnNotesDetected += HandleDetection;
+                audioDetector.OnNoteOn += HandleNoteOn;
         }
 
         private void OnDisable()
         {
             if (audioDetector != null)
-                audioDetector.OnNotesDetected -= HandleDetection;
+                audioDetector.OnNoteOn -= HandleNoteOn;
         }
 
         private void Update()
@@ -112,148 +131,171 @@ namespace PianoLearningCore
         // Public API
         // ----------------------------------------------------------------
 
-        /// <summary>Reset all scores and judgement state. Call this before starting a new song.</summary>
+        /// <summary>Reset score and judgement state. Call this before starting a new song.</summary>
         public void ResetScore()
         {
-            Score = 0;
-            NotesCorrect  = 0;
-            NotesIncorrect = 0;
-            NotesMissed   = 0;
+            Score = NotesCorrect = NotesIncorrect = NotesMissed = 0;
             _judgedIndices.Clear();
             _songCompleteFired = false;
-
-            TotalNotes = (fallingNotesController?.Song != null)
+            TotalNotes = fallingNotesController?.Song != null
                 ? fallingNotesController.Song.notes.Count
                 : 0;
         }
 
         // ----------------------------------------------------------------
-        // Detection handler (called by PianoAudioDetector.OnNotesDetected)
+        // Detection handler — one call per keystroke
         // ----------------------------------------------------------------
 
-        private void HandleDetection(int[] detectedMidi)
+        private void HandleNoteOn(int detectedMidi)
         {
             if (!IsControllerReady()) return;
 
-            float now    = fallingNotesController.CurrentTime;
-            var   notes  = fallingNotesController.Song.notes;
+            float now = fallingNotesController.CurrentTime;
+            var notes = fallingNotesController.Song.notes;
 
-            foreach (int detected in detectedMidi)
+            // Find the closest unjudged matching note within the hit window.
+            int bestIndex = -1;
+            float bestAbsDiff = float.MaxValue;
+            for (int i = 0; i < notes.Count; i++)
             {
-                bool matchedExpected = false;
+                if (_judgedIndices.Contains(i)) continue;
+                if (notes[i].midiNumber != detectedMidi) continue;
 
+                float diff = now - notes[i].startTime;
+                if (diff < -hitWindowSeconds || diff > hitWindowSeconds) continue;
+
+                float abs = Mathf.Abs(diff);
+                if (abs < bestAbsDiff)
+                {
+                    bestAbsDiff = abs;
+                    bestIndex = i;
+                }
+            }
+
+            if (bestIndex >= 0)
+            {
+                // ----- CORRECT -----
+                _judgedIndices.Add(bestIndex);
+
+                // Timing multiplier: 1.0 at perfect, edgeWindowScoreFraction at window edge.
+                float t = 1f - bestAbsDiff / hitWindowSeconds;
+                int points = Mathf.RoundToInt(
+                    pointsPerNote * Mathf.Lerp(edgeWindowScoreFraction, 1f, t));
+
+                Score += points;
+                NotesCorrect++;
+                FlashNote(detectedMidi, correctColor);
+
+                if (logEvents)
+                    Debug.Log($"[NoteEvaluator] HIT  {NoteUtils.GetNoteName(detectedMidi)} " +
+                              $"+{points} (off by {bestAbsDiff * 1000f:F0} ms)");
+
+                OnNoteCorrect?.Invoke(detectedMidi, points);
+                return;
+            }
+
+            // No matching expected note nearby. Was ANY note expected near now?
+            // If yes, that's a wrong-note error. If no, it's almost certainly a harmonic /
+            // room noise / lingering resonance — we ignore it to avoid punishing the player
+            // for things that aren't their fault.
+            if (AnyNoteExpectedNow(notes, now))
+            {
+                NotesIncorrect++;
+
+                // Flash whichever expected note(s) are in the window red so the player
+                // can see what they should have played.
                 for (int i = 0; i < notes.Count; i++)
                 {
                     if (_judgedIndices.Contains(i)) continue;
-
-                    var   note     = notes[i];
-                    float timeDiff = now - note.startTime; // positive = late, negative = early
-
-                    if (timeDiff < -hitWindowSeconds || timeDiff > hitWindowSeconds) continue;
-
-                    if (detected == note.midiNumber)
-                    {
-                        // --- Correct hit ---
-                        _judgedIndices.Add(i);
-
-                        // Timing multiplier: 1.0 at perfect centre, 0.5 at window edge.
-                        float t      = 1f - Mathf.Abs(timeDiff) / hitWindowSeconds;
-                        int   points = Mathf.RoundToInt(100f * Mathf.Lerp(0.5f, 1.0f, t));
-
-                        Score += points;
-                        NotesCorrect++;
-
-                        FlashNote(note.midiNumber, correctColor);
-                        OnNoteCorrect?.Invoke(detected);
-                        matchedExpected = true;
-                        break; // one detection can only satisfy one expected note
-                    }
+                    float diff = now - notes[i].startTime;
+                    if (diff >= -hitWindowSeconds && diff <= hitWindowSeconds)
+                        FlashNote(notes[i].midiNumber, incorrectColor);
                 }
 
-                if (!matchedExpected)
-                {
-                    // --- Wrong note (no matching expected note in window) ---
-                    // Note: we do NOT count spurious detections when no note is expected
-                    // near the current time, to avoid penalising harmonics / room noise
-                    // (a known limitation of audio detection per the article).
-                    bool anyNoteExpectedNow = AnyNoteExpectedNow(notes, now);
-                    if (anyNoteExpectedNow)
-                    {
-                        NotesIncorrect++;
-                        OnNoteIncorrect?.Invoke(detected);
-                    }
-                }
+                if (logEvents)
+                    Debug.Log($"[NoteEvaluator] WRONG {NoteUtils.GetNoteName(detectedMidi)}");
+
+                OnNoteIncorrect?.Invoke(detectedMidi);
             }
         }
 
         // ----------------------------------------------------------------
-        // Missed-note detection (runs every Update frame)
+        // Missed-note check — runs every frame
         // ----------------------------------------------------------------
 
         private void CheckMissedNotes()
         {
             if (!IsControllerReady()) return;
 
-            float now   = fallingNotesController.CurrentTime;
-            var   notes = fallingNotesController.Song.notes;
+            float now = fallingNotesController.CurrentTime;
+            var notes = fallingNotesController.Song.notes;
 
             for (int i = 0; i < notes.Count; i++)
             {
                 if (_judgedIndices.Contains(i)) continue;
 
-                var   note     = notes[i];
+                var note = notes[i];
                 float deadline = note.startTime + hitWindowSeconds + missGraceSeconds;
-
                 if (now > deadline)
                 {
                     _judgedIndices.Add(i);
                     NotesMissed++;
                     FlashNote(note.midiNumber, missedColor);
+
+                    if (logEvents)
+                        Debug.Log($"[NoteEvaluator] MISS {NoteUtils.GetNoteName(note.midiNumber)}");
+
                     OnNoteMissed?.Invoke(note.midiNumber);
                 }
             }
         }
 
         // ----------------------------------------------------------------
-        // Song-complete detection
+        // Song-complete check
         // ----------------------------------------------------------------
 
         private void CheckSongComplete()
         {
             if (_songCompleteFired) return;
-            if (!IsControllerReady()) return;
+            if (!IsControllerReady() && !IsControllerFinished()) return;
+            if (fallingNotesController?.Song == null) return;
 
             var notes = fallingNotesController.Song.notes;
+            if (notes.Count == 0) return;
             if (_judgedIndices.Count < notes.Count) return;
+
+            // Wait until playback also reports finished (or has stopped).
             if (!fallingNotesController.IsFinished && fallingNotesController.IsPlaying) return;
 
             _songCompleteFired = true;
+            if (logEvents)
+                Debug.Log($"[NoteEvaluator] DONE — score {Score}, " +
+                          $"{NotesCorrect}/{TotalNotes} correct ({AccuracyPercent:F1}%)");
+
             OnSongComplete?.Invoke(Score, NotesCorrect, NotesIncorrect, NotesMissed);
-        }
-
-        // ----------------------------------------------------------------
-        // Visual feedback
-        // ----------------------------------------------------------------
-
-        private void FlashNote(int midiNumber, Color color)
-        {
-            if (fallingNotesController == null) return;
-            FallingNote fn = fallingNotesController.FindActiveNote(midiNumber);
-            fn?.SetFeedbackColor(color, feedbackDuration);
         }
 
         // ----------------------------------------------------------------
         // Helpers
         // ----------------------------------------------------------------
 
-        private bool IsControllerReady()
+        private void FlashNote(int midi, Color color)
         {
-            return fallingNotesController != null
-                && fallingNotesController.Song != null
-                && fallingNotesController.IsPlaying;
+            if (fallingNotesController == null) return;
+            var fn = fallingNotesController.FindActiveNote(midi);
+            fn?.SetFeedbackColor(color, feedbackDuration);
         }
 
-        private bool AnyNoteExpectedNow(System.Collections.Generic.List<PianoNote> notes, float now)
+        private bool IsControllerReady()
+            => fallingNotesController != null
+            && fallingNotesController.Song != null
+            && fallingNotesController.IsPlaying;
+
+        private bool IsControllerFinished()
+            => fallingNotesController != null
+            && fallingNotesController.IsFinished;
+
+        private bool AnyNoteExpectedNow(List<PianoNote> notes, float now)
         {
             foreach (var note in notes)
             {
