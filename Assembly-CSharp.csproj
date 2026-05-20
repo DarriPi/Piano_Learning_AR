@@ -49,26 +49,27 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.3.8f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Core\InputDetector.cs" />
-    <Compile Include="Assets\Scripts\TestMode\TestModeKeyboard.cs" />
-    <Compile Include="Assets\Scripts\Visual\NoteLabelManager.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\XR\PlaceKeyboardRelativeToCamera.cs" />
+    <Compile Include="Assets\ThirdParty\ARMusicRepo\MidiNoteVisualiser.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardVisualizer.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Demo\SongLauncher.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\FallingNotes\FallingNote.cs" />
     <Compile Include="Assets\TutorialInfo\Readme.cs" />
-    <Compile Include="Assets\Scripts\Debug\QuickTestRunner.cs" />
-    <Compile Include="Assets\Scripts\Notes\NoteSpawner.cs" />
-    <Compile Include="Assets\Scripts\MicDebugger.cs" />
-    <Compile Include="Assets\Scripts\MicrophoneManager.cs" />
-    <Compile Include="Assets\Scripts\Core\KeyboardMapper.cs" />
-    <Compile Include="Assets\Scripts\Visual\NeonGrid.cs" />
-    <Compile Include="Assets\Scripts\Audio\PitchDetector.cs" />
-    <Compile Include="Assets\Scripts\Debug\LaneVisualiser.cs" />
-    <Compile Include="Assets\Scripts\Audio\StubAudioDetector.cs" />
-    <Compile Include="Assets\Scripts\Core\GameModeManager.cs" />
-    <Compile Include="Assets\Scripts\Classes\AudioPitchDetector.cs" />
-    <Compile Include="Assets\Scripts\Notes\NotePool.cs" />
-    <Compile Include="Assets\Scripts\Data\SongData.cs" />
-    <Compile Include="Assets\Scripts\Audio\IAudioDetector.cs" />
-    <Compile Include="Assets\Scripts\Core\FeedbackController.cs" />
-    <Compile Include="Assets\Scripts\Notes\NoteObject.cs" />
+    <Compile Include="Assets\ThirdParty\ARMusicRepo\MidiNoteLaneGrid.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\XR\ForceFloorTrackingOrigin.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Core\NoteUtils.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Core\Song.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Midi\MidiSongLoader.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardAlignmentGuide.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Core\PianoNote.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardConfig.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardCalibrator.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Demo\FallingNotesDemo.cs" />
+    <Compile Include="Assets\ThirdParty\ARMusicRepo\AnchorSpawner.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Keyboard\KeyboardLayout.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\Midi\MidiFileParser.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\InputLogic\XRControllerCalibrator.cs" />
+    <Compile Include="Assets\PianoLearningCore\Scripts\FallingNotes\FallingNotesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -76,10 +77,16 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TutorialInfo\StyleSheets\ReadmeEditor.uss" />
+    <None Include="Assets\MidiPlayer\Version changes full.txt" />
+    <None Include="Assets\MidiPlayer\Resources\Textures\icons8.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\MidiPlayer\Resources\MidiSet.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\MidiPlayer\Version changes.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
+    <None Include="Assets\MidiPlayer\Third-Party Notices.txt" />
+    <None Include="Assets\MidiPlayer\Resources\SoundfontsDB\GeneralUser-GS-v2.0.1\GeneralUser-GS-v2.0.1.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -93,6 +100,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\ThirdParty\ARMusicRepo\LICENSE.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TutorialInfo\StyleSheets\ReadmeEditorDark.uss" />
@@ -1166,8 +1174,10 @@
     <ProjectReference Include="Meta.XR.MultiplayerBlocks.Shared.csproj" />
     <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.Shared.csproj" />
     <ProjectReference Include="Oculus.Interaction.Editor.csproj" />
+    <ProjectReference Include="MidiPlayer.Demo.csproj" />
     <ProjectReference Include="Unity.RenderPipelines.Universal.2D.Runtime.csproj" />
     <ProjectReference Include="Meta.XR.Editor.PlayCompanion.csproj" />
+    <ProjectReference Include="MidiPlayer.Run.csproj" />
     <ProjectReference Include="Meta.XR.Editor.Guide.About.csproj" />
     <ProjectReference Include="Meta.XR.Editor.Tags.csproj" />
     <ProjectReference Include="Oculus.Interaction.InterfaceSupport.csproj" />
@@ -1180,6 +1190,7 @@
     <ProjectReference Include="Unity.Rider.Editor.csproj" />
     <ProjectReference Include="Meta.XR.Editor.Id.csproj" />
     <ProjectReference Include="Unity.AI.Navigation.Editor.ConversionSystem.csproj" />
+    <ProjectReference Include="MidiPlayer.Editor.csproj" />
     <ProjectReference Include="Meta.XR.ImmersiveDebugger.csproj" />
     <ProjectReference Include="MetaXRSimulatorCore.Editor.csproj" />
     <ProjectReference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.csproj" />
