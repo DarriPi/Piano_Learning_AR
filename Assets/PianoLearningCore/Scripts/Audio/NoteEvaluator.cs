@@ -36,6 +36,13 @@ namespace PianoLearningCore
         [Tooltip("The FallingNotesController driving song playback.")]
         public FallingNotesController fallingNotesController;
 
+        [Header("Mode")]
+        [Tooltip("Practice = guidance on: a wrong press reveals the expected note(s) in red.\n" +
+                 "Assessment = graded run: that answer-reveal is withheld (you still see your own " +
+                 "correct/green hits, and the score still counts errors).\n" +
+                 "Set automatically when a song is chosen from the SongSelectionMenu.")]
+        public SessionMode mode = SessionMode.Practice;
+
         [Header("Timing")]
         [Tooltip("Seconds before/after a note's start time in which a press counts as correct. " +
                  "+/-150 ms is a comfortable window that still rewards accurate playing.")]
@@ -90,7 +97,13 @@ namespace PianoLearningCore
         public int NotesCorrect   { get; private set; }
         public int NotesIncorrect { get; private set; }
         public int NotesMissed    { get; private set; }
-        public int TotalNotes     { get; private set; }
+
+        /// <summary>Total notes in the loaded song. Read live from the controller so it's correct
+        /// even when ResetScore() runs before the song is loaded (or isn't called at all, as in the
+        /// standalone demo path) — otherwise the final readout shows "/0" and 0% accuracy.</summary>
+        public int TotalNotes => fallingNotesController != null && fallingNotesController.Song != null
+            ? fallingNotesController.Song.notes.Count
+            : 0;
 
         /// <summary>NotesCorrect as a percentage of TotalNotes (0..100).</summary>
         public float AccuracyPercent => TotalNotes == 0
@@ -137,10 +150,10 @@ namespace PianoLearningCore
             Score = NotesCorrect = NotesIncorrect = NotesMissed = 0;
             _judgedIndices.Clear();
             _songCompleteFired = false;
-            TotalNotes = fallingNotesController?.Song != null
-                ? fallingNotesController.Song.notes.Count
-                : 0;
         }
+
+        /// <summary>Switch between Practice (guidance) and Assessment (graded) mode.</summary>
+        public void SetMode(SessionMode newMode) => mode = newMode;
 
         // ----------------------------------------------------------------
         // Detection handler — one call per keystroke
@@ -202,14 +215,17 @@ namespace PianoLearningCore
             {
                 NotesIncorrect++;
 
-                // Flash whichever expected note(s) are in the window red so the player
-                // can see what they should have played.
-                for (int i = 0; i < notes.Count; i++)
+                // Practice only: flash the expected note(s) in the window red so the player can
+                // see what they should have played. Assessment withholds this answer-reveal.
+                if (mode == SessionMode.Practice)
                 {
-                    if (_judgedIndices.Contains(i)) continue;
-                    float diff = now - notes[i].startTime;
-                    if (diff >= -hitWindowSeconds && diff <= hitWindowSeconds)
-                        FlashNote(notes[i].midiNumber, incorrectColor);
+                    for (int i = 0; i < notes.Count; i++)
+                    {
+                        if (_judgedIndices.Contains(i)) continue;
+                        float diff = now - notes[i].startTime;
+                        if (diff >= -hitWindowSeconds && diff <= hitWindowSeconds)
+                            FlashNote(notes[i].midiNumber, incorrectColor);
+                    }
                 }
 
                 if (logEvents)

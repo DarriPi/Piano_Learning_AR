@@ -50,14 +50,54 @@ namespace PianoLearningCore
     [DisallowMultipleComponent]
     public class PianoAudioDetector : MonoBehaviour
     {
+        /// <summary>
+        /// Which Android audio-capture preset to record from on Quest. Unity's Microphone API on
+        /// Quest does NOT expose physical mics by location; Microphone.devices instead lists these
+        /// capture presets, each routing to different mic(s) and applying different built-in DSP.
+        /// See the 'preferredAudioSource' tooltip for what each one is good for.
+        /// </summary>
+        public enum MicAudioSource { Default, Camcorder, VoiceRecognition }
+
         // ----------------------------------------------------------------
         // Inspector — Microphone
         // ----------------------------------------------------------------
 
         [Header("Microphone")]
-        [Tooltip("Leave empty to use the system default mic (recommended on Quest Pro). " +
-                 "In the editor, you can paste a device name from Microphone.devices.")]
+        [Tooltip("Which Quest audio-capture preset to record from. On Quest, Unity does NOT expose " +
+                 "physical mics by location — Microphone.devices lists Android capture presets, each " +
+                 "routing to different mic(s) with different built-in processing:\n" +
+                 "  - Camcorder: records the room with minimal voice processing. BEST for piano (this " +
+                 "is the forward/ambient capture path).\n" +
+                 "  - Default: the comms/voice mic (heavy noise-suppression + AGC + echo-cancel). " +
+                 "Tuned for speech; mangles sustained musical tones.\n" +
+                 "  - VoiceRecognition: ASR preset (usually no AGC); a fallback to try if Camcorder " +
+                 "underperforms in your room.\n" +
+                 "Ignored on desktop/editor (uses the system default mic) and when 'Microphone Device' " +
+                 "below is set explicitly.")]
+        public MicAudioSource preferredAudioSource = MicAudioSource.Camcorder;
+
+        [Tooltip("Optional explicit device-name override. Leave EMPTY to use 'Preferred Audio Source' " +
+                 "above (recommended). If set, this exact name from Microphone.devices is used verbatim " +
+                 "— handy in the editor where you can paste a real device name.")]
         public string microphoneDevice = "";
+
+        [Header("Microphone — Quest native capture")]
+        [Tooltip("Quest only: capture the mic through Android's AudioRecord directly so we can use the " +
+                 "unprocessed/camcorder source (far better for piano) instead of Unity's only device — " +
+                 "the voice-processed 'Android audio input'. If native capture fails for any reason we " +
+                 "automatically fall back to UnityEngine.Microphone. No effect in the editor.")]
+        public bool useNativeCapture = true;
+
+        [Tooltip("Quest native capture: which Android source to prefer. Auto tries the least-processed " +
+                 "first (Unprocessed -> Camcorder -> Mic). Use the named values to force one for A/B " +
+                 "testing — we still fall back to the others if the device refuses it.")]
+        public NativeMicSource nativeSourcePreference = NativeMicSource.Auto;
+
+        [Tooltip("Quest native own-FFT window length in samples (power of 2). Smaller = lower latency " +
+                 "but coarser low-note resolution. 8192 @ 48 kHz ~= 170 ms window / 5.9 Hz per bin " +
+                 "(parabolic interpolation refines pitch). Try 4096 for snappier response, 16384 for " +
+                 "finer low-end. No effect on the Unity Microphone fallback / editor.")]
+        public int nativeWindowSize = 8192;
 
         [Tooltip("Recording sample rate. The article used 44100 Hz. " +
                  "If your device doesn't support 44100, set to 0 to use the device default.")]
@@ -208,7 +248,16 @@ namespace PianoLearningCore
         // ----------------------------------------------------------------
 
         private AudioSource _audioSource;
+        private QuestMicCapture _questMic; // Quest native AudioRecord capture; null when using Unity Microphone
         private float[] _spectrumData;
+
+        // Stage 2 native own-FFT. Set when QuestMicCapture is active; the Microphone fallback path
+        // leaves _useOwnFft false and keeps using AudioSource.GetSpectrumData.
+        private bool _useOwnFft;
+        private SimpleFFT _fft;
+        private float[] _fftWindow;
+        private int _fftSize;
+        private float _lastHzPerBin; // Hz/bin of the most recent spectrum (for the health log)
         private float _analysisTimer;
         private float _warmupTimer;
         private float _healthCheckTimer;
@@ -259,6 +308,9 @@ namespace PianoLearningCore
         {
             if (!IsRunning) return;
 
+            // Pump native capture into the ring buffer (no-op unless Quest native AudioRecord is active).
+            if (_questMic != null) _questMic.Poll();
+
             // Skip analysis until the mic clip is primed.
             if (_warmupTimer > 0f) { _warmupTimer -= Time.deltaTime; return; }
 
@@ -298,16 +350,18 @@ namespace PianoLearningCore
 
         private void LogHealthCheck()
         {
-            string device = NullIfEmpty(microphoneDevice);
-            bool micRecording = Microphone.IsRecording(device);
+            bool native = _questMic != null && _questMic.IsActive;
+            bool micRecording = native || Microphone.IsRecording(_activeDevice);
             bool sourcePlaying = _audioSource != null && _audioSource.isPlaying;
-            int micPos = Microphone.GetPosition(device);
+            int micPos = native ? _questMic.BufferedSamples : Microphone.GetPosition(_activeDevice);
 
-            float hzPerBin = AudioSettings.outputSampleRate * 0.5f / Mathf.Max(1, spectrumSize);
+            float hzPerBin = _lastHzPerBin > 0f
+                ? _lastHzPerBin
+                : AudioSettings.outputSampleRate * 0.5f / Mathf.Max(1, spectrumSize);
             float peakFreq = _healthCheckPeakBin * hzPerBin;
 
-            Debug.Log($"[PianoAudioDetector] health: micRecording={micRecording} " +
-                      $"sourcePlaying={sourcePlaying} micPos={micPos} " +
+            Debug.Log($"[PianoAudioDetector] health: device='{_activeDevice ?? "default"}' micRecording={micRecording} " +
+                      $"sourcePlaying={sourcePlaying} pos/buf={micPos} " +
                       $"activeNotes={_activeNotes.Count} " +
                       $"peakMag(1s)={_healthCheckPeakMag:G3} peakFreq={peakFreq:F0}Hz " +
                       $"threshold={peakThreshold:G3}");
@@ -368,8 +422,15 @@ namespace PianoLearningCore
             if (!IsRunning) return;
             IsRunning = false;
 
-            string device = NullIfEmpty(microphoneDevice);
-            if (Microphone.IsRecording(device)) Microphone.End(device);
+            if (_questMic != null)
+            {
+                _questMic.Stop();
+                _questMic = null;
+            }
+            else if (Microphone.IsRecording(_activeDevice))
+            {
+                Microphone.End(_activeDevice);
+            }
             if (_audioSource != null && _audioSource.isPlaying) _audioSource.Stop();
 
             // Cleanly turn off any notes still considered "on".
@@ -392,11 +453,32 @@ namespace PianoLearningCore
         // Microphone startup
         // ----------------------------------------------------------------
 
+        // The device we actually opened, after resolving preferredAudioSource / the override.
+        // null means "system default". StopDetection / LogHealthCheck must use THIS — not the
+        // inspector field — or they'd query the wrong device when a preset was chosen.
+        private string _activeDevice;
+
         private void StartMicrophone()
         {
-            string device = NullIfEmpty(microphoneDevice);
+#if UNITY_ANDROID && !UNITY_EDITOR
+            // Preferred path on Quest: capture Android's unprocessed/camcorder source directly and run
+            // our OWN FFT on the freshest samples (Stage 2). This bypasses the AudioSource +
+            // GetSpectrumData bridge entirely — no streaming AudioClip, no playback buffering — which
+            // is what kept Stage 1's detection ~0.9 s behind real time.
+            if (useNativeCapture && TryStartNativeCapture())
+            {
+                FinishStart();
+                Debug.Log($"[PianoAudioDetector] Started (native own-FFT). device='{_activeDevice}' " +
+                          $"micRate={_questMic.SampleRate} fftSize={_fftSize} bins={_fftSize / 2} " +
+                          $"hzPerBin={(float)_questMic.SampleRate / _fftSize:F2} " +
+                          $"window={1000f * _fftSize / _questMic.SampleRate:F0}ms " +
+                          $"threshold={peakThreshold} interval={analysisInterval * 1000f:F0}ms");
+                return;
+            }
+#endif
 
-            // Helpful diagnostic — many Quest issues come down to "no mic device".
+            // Fallback path: UnityEngine.Microphone + AudioSource + GetSpectrumData
+            // (editor/desktop, or if native capture failed).
             if (Microphone.devices.Length == 0)
             {
                 Debug.LogError("[PianoAudioDetector] No microphone devices found. " +
@@ -404,16 +486,9 @@ namespace PianoLearningCore
                 return;
             }
 
-            if (device != null && !DeviceExists(device))
-            {
-                Debug.LogError($"[PianoAudioDetector] Microphone '{device}' not found. " +
-                               $"Available devices: {string.Join(", ", Microphone.devices)}. " +
-                               "Leave 'microphoneDevice' blank to use the system default.", this);
-                return;
-            }
-
+            _activeDevice = ResolveMicDevice();
             int requestedRate = sampleRate > 0 ? sampleRate : 0; // 0 = device default
-            AudioClip micClip = Microphone.Start(device, true, 1, requestedRate);
+            AudioClip micClip = Microphone.Start(_activeDevice, true, 1, requestedRate);
             if (micClip == null)
             {
                 Debug.LogError("[PianoAudioDetector] Microphone.Start() returned null. " +
@@ -421,55 +496,139 @@ namespace PianoLearningCore
                 return;
             }
 
+            // Keep the source at FULL volume so its DSP graph is processed every frame (that's what
+            // GetSpectrumData reads); OnAudioFilterRead zeroes the output afterwards so the mic isn't
+            // heard through the headset. (The native path above doesn't route audio out at all.)
             _audioSource.clip = micClip;
             _audioSource.loop = true;
-            // We keep the source at FULL volume so its DSP graph is processed every frame,
-            // which is what GetSpectrumData() reads from. On Quest specifically, both
-            // mute = true and volume = 0 cause Unity to skip processing the source, so the
-            // spectrum returns all zeros (we observed peakMag = 2.78E-08 at the Nyquist bin
-            // — pure float noise on a zero input).
-            //
-            // To prevent audible mic feedback through the headset, we implement
-            // OnAudioFilterRead below, which zeroes the source's output samples AFTER the
-            // spectrum has already been captured but BEFORE they reach the AudioListener.
             _audioSource.mute = false;
             _audioSource.volume = 1f;
             _audioSource.Play();
 
-            // Recreate spectrum buffer if user changed spectrumSize at edit time.
             if (_spectrumData == null || _spectrumData.Length != spectrumSize)
                 _spectrumData = new float[spectrumSize];
+            _useOwnFft = false;
 
-            PrecomputeFrequencyBounds();
-            _warmupTimer = WarmupSeconds;
-            _analysisTimer = 0f;
-            IsRunning = true;
+            FinishStart();
 
-            Debug.Log($"[PianoAudioDetector] Started. device='{device ?? "default"}' " +
+            Debug.Log($"[PianoAudioDetector] Started (Unity Microphone). device='{_activeDevice ?? "default"}' " +
                       $"micRate={micClip.frequency} outputRate={AudioSettings.outputSampleRate} " +
                       $"spectrumSize={spectrumSize} threshold={peakThreshold} " +
                       $"interval={analysisInterval*1000f:F0}ms suppressHarmonics={suppressHarmonics}");
             Debug.Log($"[PianoAudioDetector] Available mic devices: {string.Join(", ", Microphone.devices)}");
         }
 
+        /// <summary>Common startup tail shared by the native and Microphone paths.</summary>
+        private void FinishStart()
+        {
+            PrecomputeFrequencyBounds();
+            _warmupTimer = WarmupSeconds;
+            _analysisTimer = 0f;
+            IsRunning = true;
+        }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        // Open native AudioRecord capture and set up our own windowed FFT over its freshest samples.
+        // Returns false (with QuestMicCapture cleaned up) if capture couldn't start, so the caller
+        // falls back to UnityEngine.Microphone.
+        private bool TryStartNativeCapture()
+        {
+            _questMic = new QuestMicCapture();
+            if (!_questMic.Start(sampleRate, nativeSourcePreference))
+            {
+                Debug.LogWarning("[PianoAudioDetector] Native capture unavailable — " +
+                                 "falling back to UnityEngine.Microphone.", this);
+                _questMic = null;
+                return false;
+            }
+
+            _fftSize      = NextPow2(Mathf.Clamp(nativeWindowSize, 1024, 32768));
+            _fft          = new SimpleFFT(_fftSize);
+            _fftWindow    = new float[_fftSize];
+            _spectrumData = new float[_fftSize / 2];
+            _useOwnFft    = true;
+            _activeDevice = "native:" + _questMic.SourceName;
+            return true;
+        }
+#endif
+
+        /// <summary>
+        /// Decide which microphone device name to open. Priority:
+        ///   1. An explicit, non-empty 'microphoneDevice' (used verbatim if it exists).
+        ///   2. The 'preferredAudioSource' preset, matched against Microphone.devices by keyword
+        ///      ("camcorder" / "recognition") — on Quest these read e.g. "Android camcorder input".
+        /// Anything unresolved falls back to the system default (null); we never refuse to start
+        /// just because a preferred preset isn't listed (e.g. in the editor, or on a future OS that
+        /// renames the device). Returns null to mean "system default device".
+        /// </summary>
+        private string ResolveMicDevice()
+        {
+            // 1. Explicit override wins.
+            string explicitName = NullIfEmpty(microphoneDevice);
+            if (explicitName != null)
+            {
+                if (DeviceExists(explicitName)) return explicitName;
+                Debug.LogError($"[PianoAudioDetector] Microphone override '{explicitName}' not found. " +
+                               $"Available: {string.Join(", ", Microphone.devices)}. " +
+                               "Clear 'Microphone Device' to use Preferred Audio Source. Using default for now.", this);
+                return null;
+            }
+
+            // 2. Default preset = let Android/Unity choose (the processed comms mic).
+            if (preferredAudioSource == MicAudioSource.Default) return null;
+
+            // 3. Map the preset to a Quest device name by keyword.
+            string keyword = (preferredAudioSource == MicAudioSource.Camcorder) ? "camcorder" : "recognition";
+            string match = FindDeviceContaining(keyword);
+            if (match != null) return match;
+
+            Debug.LogWarning($"[PianoAudioDetector] No '{preferredAudioSource}' mic available " +
+                             $"(searched for \"{keyword}\"). Available: {string.Join(", ", Microphone.devices)}. " +
+                             "Falling back to the system default mic.", this);
+            return null;
+        }
+
+        /// <summary>First device whose name contains <paramref name="keyword"/> (case-insensitive), or null.</summary>
+        private static string FindDeviceContaining(string keyword)
+        {
+            foreach (var d in Microphone.devices)
+                if (!string.IsNullOrEmpty(d) && d.ToLowerInvariant().Contains(keyword)) return d;
+            return null;
+        }
+
         // ----------------------------------------------------------------
         // FFT analysis — core of the Putranda et al. method
         // ----------------------------------------------------------------
 
+        // Fill _spectrumData with a Blackman-Harris-windowed magnitude spectrum and return its
+        // Hz-per-bin. Native (Stage 2) runs our own FFT over the freshest ring samples at the mic's
+        // full rate — no AudioSource/playback buffering. Fallback uses Unity's GetSpectrumData.
+        private float FillSpectrum()
+        {
+            if (_useOwnFft)
+            {
+                if (_questMic != null && _questMic.CopyLatest(_fftWindow))
+                    _fft.MagnitudeSpectrum(_fftWindow, _spectrumData);
+                else
+                    Array.Clear(_spectrumData, 0, _spectrumData.Length); // not enough samples yet (warm-up)
+                return (float)_questMic.SampleRate / _fftSize;
+            }
+
+            // Unity's spectrum covers [0, outputSampleRate/2]; GetSpectrumData reads the AudioSource's
+            // *output* (post-resample), so the bin width uses outputSampleRate, not the mic rate.
+            _audioSource.GetSpectrumData(_spectrumData, 0, FFTWindow.BlackmanHarris);
+            return AudioSettings.outputSampleRate * 0.5f / _spectrumData.Length;
+        }
+
         private void AnalyzeSpectrum()
         {
-            // ----- Step 1: FFT with Blackman-Harris window -----
-            // Unity applies the window internally before the FFT. This is the
-            // article's chosen window (97.28% accuracy on complex songs).
-            _audioSource.GetSpectrumData(_spectrumData, 0, FFTWindow.BlackmanHarris);
+            // ----- Step 1: Blackman-Harris-windowed magnitude spectrum (source-agnostic) -----
+            float hzPerBin = FillSpectrum();
+            _lastHzPerBin = hzPerBin;
 
-            // Unity's spectrum covers [0, outputSampleRate/2] across spectrumSize bins.
-            // GetSpectrumData reads from the AudioSource's *output* (post-resample),
-            // so we use outputSampleRate here, not the mic's recording rate.
-            float hzPerBin = AudioSettings.outputSampleRate * 0.5f / spectrumSize;
-
-            int minBin = Mathf.Clamp(FrequencyToBin(_minFrequency, hzPerBin), 1, spectrumSize - 2);
-            int maxBin = Mathf.Clamp(FrequencyToBin(_maxFrequency, hzPerBin), 1, spectrumSize - 2);
+            int bins = _spectrumData.Length;
+            int minBin = Mathf.Clamp(FrequencyToBin(_minFrequency, hzPerBin), 1, bins - 2);
+            int maxBin = Mathf.Clamp(FrequencyToBin(_maxFrequency, hzPerBin), 1, bins - 2);
 
             // ----- Step 2: Find local-maximum peaks above the magnitude threshold -----
             var peaks = new List<Peak>(maxPolyphony * 4);
@@ -634,6 +793,13 @@ namespace PianoLearningCore
 
         private static string NullIfEmpty(string s)
             => string.IsNullOrEmpty(s) ? null : s;
+
+        private static int NextPow2(int v)
+        {
+            int p = 1;
+            while (p < v) p <<= 1;
+            return p;
+        }
 
         private static bool DeviceExists(string name)
         {
