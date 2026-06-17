@@ -98,6 +98,12 @@ namespace PianoLearningCore
         public int NotesIncorrect { get; private set; }
         public int NotesMissed    { get; private set; }
 
+        /// <summary>Consecutive correct notes right now. Reset to 0 by any wrong or missed note.</summary>
+        public int CurrentStreak  { get; private set; }
+
+        /// <summary>Longest run of consecutive correct notes this song. Surfaced on the score board.</summary>
+        public int BestStreak     { get; private set; }
+
         /// <summary>Total notes in the loaded song. Read live from the controller so it's correct
         /// even when ResetScore() runs before the song is loaded (or isn't called at all, as in the
         /// standalone demo path) — otherwise the final readout shows "/0" and 0% accuracy.</summary>
@@ -148,6 +154,7 @@ namespace PianoLearningCore
         public void ResetScore()
         {
             Score = NotesCorrect = NotesIncorrect = NotesMissed = 0;
+            CurrentStreak = BestStreak = 0;
             _judgedIndices.Clear();
             _songCompleteFired = false;
         }
@@ -197,6 +204,8 @@ namespace PianoLearningCore
 
                 Score += points;
                 NotesCorrect++;
+                CurrentStreak++;
+                if (CurrentStreak > BestStreak) BestStreak = CurrentStreak;
                 FlashNote(detectedMidi, correctColor);
 
                 if (logEvents)
@@ -214,6 +223,7 @@ namespace PianoLearningCore
             if (AnyNoteExpectedNow(notes, now))
             {
                 NotesIncorrect++;
+                CurrentStreak = 0;
 
                 // Practice only: flash the expected note(s) in the window red so the player can
                 // see what they should have played. Assessment withholds this answer-reveal.
@@ -256,6 +266,7 @@ namespace PianoLearningCore
                 {
                     _judgedIndices.Add(i);
                     NotesMissed++;
+                    CurrentStreak = 0;
                     FlashNote(note.midiNumber, missedColor);
 
                     if (logEvents)
