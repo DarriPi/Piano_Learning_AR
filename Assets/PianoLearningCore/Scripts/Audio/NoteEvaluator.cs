@@ -116,6 +116,17 @@ namespace PianoLearningCore
             ? 0f
             : NotesCorrect / (float)TotalNotes * 100f;
 
+        /// <summary>Notes judged so far this run (correct + incorrect + missed). Grows as the song
+        /// plays, unlike TotalNotes which is the whole song known up front.</summary>
+        public int NotesJudged => NotesCorrect + NotesIncorrect + NotesMissed;
+
+        /// <summary>Running accuracy over the notes PLAYED so far (correct / judged), reading 100%
+        /// before the first judgement. This is the number for the live in-play HUD; AccuracyPercent
+        /// (denominator = TotalNotes) stays the right one for the end-of-song board.</summary>
+        public float LiveAccuracyPercent => NotesJudged == 0
+            ? 100f
+            : NotesCorrect / (float)NotesJudged * 100f;
+
         // ----------------------------------------------------------------
         // Internals
         // ----------------------------------------------------------------
