@@ -41,6 +41,7 @@ namespace PianoLearningCore
             }
             var evaluator  = Object.FindObjectOfType<NoteEvaluator>();
             var controller = Object.FindObjectOfType<FallingNotesController>();
+            var songMenu   = Object.FindObjectOfType<SongSelectionMenu>();
 #pragma warning restore CS0618
 
             // 2. World-space Canvas.
@@ -118,6 +119,7 @@ namespace PianoLearningCore
             var summary = canvasGo.AddComponent<ScoreBoardSummary>();
             summary.evaluator = evaluator;
             summary.controller = controller;
+            summary.songMenu = songMenu;
             summary.panelRoot = panel.gameObject;
             summary.subtitleText = subtitle;
             summary.accuracyText = accuracy;

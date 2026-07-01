@@ -33,6 +33,9 @@ namespace PianoLearningCore
         [Tooltip("Reset on Restart so a replay starts from a clean score. Auto-found.")]
         public NoteEvaluator evaluator;
 
+        [Tooltip("Shown again when the player presses Stop, so they can pick another song. Auto-found.")]
+        public SongSelectionMenu songMenu;
+
         [Header("Panel")]
         [Tooltip("The visual child shown during a song session and hidden otherwise. Point this at the " +
                  "PANEL child, NOT the Canvas root, so this controller keeps running. " +
@@ -42,6 +45,8 @@ namespace PianoLearningCore
         [Header("Buttons")]
         public Button pauseResumeButton;
         public Button restartButton;
+        [Tooltip("Stops the song and returns to the song-selection menu.")]
+        public Button stopButton;
         public Button tempoDownButton;
         public Button tempoUpButton;
 
@@ -61,6 +66,7 @@ namespace PianoLearningCore
 
         private bool _visible;
         private bool _lastPlaying;
+        private bool _sessionEnded; // set by Stop; keeps the bar hidden until the next song plays
 
         // ----------------------------------------------------------------
         // Unity lifecycle
@@ -78,6 +84,7 @@ namespace PianoLearningCore
             AutoFindReferences();
             Wire(pauseResumeButton, TogglePauseResume);
             Wire(restartButton, Restart);
+            Wire(stopButton, StopToMenu);
             Wire(tempoDownButton, TempoDown);
             Wire(tempoUpButton, TempoUp);
             RefreshTempoLabel();
@@ -88,8 +95,16 @@ namespace PianoLearningCore
         private void Update()
         {
             // Show during an active session (loaded + not finished) so a Pause doesn't hide Resume,
-            // and so the bar is gone at song-end when the score board (and its laser) takes over.
-            bool sessionActive = controller != null && controller.Song != null && !controller.IsFinished;
+            // and so the bar is gone at song-end when the Assessment score board (and its laser) takes
+            // over. In Practice there IS no board to hand off to, so the bar stays up after the song
+            // ends — keeping Restart/tempo reachable, and still only one laser on screen.
+            // A fresh playback clears the Stop latch so the bar returns for the next song.
+            if (controller != null && controller.IsPlaying) _sessionEnded = false;
+
+            bool finished = controller != null && controller.IsFinished;
+            bool practiceMode = evaluator != null && evaluator.mode == SessionMode.Practice;
+            bool sessionActive = !_sessionEnded && controller != null && controller.Song != null
+                                 && (!finished || practiceMode);
             if (sessionActive != _visible) SetVisible(sessionActive);
 
             // The play/pause state can change outside our button (song end, external Pause), so keep
@@ -115,6 +130,15 @@ namespace PianoLearningCore
             if (evaluator != null) evaluator.ResetScore();
             if (controller != null) controller.Restart();
             RefreshPauseLabel(force: true);
+        }
+
+        /// <summary>Stop the song entirely and return to the song-selection menu to pick another.</summary>
+        public void StopToMenu()
+        {
+            if (controller != null) controller.Stop();
+            _sessionEnded = true;      // keep the bar hidden until the next song actually plays
+            SetVisible(false);
+            if (songMenu != null) songMenu.Show(); // back to the song list
         }
 
         public void TempoDown() => SetTempo(-tempoStep);
@@ -172,6 +196,7 @@ namespace PianoLearningCore
 #pragma warning disable CS0618 // FindObjectOfType works across every Unity version
             if (controller == null) controller = FindObjectOfType<FallingNotesController>();
             if (evaluator == null)  evaluator  = FindObjectOfType<NoteEvaluator>();
+            if (songMenu == null)   songMenu   = FindObjectOfType<SongSelectionMenu>();
 #pragma warning restore CS0618
         }
     }

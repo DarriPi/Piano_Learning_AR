@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace PianoLearningCore
 {
@@ -87,6 +88,20 @@ namespace PianoLearningCore
 
             Clear();
             rowTemplate.gameObject.SetActive(false); // keep the raw template hidden
+
+            // Give the row's mode buttons a real, full-height hit rectangle. The builder left the
+            // row's HorizontalLayoutGroup with childForceExpandHeight = false while the Practice /
+            // Assessment buttons carry no preferred height, which collapsed them to ~zero height:
+            // invisible, AND impossible for the controller-laser ray to intersect (the ray tests
+            // each button's RectTransform quad). Forcing full-height expansion here repairs it at
+            // runtime, so a scene built before this fix works without re-running the builder — the
+            // clones inherit the corrected layout.
+            var rowHlg = rowTemplate.GetComponent<HorizontalLayoutGroup>();
+            if (rowHlg != null)
+            {
+                rowHlg.childControlHeight = true;
+                rowHlg.childForceExpandHeight = true;
+            }
 
             foreach (var entry in songs)
             {

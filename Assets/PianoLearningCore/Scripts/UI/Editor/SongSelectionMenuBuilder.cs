@@ -22,6 +22,25 @@ namespace PianoLearningCore
     /// </summary>
     public static class SongSelectionMenuBuilder
     {
+        // Help text (TMP rich text). Colours match the in-scene KeyboardAlignmentGuide markers
+        // (pink Middle-C post, teal hit line) and the NoteEvaluator flash colours (green/red/grey).
+        // Bullets/dashes are literal UTF-8 and render with the default TMP (LiberationSans) font.
+        private const string PositioningHelp =
+            "<b>Position your keyboard</b>\n" +
+            "• Find the tall <color=#FF4D99>pink</color> post — that's <b>Middle C</b>. " +
+            "Slide the keyboard so it sits on Middle C of your real piano. " +
+            "(The shorter gold posts mark the other C's.)\n" +
+            "• Line up the bright <color=#33FFD9>teal</color> front line with the front edge of your keys.\n" +
+            "• Fine-tune with the controllers:  right stick = move · left stick = rotate / raise-lower · " +
+            "hold right trigger = faster · X / Y = narrower / wider · B = reset · A = done.";
+
+        private const string HowToPlayHelp =
+            "<b>How to play</b>\n" +
+            "• Notes fall onto your keys — play the matching key on your real piano as each note reaches the line.\n" +
+            "• <color=#33CC66>Green</color> = correct · <color=#FF4D4D>Red</color> = wrong note · " +
+            "<color=#AAAAAA>Grey</color> = missed.\n" +
+            "• Practice waits for the right note and reveals the answer in red; Assessment scores you in real time.";
+
         [MenuItem("Tools/Piano Learning/Create Song Selection Menu")]
         public static void Create()
         {
@@ -94,7 +113,10 @@ namespace PianoLearningCore
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
             hlg.childForceExpandWidth = false;
-            hlg.childForceExpandHeight = false;
+            // Expand children to the row's full height so the mode buttons get a real hit
+            // rectangle. With this false they'd collapse to ~zero height (no preferred height set)
+            // and the controller-laser ray could never intersect their quad. See SongSelectionMenu.Build.
+            hlg.childForceExpandHeight = true;
 
             // 6a. Title label (takes the remaining width).
             var rowLabel = CreateChild("Label", rowRt);
@@ -138,22 +160,82 @@ namespace PianoLearningCore
                 },
             };
 
+            // 8. "?" help button in the TOP-RIGHT corner of the menu Panel. Lives on the Panel so
+            //    it goes inactive (unclickable) whenever the list is hidden.
+            var helpButton = CreateButton("HelpButton", "?", panel,
+                new Color(0.18f, 0.40f, 0.62f, 1f), 36f);
+            var helpButtonRt = (RectTransform)helpButton.transform;
+            helpButtonRt.anchorMin = new Vector2(1f, 1f);
+            helpButtonRt.anchorMax = new Vector2(1f, 1f);
+            helpButtonRt.pivot = new Vector2(1f, 1f);
+            helpButtonRt.sizeDelta = new Vector2(64f, 64f);
+            helpButtonRt.anchoredPosition = new Vector2(-16f, -16f);
+
+            // 9. Help panel — a sibling of the menu Panel under the SAME canvas, shown at startup
+            //    and via "?". Because the existing ControllerUIPointer only sees ACTIVE buttons and
+            //    only one panel is ever active, it drives this panel's Close button too with no
+            //    extra pointer (one laser, always).
+            var help = CreateChild("HelpPanel", canvasRt);
+            Stretch(help);
+            help.gameObject.AddComponent<Image>().color = new Color(0.05f, 0.06f, 0.10f, 0.92f);
+
+            var helpTitle = CreateText("Title", "How to Use", help, 44f, TextAlignmentOptions.Center);
+            AnchorTop(helpTitle.rectTransform, 80f);
+
+            var helpBody = CreateChild("Body", help);
+            helpBody.anchorMin = Vector2.zero;
+            helpBody.anchorMax = Vector2.one;
+            helpBody.offsetMin = new Vector2(60f, 120f);   // leave room for the Close button
+            helpBody.offsetMax = new Vector2(-60f, -100f);  // leave room for the title
+            var helpVlg = helpBody.gameObject.AddComponent<VerticalLayoutGroup>();
+            helpVlg.spacing = 20f;
+            helpVlg.childAlignment = TextAnchor.UpperLeft;
+            helpVlg.childControlWidth = true;
+            helpVlg.childControlHeight = true;
+            helpVlg.childForceExpandWidth = true;
+            helpVlg.childForceExpandHeight = false;
+
+            CreateText("Positioning", PositioningHelp, helpBody, 26f, TextAlignmentOptions.TopLeft);
+            CreateText("HowToPlay", HowToPlayHelp, helpBody, 26f, TextAlignmentOptions.TopLeft);
+
+            var closeButton = CreateButton("CloseButton", "Close", help,
+                new Color(0.18f, 0.40f, 0.62f, 1f), 28f);
+            var closeRt = (RectTransform)closeButton.transform;
+            closeRt.anchorMin = new Vector2(0.5f, 0f);
+            closeRt.anchorMax = new Vector2(0.5f, 0f);
+            closeRt.pivot = new Vector2(0.5f, 0f);
+            closeRt.sizeDelta = new Vector2(220f, 64f);
+            closeRt.anchoredPosition = new Vector2(0f, 30f);
+
+            // 10. Help controller on the canvas root, wired to both panels + buttons. It shows Help
+            //     and hides the list on Start, so the app opens on the instructions, not a song.
+            var helpPanel = canvasGo.AddComponent<HelpPanel>();
+            helpPanel.helpPanelRoot = help.gameObject;
+            helpPanel.menu = menu;
+            helpPanel.closeButton = closeButton;
+            helpPanel.helpButton = helpButton;
+
             // Controller laser pointer so the menu is clickable on Quest without any Meta
-            // Interaction SDK wiring. Auto-finds the controller anchor + this canvas at runtime.
-            canvasGo.AddComponent<ControllerUIPointer>();
+            // Interaction SDK wiring. Pin it to THIS canvas (like the score/playback builders) so it
+            // never grabs another canvas; it still auto-finds the controller anchor at runtime.
+            var pointer = canvasGo.AddComponent<ControllerUIPointer>();
+            pointer.targetCanvas = canvas;
 
             EditorUtility.SetDirty(menu);
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(canvasGo.scene);
             Selection.activeGameObject = canvasGo;
 
-            Debug.Log("[SongSelectionMenuBuilder] Created 'SongSelectionCanvas' with per-song " +
+            Debug.Log("[SongSelectionMenuBuilder] Created 'SongSelectionCanvas' with a startup Help " +
+                      "panel (keyboard positioning + how to play), a top-right '?' button, and per-song " +
                       "Practice/Assessment buttons. " +
                       (launcher == null
-                          ? "No SongLauncher found in the scene — add one (Play On Start = false) and " +
-                            "drag it onto the SongSelectionMenu's 'Launcher' field."
+                          ? "No SongLauncher found in the scene — add one and drag it onto the " +
+                            "SongSelectionMenu's 'Launcher' field."
                           : $"Linked to SongLauncher '{launcher.name}'.") +
-                      " A ControllerUIPointer was added for VR clicking (auto-finds the rig's " +
-                      "controller anchor). Position the canvas in front of the player and you're set.");
+                      " IMPORTANT: set the SongLauncher's 'Play On Start' to FALSE so the app opens on " +
+                      "the Help panel instead of launching straight into a song. A ControllerUIPointer " +
+                      "was added for VR clicking (auto-finds the rig's controller anchor). Position the " +
+                      "canvas in front of the player and you're set.");
         }
 
         // Creates an Image+Button with a centred TMP label; returns the Button.
@@ -177,6 +259,40 @@ namespace PianoLearningCore
             tmp.alignment = TextAlignmentOptions.Center;
             tmp.color = Color.white;
             return btn;
+        }
+
+        // Image+Button with a centred TMP label, positioned by the caller via its RectTransform
+        // (unlike CreateModeButton, this one isn't sized by a layout group).
+        private static Button CreateButton(string name, string text, RectTransform parent,
+                                           Color color, float fontSize)
+        {
+            var rt = CreateChild(name, parent);
+            var img = rt.gameObject.AddComponent<Image>();
+            img.color = color;
+            var btn = rt.gameObject.AddComponent<Button>();
+            btn.targetGraphic = img; // AddComponent doesn't auto-assign it, so the tint works
+
+            var labelRt = CreateChild("Label", rt);
+            Stretch(labelRt);
+            var tmp = labelRt.gameObject.AddComponent<TextMeshProUGUI>();
+            tmp.text = text;
+            tmp.fontSize = fontSize;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.color = Color.white;
+            return btn;
+        }
+
+        // A TMP text block (rich text enabled by default), returned so the caller can anchor it.
+        private static TextMeshProUGUI CreateText(string name, string text, RectTransform parent,
+                                                  float fontSize, TextAlignmentOptions align)
+        {
+            var rt = CreateChild(name, parent);
+            var tmp = rt.gameObject.AddComponent<TextMeshProUGUI>();
+            tmp.text = text;
+            tmp.fontSize = fontSize;
+            tmp.alignment = align;
+            tmp.color = Color.white;
+            return tmp;
         }
 
         private static RectTransform CreateChild(string name, RectTransform parent)

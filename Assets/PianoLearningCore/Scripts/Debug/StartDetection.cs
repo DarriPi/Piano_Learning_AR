@@ -58,7 +58,21 @@ namespace PianoLearningCore
 
             if (songLauncher != null)
             {
-                songLauncher.LoadAndPlay();
+                // If a SongSelectionMenu is in the scene, IT owns launching — the player picks a
+                // song + mode first. Auto-launching here would start a song before the menu appears
+                // (and leave the playback bar fighting the menu for the controller laser).
+#pragma warning disable CS0618 // FindObjectOfType works across every Unity version
+                bool menuOwnsLaunch = FindObjectOfType<SongSelectionMenu>() != null;
+#pragma warning restore CS0618
+                if (menuOwnsLaunch)
+                {
+                    Debug.Log("[StartDetection] SongSelectionMenu present — not auto-launching; " +
+                              "the menu will start the chosen song.");
+                }
+                else
+                {
+                    songLauncher.LoadAndPlay();
+                }
             }
             else
             {

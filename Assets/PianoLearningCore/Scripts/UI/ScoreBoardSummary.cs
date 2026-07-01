@@ -31,6 +31,9 @@ namespace PianoLearningCore
         [Tooltip("Used for the song title and for the Play Again replay.")]
         public FallingNotesController controller;
 
+        [Tooltip("Shown again when the player presses Close, so they can pick another song. Auto-found.")]
+        public SongSelectionMenu songMenu;
+
         [Header("Panel")]
         [Tooltip("The visual panel revealed on song-complete and hidden otherwise. Point this at the " +
                  "PANEL child, NOT the Canvas root, so this controller keeps running. " +
@@ -109,6 +112,8 @@ namespace PianoLearningCore
 
         private void HandleSongComplete(int score, int correct, int incorrect, int missed)
         {
+            // Assessment only: Practice is a guided, unscored mode, so it shows no results board.
+            if (evaluator != null && evaluator.mode != SessionMode.Assessment) return;
             Populate();
             Show();
         }
@@ -157,10 +162,18 @@ namespace PianoLearningCore
             Hide();
         }
 
-        /// <summary>Dismiss the summary and fire <see cref="onClosed"/> (e.g. to re-show a song menu).</summary>
+        /// <summary>
+        /// Dismiss the summary and return to the song-selection menu so the player can pick another
+        /// song. Also fires <see cref="onClosed"/> for any extra Inspector-wired behaviour. Mirrors
+        /// <see cref="PlaybackControls.StopToMenu"/>. Deliberately does NOT call
+        /// <c>controller.Stop()</c>: the song has already finished (IsFinished stays true), which is
+        /// what keeps the playback bar hidden — the next song selection resets everything via
+        /// <see cref="FallingNotesController.LoadSong"/>.
+        /// </summary>
         public void Close()
         {
             Hide();
+            if (songMenu != null) songMenu.Show(); // back to the song list
             onClosed?.Invoke();
         }
 
@@ -200,6 +213,7 @@ namespace PianoLearningCore
 #pragma warning disable CS0618 // FindObjectOfType works across every Unity version
             if (evaluator == null)  evaluator  = FindObjectOfType<NoteEvaluator>();
             if (controller == null) controller = FindObjectOfType<FallingNotesController>();
+            if (songMenu == null)   songMenu   = FindObjectOfType<SongSelectionMenu>();
 #pragma warning restore CS0618
         }
     }

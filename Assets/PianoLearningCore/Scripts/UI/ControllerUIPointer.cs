@@ -75,14 +75,33 @@ namespace PianoLearningCore
 
         private void Start()
         {
+            // A ControllerMenuNavigator (thumbstick + trigger) replaces this laser when present,
+            // so stand down to avoid two competing input paths / a stray laser.
+#pragma warning disable CS0618 // FindObjectOfType works across every Unity version
+            if (FindObjectOfType<ControllerMenuNavigator>() != null)
+#pragma warning restore CS0618
+            {
+                SetLaser(false);
+                enabled = false;
+                return;
+            }
+
             if (EventSystem.current != null)
                 _pointerData = new PointerEventData(EventSystem.current);
 
             if (targetCanvas == null)
             {
+                // Prefer the canvas this pointer lives on — every builder puts the pointer on the
+                // canvas ROOT, so this is the correct target and never grabs another canvas by
+                // mistake. (This is why a serialized-null targetCanvas still resolves correctly.)
+                targetCanvas = GetComponent<Canvas>();
+                if (targetCanvas == null) targetCanvas = GetComponentInParent<Canvas>();
 #pragma warning disable CS0618 // FindObjectOfType is fine and works across Unity versions
-                var menu = FindObjectOfType<SongSelectionMenu>();
-                if (menu != null) targetCanvas = menu.GetComponentInChildren<Canvas>(true);
+                if (targetCanvas == null)
+                {
+                    var menu = FindObjectOfType<SongSelectionMenu>();
+                    if (menu != null) targetCanvas = menu.GetComponentInChildren<Canvas>(true);
+                }
                 if (targetCanvas == null) targetCanvas = FindObjectOfType<Canvas>();
             }
 

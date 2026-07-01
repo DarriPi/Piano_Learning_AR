@@ -5,7 +5,8 @@ namespace PianoLearningCore
 {
     /// <summary>
     /// Live in-play HUD — a small, peripheral world-space readout of the running accuracy, streak and
-    /// score WHILE a song is playing. Complements <see cref="ScoreBoardSummary"/> (the final result
+    /// score WHILE an Assessment song plays — it stays hidden in Practice (the guided, unscored mode).
+    /// Complements <see cref="ScoreBoardSummary"/> (the final result
     /// screen): this one updates continuously so the player gets feedback during the run, then hides
     /// itself the moment the song ends so the score board can take over.
     ///
@@ -74,8 +75,10 @@ namespace PianoLearningCore
         private void Update()
         {
             // IsPlaying has no event, so visibility is the one thing we poll. Guarded so we only
-            // toggle on a CHANGE — no per-frame SetActive or string formatting.
-            bool shouldShow = controller != null && controller.IsPlaying;
+            // toggle on a CHANGE — no per-frame SetActive or string formatting. The score HUD is an
+            // Assessment-mode element: Practice is a guided, unscored mode, so it stays hidden there.
+            bool shouldShow = controller != null && controller.IsPlaying
+                              && evaluator != null && evaluator.mode == SessionMode.Assessment;
             if (shouldShow != _visible) SetVisible(shouldShow);
         }
 
