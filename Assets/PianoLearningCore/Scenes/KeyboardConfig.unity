@@ -1037,7 +1037,7 @@ MonoBehaviour:
   spawnDistance: 1.5
   autoStart: 1
   startDelay: 6
-  playbackSpeed: 0.5
+  playbackSpeed: 1
 --- !u!1 &131745378
 GameObject:
   m_ObjectHideFlags: 0
