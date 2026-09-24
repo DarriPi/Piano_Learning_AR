@@ -11,7 +11,7 @@ namespace PianoLearningCore
     /// follow (see the note in <see cref="PlaybackControls"/>).
     ///
     /// Flow: on Start the Help panel is shown and the song list is hidden. The Help panel's Close
-    /// button hides Help and reveals the list; the list's "?" button brings Help back. Nothing plays
+    /// button hides Help and reveals the list; the list's "Align" button brings Help back. Nothing plays
     /// until the user picks a song from the list, so the app never launches straight into a song
     /// (pair this with <c>SongLauncher.playOnStart = false</c>).
     ///
@@ -23,7 +23,7 @@ namespace PianoLearningCore
     public class HelpPanel : MonoBehaviour
     {
         [Header("References (auto-found if left empty)")]
-        [Tooltip("The Help panel visual child shown at startup and via the '?' button.")]
+        [Tooltip("The Help panel visual child shown at startup and via the 'Align' button.")]
         public GameObject helpPanelRoot;
 
         [Tooltip("The song list this coordinates with. Its panel is hidden while Help is up. " +
@@ -34,7 +34,7 @@ namespace PianoLearningCore
         [Tooltip("On the Help panel — closes Help and reveals the song list.")]
         public Button closeButton;
 
-        [Tooltip("The '?' on the song list — reopens Help.")]
+        [Tooltip("The 'Align' button on the song list — reopens Help.")]
         public Button helpButton;
 
         [Header("Calibration confirm (optional)")]

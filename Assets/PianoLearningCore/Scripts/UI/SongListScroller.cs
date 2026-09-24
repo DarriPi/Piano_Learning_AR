@@ -209,7 +209,7 @@ namespace PianoLearningCore
             rt.anchoredPosition = anchoredPosition;
 
             var img = rt.gameObject.AddComponent<Image>();
-            img.color = new Color(0.18f, 0.40f, 0.62f, 1f); // same blue as the '?' help button
+            img.color = new Color(0.18f, 0.40f, 0.62f, 1f); // same blue as the 'Align' help button
             var btn = rt.gameObject.AddComponent<Button>();
             btn.targetGraphic = img;
 

@@ -25,25 +25,6 @@ namespace PianoLearningCore
     /// </summary>
     public static class SongSelectionMenuBuilder
     {
-        // Help text (TMP rich text). Colours match the in-scene KeyboardAlignmentGuide markers
-        // (pink Middle-C post, teal hit line) and the NoteEvaluator flash colours (green/red/grey).
-        // Bullets/dashes are literal UTF-8 and render with the default TMP (LiberationSans) font.
-        private const string PositioningHelp =
-            "<b>Position your keyboard</b>\n" +
-            "• Find the tall <color=#FF4D99>pink</color> post — that's <b>Middle C</b>. " +
-            "Slide the keyboard so it sits on Middle C of your real piano. " +
-            "(The shorter gold posts mark the other C's.)\n" +
-            "• Line up the bright <color=#33FFD9>teal</color> front line with the front edge of your keys.\n" +
-            "• Fine-tune with the controllers:  right stick = move · left stick = rotate / raise-lower · " +
-            "hold right trigger = faster · X / Y = narrower / wider · B = reset · A = done.";
-
-        private const string HowToPlayHelp =
-            "<b>How to play</b>\n" +
-            "• Notes fall onto your keys — play the matching key on your real piano as each note reaches the line.\n" +
-            "• <color=#33CC66>Green</color> = correct · <color=#FF4D4D>Red</color> = wrong note · " +
-            "<color=#AAAAAA>Grey</color> = missed.\n" +
-            "• Practice waits for the right note and reveals the answer in red; Assessment scores you in real time.";
-
         [MenuItem("Tools/Piano Learning/Create Song Selection Menu")]
         public static void Create()
         {
@@ -189,16 +170,17 @@ namespace PianoLearningCore
             // the Songs folder). The Inspector list is only a manual fallback.
             menu.songs = new List<SongEntry>();
 
-            // 8. "?" help button in the TOP-RIGHT corner of the menu Panel. Lives on the Panel so
-            //    it goes inactive (unclickable) whenever the list is hidden.
-            var helpButton = CreateButton("HelpButton", "?", panel,
-                new Color(0.18f, 0.40f, 0.62f, 1f), 36f);
+            // 8. "Align" button in the TOP-RIGHT corner of the menu Panel: reopens Help, the only
+            //    place the keyboard can be moved. Lives on the Panel so it goes inactive
+            //    (unclickable) whenever the list is hidden.
+            var helpButton = CreateButton("HelpButton", HelpSlideshowBuilder.AlignButtonLabel, panel,
+                new Color(0.18f, 0.40f, 0.62f, 1f), 24f);
             var helpButtonRt = (RectTransform)helpButton.transform;
             helpButtonRt.anchorMin = new Vector2(1f, 1f);
             helpButtonRt.anchorMax = new Vector2(1f, 1f);
             helpButtonRt.pivot = new Vector2(1f, 1f);
-            helpButtonRt.sizeDelta = new Vector2(64f, 64f);
             helpButtonRt.anchoredPosition = new Vector2(-16f, -16f);
+            HelpSlideshowBuilder.StyleAlignButton(helpButton);
 
             // 8b. Up/Down scroll buttons in the right-hand column the ScrollView left free,
             //     aligned with the scroll area's top/bottom. They are the visible hint that the
@@ -228,8 +210,8 @@ namespace PianoLearningCore
             scroller.scrollUpButton = scrollUpButton;
             scroller.scrollDownButton = scrollDownButton;
 
-            // 8c. "+ Add Song" in the TOP-LEFT, mirroring the "?" top-right (the whole
-            //     right-hand column is taken by ? / Up / Down). Opens the headset's file
+            // 8c. "+ Add Song" in the TOP-LEFT, mirroring "Align" top-right (the whole
+            //     right-hand column is taken by Align / Up / Down). Opens the headset's file
             //     browser so the player can add a .mid of their own.
             var addSongButton = CreateButton("AddSongButton", "+ Add Song", panel,
                 new Color(0.18f, 0.40f, 0.62f, 1f), 24f);
@@ -264,7 +246,7 @@ namespace PianoLearningCore
             addSong.statusLabel = statusLabel;
 
             // 9. Help panel — a sibling of the menu Panel under the SAME canvas, shown at startup
-            //    and via "?". Because the existing ControllerUIPointer only sees ACTIVE buttons and
+            //    and via "Align". Because the existing ControllerUIPointer only sees ACTIVE buttons and
             //    only one panel is ever active, it drives this panel's Close button too with no
             //    extra pointer (one laser, always).
             var help = CreateChild("HelpPanel", canvasRt);
@@ -274,22 +256,6 @@ namespace PianoLearningCore
             var helpTitle = CreateText("Title", "How to Use", help, 44f, TextAlignmentOptions.Center);
             AnchorTop(helpTitle.rectTransform, 80f);
 
-            var helpBody = CreateChild("Body", help);
-            helpBody.anchorMin = Vector2.zero;
-            helpBody.anchorMax = Vector2.one;
-            helpBody.offsetMin = new Vector2(60f, 120f);   // leave room for the Close button
-            helpBody.offsetMax = new Vector2(-60f, -100f);  // leave room for the title
-            var helpVlg = helpBody.gameObject.AddComponent<VerticalLayoutGroup>();
-            helpVlg.spacing = 20f;
-            helpVlg.childAlignment = TextAnchor.UpperLeft;
-            helpVlg.childControlWidth = true;
-            helpVlg.childControlHeight = true;
-            helpVlg.childForceExpandWidth = true;
-            helpVlg.childForceExpandHeight = false;
-
-            CreateText("Positioning", PositioningHelp, helpBody, 26f, TextAlignmentOptions.TopLeft);
-            CreateText("HowToPlay", HowToPlayHelp, helpBody, 26f, TextAlignmentOptions.TopLeft);
-
             var closeButton = CreateButton("CloseButton", "Close", help,
                 new Color(0.18f, 0.40f, 0.62f, 1f), 28f);
             var closeRt = (RectTransform)closeButton.transform;
@@ -298,6 +264,10 @@ namespace PianoLearningCore
             closeRt.pivot = new Vector2(0.5f, 0f);
             closeRt.sizeDelta = new Vector2(220f, 64f);
             closeRt.anchoredPosition = new Vector2(0f, 30f);
+
+            // The instructions themselves: step-by-step pictures/videos with arrows and a
+            // progress bar (it also tightens the Title and Close button to make room).
+            HelpSlideshowBuilder.BuildInto(help, closeButton);
 
             // 10. Help controller on the canvas root, wired to both panels + buttons. It shows Help
             //     and hides the list on Start, so the app opens on the instructions, not a song.
@@ -318,7 +288,7 @@ namespace PianoLearningCore
             Selection.activeGameObject = canvasGo;
 
             Debug.Log("[SongSelectionMenuBuilder] Created 'SongSelectionCanvas' with a startup Help " +
-                      "panel (keyboard positioning + how to play), a top-right '?' button, per-song " +
+                      "panel (a step-by-step slideshow: keyboard positioning + how to play), a top-right 'Align' button (reopens Help), per-song " +
                       "Practice/Assessment buttons, a scrollable song list (right stick or the " +
                       "Up/Down buttons; mouse wheel in the editor), and a top-left '+ Add Song' " +
                       "button that imports a .mid from the headset's file browser (imported songs " +

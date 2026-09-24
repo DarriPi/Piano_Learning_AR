@@ -139,8 +139,8 @@ namespace PianoLearningCore
 
             if (adder.addButton == null)
             {
-                // Top-LEFT of the panel, mirroring the "?" help button top-right. The whole
-                // right-hand column is already taken by "?", "Up" and "Down".
+                // Top-LEFT of the panel, mirroring the "Align" help button top-right. The whole
+                // right-hand column is already taken by "Align", "Up" and "Down".
                 adder.addButton = MakeButton("AddSongButton", "+ Add Song", panel,
                     new Vector2(0f, 1f), new Vector2(200f, 64f), new Vector2(16f, -16f), 24f);
                 adder.addButton.onClick.AddListener(adder.OnAddPressed);
