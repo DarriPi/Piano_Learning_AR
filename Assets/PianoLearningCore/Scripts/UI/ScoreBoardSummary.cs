@@ -50,6 +50,17 @@ namespace PianoLearningCore
         [Tooltip("Missed-note count.")]                public TMP_Text missedText;
         [Tooltip("Longest run of consecutive correct notes.")] public TMP_Text streakText;
 
+        [Header("Reporting")]
+        [Tooltip("Hide the 'Incorrect' and 'Best streak' rows.\n\n" +
+                 "Both are driven by detector note-on events, which currently also fire on room " +
+                 "noise — so neither measures the player. A phantom note inflates the wrong-note " +
+                 "count and resets the streak through no fault of theirs, which would mislead a " +
+                 "usability-study participant. 'Correct' and 'Missed' are counted against the " +
+                 "song's own notes, so noise cannot invent them, and wrong notes are just " +
+                 "TotalNotes minus Correct.\n\n" +
+                 "Turn this off once the false-positive rate is inside the proposal's 1% criterion.")]
+        public bool hideUnreliableStats = true;
+
         [Header("Buttons")]
         public Button playAgainButton;
         public Button closeButton;
@@ -145,9 +156,39 @@ namespace PianoLearningCore
 
             if (scoreText != null)     scoreText.text     = evaluator.Score.ToString("N0");
             if (correctText != null)   correctText.text   = $"{evaluator.NotesCorrect} / {evaluator.TotalNotes}";
-            if (incorrectText != null) incorrectText.text = evaluator.NotesIncorrect.ToString();
             if (missedText != null)    missedText.text    = evaluator.NotesMissed.ToString();
-            if (streakText != null)    streakText.text    = evaluator.BestStreak.ToString();
+
+            // "Incorrect" and "Best streak" are deliberately hidden. Both are driven by OnNoteOn,
+            // which the detector also fires for room noise, so on current hardware neither is a
+            // measurement of the PLAYER: a phantom note inflates the wrong-note count and breaks
+            // the streak through no fault of theirs. Showing a number we cannot stand behind would
+            // mislead a study participant. Correct and Missed stay — those are counted against the
+            // song's own notes, so noise cannot invent them — and wrong notes are simply
+            // TotalNotes minus Correct if anyone wants them.
+            if (hideUnreliableStats)
+            {
+                HideStatRow(incorrectText);
+                HideStatRow(streakText);
+            }
+            else
+            {
+                if (incorrectText != null) incorrectText.text = evaluator.NotesIncorrect.ToString();
+                if (streakText != null)    streakText.text    = evaluator.BestStreak.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Hide a whole stat row. The builder nests each row as [Label | Value], so the value's
+        /// parent is the row — deactivating it takes the label with it and lets the vertical
+        /// layout close the gap.
+        /// </summary>
+        private static void HideStatRow(TMP_Text value)
+        {
+            if (value == null) return;
+            GameObject row = value.transform.parent != null
+                ? value.transform.parent.gameObject
+                : value.gameObject;
+            if (row.activeSelf) row.SetActive(false);
         }
 
         // ----------------------------------------------------------------
