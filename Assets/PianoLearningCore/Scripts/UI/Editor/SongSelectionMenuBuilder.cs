@@ -9,10 +9,13 @@ namespace PianoLearningCore
 {
     /// <summary>
     /// One-click builder for a world-space Song Selection menu in the current scene.
-    /// Creates Canvas > Panel > (Title + Content[VerticalLayout] + SongRowTemplate), where the
-    /// row template carries a label plus a Practice and an Assessment button. Adds a
-    /// <see cref="SongSelectionMenu"/> and auto-assigns its references plus the two bundled
-    /// demo songs.
+    /// Creates Canvas > Panel > (Title + ScrollView[ScrollRect] > Viewport[RectMask2D] >
+    /// Content[VerticalLayout] + SongRowTemplate), where the row template carries a label plus
+    /// a Practice and an Assessment button. The ScrollRect (plus Up/Down buttons and a
+    /// <see cref="SongListScroller"/>) lets the list hold any number of songs. Adds a
+    /// <see cref="SongSelectionMenu"/> and auto-assigns its references; the songs themselves
+    /// are discovered at runtime from the StreamingAssets song manifest (kept in sync by
+    /// <see cref="SongManifestGenerator"/>), so none are seeded here.
     ///
     /// This deliberately uses ONLY standard Unity UI APIs (no Meta Interaction types) so it
     /// is safe across SDK versions and can't block compilation. After running it, add the
@@ -88,12 +91,31 @@ namespace PianoLearningCore
             titleTmp.alignment = TextAlignmentOptions.Center;
             titleTmp.color = Color.white;
 
-            // 5. Content (the vertical list the rows go into).
-            var content = CreateChild("Content", panel);
-            content.anchorMin = Vector2.zero;
-            content.anchorMax = Vector2.one;
-            content.offsetMin = new Vector2(40f, 40f);
-            content.offsetMax = new Vector2(-40f, -100f); // leave room for the title
+            // 5. ScrollView > Viewport (mask) > Content — the vertical list the rows go into.
+            //    The ScrollRect + RectMask2D let the list hold any number of songs: the
+            //    ContentSizeFitter keeps every row at its natural height and the overflow
+            //    scrolls instead of squashing.
+            var scrollView = CreateChild("ScrollView", panel);
+            scrollView.anchorMin = Vector2.zero;
+            scrollView.anchorMax = Vector2.one;
+            scrollView.offsetMin = new Vector2(40f, 40f);
+            scrollView.offsetMax = new Vector2(-96f, -100f); // room for the title above and Up/Down at the right
+            // Near-invisible but NOT alpha 0: a fully transparent mesh gets culled by the
+            // CanvasRenderer and would stop receiving the editor mouse wheel/drag raycasts.
+            scrollView.gameObject.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.01f);
+            var scrollRect = scrollView.gameObject.AddComponent<ScrollRect>();
+
+            var viewport = CreateChild("Viewport", scrollView);
+            Stretch(viewport);
+            viewport.gameObject.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.01f);
+            viewport.gameObject.AddComponent<RectMask2D>();
+
+            var content = CreateChild("Content", viewport);
+            content.anchorMin = new Vector2(0f, 1f);   // pinned to the viewport TOP so the
+            content.anchorMax = Vector2.one;           // fitter grows it downward past the
+            content.pivot = new Vector2(0.5f, 1f);     // viewport — that's the scrollable part
+            content.offsetMin = Vector2.zero;
+            content.offsetMax = Vector2.zero;
             var vlg = content.gameObject.AddComponent<VerticalLayoutGroup>();
             vlg.spacing = 14f;
             vlg.childAlignment = TextAnchor.UpperCenter;
@@ -101,6 +123,15 @@ namespace PianoLearningCore
             vlg.childControlHeight = true;
             vlg.childForceExpandWidth = true;
             vlg.childForceExpandHeight = false;
+            var fitter = content.gameObject.AddComponent<ContentSizeFitter>();
+            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            scrollRect.content = content;
+            scrollRect.viewport = viewport;
+            scrollRect.horizontal = false;
+            scrollRect.vertical = true;
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
+            scrollRect.scrollSensitivity = 35f; // sane mouse-wheel step in the editor
 
             // 6. Row template: [ Label .......... | Practice | Assessment ], kept hidden.
             var rowRt = CreateChild("SongRowTemplate", content);
@@ -133,11 +164,18 @@ namespace PianoLearningCore
             var assessmentBtn = CreateModeButton("AssessmentButton", "Assessment", rowRt,
                 new Color(0.72f, 0.45f, 0.12f, 1f), 210f);
 
-            // 6c. The SongRow component that ties it together.
+            // 6c. Remove button — SongRow.Bind only shows it on songs the user imported, so
+            //     built-in rows look exactly as they did. 'X', not a bin glyph: the default
+            //     TMP font atlas has no symbol fonts.
+            var removeBtn = CreateModeButton("RemoveButton", "X", rowRt,
+                new Color(0.62f, 0.24f, 0.22f, 1f), 56f);
+
+            // 6d. The SongRow component that ties it together.
             var songRow = rowRt.gameObject.AddComponent<SongRow>();
             songRow.label = rowLabelTmp;
             songRow.practiceButton = practiceBtn;
             songRow.assessmentButton = assessmentBtn;
+            songRow.removeButton = removeBtn;
             rowRt.gameObject.SetActive(false);
 
             // 7. Controller on the Canvas root (so hiding the Panel keeps it alive), wired up.
@@ -146,19 +184,10 @@ namespace PianoLearningCore
             menu.contentParent = content;
             menu.rowTemplate = songRow;
             menu.panelRoot = panel.gameObject;
-            menu.songs = new List<SongEntry>
-            {
-                new SongEntry
-                {
-                    displayName = "Twinkle Twinkle Little Star",
-                    streamingAssetsPath = "Songs/twinkle-twinkle-little-star.mid"
-                },
-                new SongEntry
-                {
-                    displayName = "Example",
-                    streamingAssetsPath = "Songs/example.mid"
-                },
-            };
+            // No songs seeded: SongSelectionMenu fills its list at runtime from the
+            // StreamingAssets song manifest (SongManifestGenerator keeps that in sync with
+            // the Songs folder). The Inspector list is only a manual fallback.
+            menu.songs = new List<SongEntry>();
 
             // 8. "?" help button in the TOP-RIGHT corner of the menu Panel. Lives on the Panel so
             //    it goes inactive (unclickable) whenever the list is hidden.
@@ -170,6 +199,69 @@ namespace PianoLearningCore
             helpButtonRt.pivot = new Vector2(1f, 1f);
             helpButtonRt.sizeDelta = new Vector2(64f, 64f);
             helpButtonRt.anchoredPosition = new Vector2(-16f, -16f);
+
+            // 8b. Up/Down scroll buttons in the right-hand column the ScrollView left free,
+            //     aligned with the scroll area's top/bottom. They are the visible hint that the
+            //     list scrolls (no scrollbar — the laser can't drag one); the right thumbstick
+            //     scrolls too via the SongListScroller. Text labels, not '▲'/'▼' — the arrows
+            //     are missing from the default TMP font atlas.
+            var scrollUpButton = CreateButton("ScrollUpButton", "Up", panel,
+                new Color(0.18f, 0.40f, 0.62f, 1f), 20f);
+            var scrollUpRt = (RectTransform)scrollUpButton.transform;
+            scrollUpRt.anchorMin = new Vector2(1f, 1f);
+            scrollUpRt.anchorMax = new Vector2(1f, 1f);
+            scrollUpRt.pivot = new Vector2(1f, 1f);
+            scrollUpRt.sizeDelta = new Vector2(64f, 64f);
+            scrollUpRt.anchoredPosition = new Vector2(-16f, -100f);
+
+            var scrollDownButton = CreateButton("ScrollDownButton", "Down", panel,
+                new Color(0.18f, 0.40f, 0.62f, 1f), 20f);
+            var scrollDownRt = (RectTransform)scrollDownButton.transform;
+            scrollDownRt.anchorMin = new Vector2(1f, 0f);
+            scrollDownRt.anchorMax = new Vector2(1f, 0f);
+            scrollDownRt.pivot = new Vector2(1f, 0f);
+            scrollDownRt.sizeDelta = new Vector2(64f, 64f);
+            scrollDownRt.anchoredPosition = new Vector2(-16f, 40f);
+
+            var scroller = canvasGo.AddComponent<SongListScroller>();
+            scroller.scrollRect = scrollRect;
+            scroller.scrollUpButton = scrollUpButton;
+            scroller.scrollDownButton = scrollDownButton;
+
+            // 8c. "+ Add Song" in the TOP-LEFT, mirroring the "?" top-right (the whole
+            //     right-hand column is taken by ? / Up / Down). Opens the headset's file
+            //     browser so the player can add a .mid of their own.
+            var addSongButton = CreateButton("AddSongButton", "+ Add Song", panel,
+                new Color(0.18f, 0.40f, 0.62f, 1f), 24f);
+            var addSongRt = (RectTransform)addSongButton.transform;
+            addSongRt.anchorMin = new Vector2(0f, 1f);
+            addSongRt.anchorMax = new Vector2(0f, 1f);
+            addSongRt.pivot = new Vector2(0f, 1f);
+            addSongRt.sizeDelta = new Vector2(200f, 64f);
+            addSongRt.anchoredPosition = new Vector2(16f, -16f);
+
+            // 8d. Status strip for the import result. Created LAST so it draws OVER the song
+            //     list instead of forcing the list to leave a gap; it is hidden while idle.
+            //     It is a plain Image + text, never a Button, so it can't become a laser target.
+            var statusRt = CreateChild("AddSongStatus", panel);
+            statusRt.SetAsLastSibling();
+            statusRt.anchorMin = new Vector2(0.5f, 0f);
+            statusRt.anchorMax = new Vector2(0.5f, 0f);
+            statusRt.pivot = new Vector2(0.5f, 0f);
+            statusRt.sizeDelta = new Vector2(800f, 44f);
+            statusRt.anchoredPosition = new Vector2(0f, 6f);
+            statusRt.gameObject.AddComponent<Image>().color = new Color(0.10f, 0.12f, 0.18f, 0.95f);
+
+            var statusLabel = CreateText("Label", "", statusRt, 24f, TextAlignmentOptions.Center);
+            Stretch(statusLabel.rectTransform);
+            statusLabel.raycastTarget = false;
+            statusRt.gameObject.SetActive(false);
+
+            var addSong = canvasGo.AddComponent<AddSongButton>();
+            addSong.menu = menu;
+            addSong.addButton = addSongButton;
+            addSong.statusRoot = statusRt.gameObject;
+            addSong.statusLabel = statusLabel;
 
             // 9. Help panel — a sibling of the menu Panel under the SAME canvas, shown at startup
             //    and via "?". Because the existing ControllerUIPointer only sees ACTIVE buttons and
@@ -226,8 +318,11 @@ namespace PianoLearningCore
             Selection.activeGameObject = canvasGo;
 
             Debug.Log("[SongSelectionMenuBuilder] Created 'SongSelectionCanvas' with a startup Help " +
-                      "panel (keyboard positioning + how to play), a top-right '?' button, and per-song " +
-                      "Practice/Assessment buttons. " +
+                      "panel (keyboard positioning + how to play), a top-right '?' button, per-song " +
+                      "Practice/Assessment buttons, a scrollable song list (right stick or the " +
+                      "Up/Down buttons; mouse wheel in the editor), and a top-left '+ Add Song' " +
+                      "button that imports a .mid from the headset's file browser (imported songs " +
+                      "get an 'X' to remove them again). " +
                       (launcher == null
                           ? "No SongLauncher found in the scene — add one and drag it onto the " +
                             "SongSelectionMenu's 'Launcher' field."

@@ -9,6 +9,19 @@
       </intent-filter>
       <meta-data android:name="com.oculus.vr.focusaware" android:value="true" />
     </activity>
+    <!-- Transparent helper that runs the system file picker so the user can add their own .mid
+         songs. Unity's UnityPlayerGameActivity doesn't override onActivityResult, so the pick
+         result needs its own activity to land in; see MidiPickerActivity.java / MidiImporter.cs.
+         No permission is involved: the Storage Access Framework grants access per chosen file.
+         NOTE: if Meta's "Update AndroidManifest" menu item ever rewrites this file, re-add this
+         element or the Add Song button stops working. -->
+    <!-- android:process and android:taskAffinity are BOTH load-bearing; see MidiPickerActivity.java.
+         Same-affinity tasks make Horizon hide the immersive app ("Add Task #A to hidden list
+         because adding Task #B", both A=com.darripi.arpiano), and the shell registers the panel
+         app and its VR focus by PROCESS name. Splitting either one alone leaves the other lever
+         pulled. Cost of the split process: UnitySendMessage can't cross it, so the result comes
+         back through a file instead. -->
+    <activity android:name="com.darripi.arpiano.MidiPickerActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:exported="false" android:excludeFromRecents="true" android:process=":midipicker" android:taskAffinity="com.darripi.arpiano.picker" android:configChanges="orientation|screenSize|keyboardHidden|uiMode" />
     <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="false" />
     <meta-data android:name="com.oculus.ossplash.background" android:value="passthrough-contextual" />
     <meta-data android:name="com.oculus.telemetry.project_guid" android:value="85ea8c98-818b-4d0b-9e6b-def01112e267" />

@@ -201,12 +201,33 @@ namespace PianoLearningCore
 
                 if (pierced && d < nearest)
                 {
+                    Vector3 p = origin + dir * d;
+                    // Rows scrolled out of the song list's viewport are CLIPPED by a RectMask2D
+                    // but stay active, so the quad test above still hits them. Only accept hits
+                    // that land inside every ancestor mask — i.e. on the visible part.
+                    if (!VisibleThroughMasks(p, b.transform)) continue;
                     nearest = d;
-                    hitPoint = origin + dir * d;
+                    hitPoint = p;
                     best = b;
                 }
             }
             return best;
+        }
+
+        // True when the world-space point is inside every RectMask2D above the transform, so a
+        // masked-away (invisible) button can't be hovered or clicked. Buttons with no mask
+        // ancestor are unaffected.
+        private static bool VisibleThroughMasks(Vector3 worldPoint, Transform t)
+        {
+            for (var rt = t as RectTransform; rt != null; rt = rt.parent as RectTransform)
+            {
+                if (rt.TryGetComponent(out RectMask2D _))
+                {
+                    Vector2 local = rt.InverseTransformPoint(worldPoint);
+                    if (!rt.rect.Contains(local)) return false;
+                }
+            }
+            return true;
         }
 
         // Double-sided Möller–Trumbore ray/triangle test. Always assigns 'dist'.

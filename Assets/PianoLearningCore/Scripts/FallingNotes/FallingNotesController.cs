@@ -64,6 +64,15 @@ namespace PianoLearningCore
         /// <summary>The current "song time" in seconds. Notes whose startTime &lt;= this are being hit.</summary>
         public float CurrentTime { get; private set; }
 
+        /// <summary>
+        /// When true, the playback clock is frozen even though <see cref="IsPlaying"/> stays true:
+        /// CurrentTime stops advancing so the falling notes park where they are. The NoteEvaluator's
+        /// Practice "wait for the correct note" gate sets this to hold a note on its key until the
+        /// player plays it. Distinct from <see cref="Pause"/> (a user pause clears IsPlaying); this is
+        /// an automatic, transient hold the gate releases the instant the note is judged.
+        /// </summary>
+        public bool HoldClock { get; set; }
+
         /// <summary>Speed of all falling notes, derived from spawnDistance and leadTime.</summary>
         public float Speed => leadTime > 0.0001f ? spawnDistance / leadTime : 1f;
 
@@ -101,7 +110,10 @@ namespace PianoLearningCore
                     Debug.Log("[FallingNotesController] GO!");
                     _lastCountdownLogged = 0;
                 }
-                CurrentTime += Time.deltaTime * playbackSpeed;
+                // HoldClock freezes time in place (the Practice wait-for-note gate) without ending
+                // playback, so the notes park on their keys until the player catches up.
+                if (!HoldClock)
+                    CurrentTime += Time.deltaTime * playbackSpeed;
             }
 
             SpawnUpcomingNotes();
@@ -148,6 +160,7 @@ namespace PianoLearningCore
         {
             IsPlaying = false;
             IsFinished = false;
+            HoldClock = false;
             CurrentTime = -startDelay;
             _nextSpawnIndex = 0;
             _lastCountdownLogged = int.MaxValue;

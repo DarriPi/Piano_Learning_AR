@@ -153,6 +153,7 @@ namespace PianoLearningCore
 
         private void Update()
         {
+            UpdateWaitGate();
             CheckMissedNotes();
             CheckSongComplete();
         }
@@ -311,6 +312,57 @@ namespace PianoLearningCore
                           $"{NotesCorrect}/{TotalNotes} correct ({AccuracyPercent:F1}%)");
 
             OnSongComplete?.Invoke(Score, NotesCorrect, NotesIncorrect, NotesMissed);
+        }
+
+        // ----------------------------------------------------------------
+        // Practice wait-for-note gate — freezes playback on the current note(s)
+        // ----------------------------------------------------------------
+
+        /// <summary>
+        /// Practice mode only: holds the playback clock on a note once it reaches the hit line and
+        /// releases it the instant the note is played, so the song waits for the learner instead of
+        /// scrolling past. Runs every frame and always writes
+        /// <see cref="FallingNotesController.HoldClock"/> (true = hold, false = run) so the flag can
+        /// never get stuck. Assessment mode never holds — it is a real-time graded run.
+        ///
+        /// Holds while ANY unjudged, on-keyboard note has already reached the hit line
+        /// (startTime &lt;= CurrentTime): that naturally waits for every note of a chord and steps to the
+        /// next note the moment the current one is judged. Out-of-range notes (no physical key to play)
+        /// are skipped so they can never soft-lock the song — they fall through to the normal
+        /// missed-note path instead.
+        /// </summary>
+        private void UpdateWaitGate()
+        {
+            if (fallingNotesController == null) return;
+
+            if (mode != SessionMode.Practice || !IsControllerReady())
+            {
+                fallingNotesController.HoldClock = false;
+                return;
+            }
+
+            float now = fallingNotesController.CurrentTime;
+            var notes = fallingNotesController.Song.notes;
+
+            bool hold = false;
+            for (int i = 0; i < notes.Count; i++)
+            {
+                if (notes[i].startTime > now) break;   // time-sorted: nothing beyond here has arrived yet
+                if (_judgedIndices.Contains(i)) continue;
+                if (!IsPlayableNote(notes[i].midiNumber)) continue; // no key to play here — don't wait on it
+                hold = true;
+                break;
+            }
+
+            fallingNotesController.HoldClock = hold;
+        }
+
+        /// <summary>True if the note can actually be played on the assigned keyboard. Notes outside the
+        /// keyboard range never spawn and could never be pressed, so the wait gate must not block on them.</summary>
+        private bool IsPlayableNote(int midiNumber)
+        {
+            var kb = fallingNotesController != null ? fallingNotesController.keyboard : null;
+            return kb == null || kb.ContainsNote(midiNumber);
         }
 
         // ----------------------------------------------------------------

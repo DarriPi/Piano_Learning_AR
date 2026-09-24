@@ -44,7 +44,9 @@ namespace PianoLearningCore
                  "(Place the .mid file at Assets/StreamingAssets/Songs/MaryHadALittleLamb.mid)")]
         public string streamingAssetsRelativePath = "Songs/example.mid";
 
-        [Tooltip("Used when source = AbsoluteFile. Full path on disk. EDITOR / DESKTOP ONLY (not for Quest builds).")]
+        [Tooltip("Used when source = AbsoluteFile. Full path on disk. Works on Quest too, as " +
+                 "long as the path is somewhere the app can read — that's how songs the user " +
+                 "imported are played (see UserSongLibrary).")]
         public string absoluteFilePath = "";
 
         [Tooltip("Used when source = TextAssetBytes. Drag a *.bytes asset here (rename your .mid -> .bytes).")]
@@ -110,6 +112,30 @@ namespace PianoLearningCore
             LoadAndPlay();
         }
 
+        /// <summary>
+        /// Load + play a .mid from an absolute path — used for songs the user imported, which
+        /// live in a writable folder rather than inside the APK. Same contract as
+        /// <see cref="PlayStreamingAssetsSong"/> otherwise.
+        /// </summary>
+        /// <param name="path">Full path to the .mid, e.g. from <see cref="UserSongLibrary"/>.</param>
+        /// <param name="displayTitle">Optional friendly title shown instead of the .mid filename.</param>
+        /// <param name="mode">Practice (guidance) or Assessment (graded).</param>
+        public void PlayFileSong(string path, string displayTitle = null,
+                                 SessionMode mode = SessionMode.Practice)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                Debug.LogError("[SongLauncher] PlayFileSong called with an empty path.", this);
+                return;
+            }
+            source = SongSource.AbsoluteFile;
+            absoluteFilePath = path;
+            _pendingTitleOverride = displayTitle;
+            _resetEvaluatorOnLoad = true;
+            SetMode(mode);
+            LoadAndPlay();
+        }
+
         /// <summary>Record the Practice/Assessment mode and push it to the NoteEvaluator.</summary>
         public void SetMode(SessionMode mode)
         {
@@ -152,7 +178,17 @@ namespace PianoLearningCore
                     }
                     else
                     {
-                        song = MidiSongLoader.LoadFromFile(absoluteFilePath);
+                        // The Add Song button parses a file before accepting it, but one copied
+                        // straight into the songs folder from a PC never went through that check
+                        // — and an unhandled parse exception here would kill this coroutine.
+                        try
+                        {
+                            song = MidiSongLoader.LoadFromFile(absoluteFilePath);
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debug.LogError($"[SongLauncher] Couldn't read '{absoluteFilePath}': {e.Message}", this);
+                        }
                     }
                     break;
 
