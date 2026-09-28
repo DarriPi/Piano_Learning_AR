@@ -36,6 +36,13 @@ namespace PianoLearningCore
         [Tooltip("The FallingNotesController driving song playback.")]
         public FallingNotesController fallingNotesController;
 
+        [Header("Mode")]
+        [Tooltip("Practice = guidance on: a wrong press reveals the expected note(s) in red.\n" +
+                 "Assessment = graded run: that answer-reveal is withheld (you still see your own " +
+                 "correct/green hits, and the score still counts errors).\n" +
+                 "Set automatically when a song is chosen from the SongSelectionMenu.")]
+        public SessionMode mode = SessionMode.Practice;
+
         [Header("Timing")]
         [Tooltip("Seconds before/after a note's start time in which a press counts as correct. " +
                  "+/-150 ms is a comfortable window that still rewards accurate playing.")]
@@ -90,12 +97,35 @@ namespace PianoLearningCore
         public int NotesCorrect   { get; private set; }
         public int NotesIncorrect { get; private set; }
         public int NotesMissed    { get; private set; }
-        public int TotalNotes     { get; private set; }
+
+        /// <summary>Consecutive correct notes right now. Reset to 0 by any wrong or missed note.</summary>
+        public int CurrentStreak  { get; private set; }
+
+        /// <summary>Longest run of consecutive correct notes this song. Surfaced on the score board.</summary>
+        public int BestStreak     { get; private set; }
+
+        /// <summary>Total notes in the loaded song. Read live from the controller so it's correct
+        /// even when ResetScore() runs before the song is loaded (or isn't called at all, as in the
+        /// standalone demo path) — otherwise the final readout shows "/0" and 0% accuracy.</summary>
+        public int TotalNotes => fallingNotesController != null && fallingNotesController.Song != null
+            ? fallingNotesController.Song.notes.Count
+            : 0;
 
         /// <summary>NotesCorrect as a percentage of TotalNotes (0..100).</summary>
         public float AccuracyPercent => TotalNotes == 0
             ? 0f
             : NotesCorrect / (float)TotalNotes * 100f;
+
+        /// <summary>Notes judged so far this run (correct + incorrect + missed). Grows as the song
+        /// plays, unlike TotalNotes which is the whole song known up front.</summary>
+        public int NotesJudged => NotesCorrect + NotesIncorrect + NotesMissed;
+
+        /// <summary>Running accuracy over the notes PLAYED so far (correct / judged), reading 100%
+        /// before the first judgement. This is the number for the live in-play HUD; AccuracyPercent
+        /// (denominator = TotalNotes) stays the right one for the end-of-song board.</summary>
+        public float LiveAccuracyPercent => NotesJudged == 0
+            ? 100f
+            : NotesCorrect / (float)NotesJudged * 100f;
 
         // ----------------------------------------------------------------
         // Internals
@@ -123,6 +153,7 @@ namespace PianoLearningCore
 
         private void Update()
         {
+            UpdateWaitGate();
             CheckMissedNotes();
             CheckSongComplete();
         }
@@ -135,12 +166,13 @@ namespace PianoLearningCore
         public void ResetScore()
         {
             Score = NotesCorrect = NotesIncorrect = NotesMissed = 0;
+            CurrentStreak = BestStreak = 0;
             _judgedIndices.Clear();
             _songCompleteFired = false;
-            TotalNotes = fallingNotesController?.Song != null
-                ? fallingNotesController.Song.notes.Count
-                : 0;
         }
+
+        /// <summary>Switch between Practice (guidance) and Assessment (graded) mode.</summary>
+        public void SetMode(SessionMode newMode) => mode = newMode;
 
         // ----------------------------------------------------------------
         // Detection handler — one call per keystroke
@@ -184,6 +216,8 @@ namespace PianoLearningCore
 
                 Score += points;
                 NotesCorrect++;
+                CurrentStreak++;
+                if (CurrentStreak > BestStreak) BestStreak = CurrentStreak;
                 FlashNote(detectedMidi, correctColor);
 
                 if (logEvents)
@@ -201,15 +235,19 @@ namespace PianoLearningCore
             if (AnyNoteExpectedNow(notes, now))
             {
                 NotesIncorrect++;
+                CurrentStreak = 0;
 
-                // Flash whichever expected note(s) are in the window red so the player
-                // can see what they should have played.
-                for (int i = 0; i < notes.Count; i++)
+                // Practice only: flash the expected note(s) in the window red so the player can
+                // see what they should have played. Assessment withholds this answer-reveal.
+                if (mode == SessionMode.Practice)
                 {
-                    if (_judgedIndices.Contains(i)) continue;
-                    float diff = now - notes[i].startTime;
-                    if (diff >= -hitWindowSeconds && diff <= hitWindowSeconds)
-                        FlashNote(notes[i].midiNumber, incorrectColor);
+                    for (int i = 0; i < notes.Count; i++)
+                    {
+                        if (_judgedIndices.Contains(i)) continue;
+                        float diff = now - notes[i].startTime;
+                        if (diff >= -hitWindowSeconds && diff <= hitWindowSeconds)
+                            FlashNote(notes[i].midiNumber, incorrectColor);
+                    }
                 }
 
                 if (logEvents)
@@ -236,18 +274,21 @@ namespace PianoLearningCore
 
                 var note = notes[i];
                 float deadline = note.startTime + hitWindowSeconds + missGraceSeconds;
-                if (now > deadline)
-                {
-                    _judgedIndices.Add(i);
-                    NotesMissed++;
-                    FlashNote(note.midiNumber, missedColor);
-
-                    if (logEvents)
-                        Debug.Log($"[NoteEvaluator] MISS {NoteUtils.GetNoteName(note.midiNumber)}");
-
-                    OnNoteMissed?.Invoke(note.midiNumber);
-                }
+                if (now > deadline) MarkMissed(i, note);
             }
+        }
+
+        private void MarkMissed(int index, PianoNote note)
+        {
+            _judgedIndices.Add(index);
+            NotesMissed++;
+            CurrentStreak = 0;
+            FlashNote(note.midiNumber, missedColor);
+
+            if (logEvents)
+                Debug.Log($"[NoteEvaluator] MISS {NoteUtils.GetNoteName(note.midiNumber)}");
+
+            OnNoteMissed?.Invoke(note.midiNumber);
         }
 
         // ----------------------------------------------------------------
@@ -257,15 +298,18 @@ namespace PianoLearningCore
         private void CheckSongComplete()
         {
             if (_songCompleteFired) return;
-            if (!IsControllerReady() && !IsControllerFinished()) return;
-            if (fallingNotesController?.Song == null) return;
+            if (!IsControllerFinished() || fallingNotesController.Song == null) return;
 
             var notes = fallingNotesController.Song.notes;
             if (notes.Count == 0) return;
-            if (_judgedIndices.Count < notes.Count) return;
 
-            // Wait until playback also reports finished (or has stopped).
-            if (!fallingNotesController.IsFinished && fallingNotesController.IsPlaying) return;
+            // Playback is over, so a note that is still unjudged can never be played now: count it
+            // missed. Waiting for its miss deadline would wait forever, because the clock stops at the
+            // end — a song whose last note leaves the keys inside hitWindow + missGrace (a note shorter
+            // than that, or one outside the keyboard's range) never completed, so no end-of-song
+            // board appeared and, with the playback bar gone, the player had no way out.
+            for (int i = 0; i < notes.Count; i++)
+                if (!_judgedIndices.Contains(i)) MarkMissed(i, notes[i]);
 
             _songCompleteFired = true;
             if (logEvents)
@@ -273,6 +317,57 @@ namespace PianoLearningCore
                           $"{NotesCorrect}/{TotalNotes} correct ({AccuracyPercent:F1}%)");
 
             OnSongComplete?.Invoke(Score, NotesCorrect, NotesIncorrect, NotesMissed);
+        }
+
+        // ----------------------------------------------------------------
+        // Practice wait-for-note gate — freezes playback on the current note(s)
+        // ----------------------------------------------------------------
+
+        /// <summary>
+        /// Practice mode only: holds the playback clock on a note once it reaches the hit line and
+        /// releases it the instant the note is played, so the song waits for the learner instead of
+        /// scrolling past. Runs every frame and always writes
+        /// <see cref="FallingNotesController.HoldClock"/> (true = hold, false = run) so the flag can
+        /// never get stuck. Assessment mode never holds — it is a real-time graded run.
+        ///
+        /// Holds while ANY unjudged, on-keyboard note has already reached the hit line
+        /// (startTime &lt;= CurrentTime): that naturally waits for every note of a chord and steps to the
+        /// next note the moment the current one is judged. Out-of-range notes (no physical key to play)
+        /// are skipped so they can never soft-lock the song — they fall through to the normal
+        /// missed-note path instead.
+        /// </summary>
+        private void UpdateWaitGate()
+        {
+            if (fallingNotesController == null) return;
+
+            if (mode != SessionMode.Practice || !IsControllerReady())
+            {
+                fallingNotesController.HoldClock = false;
+                return;
+            }
+
+            float now = fallingNotesController.CurrentTime;
+            var notes = fallingNotesController.Song.notes;
+
+            bool hold = false;
+            for (int i = 0; i < notes.Count; i++)
+            {
+                if (notes[i].startTime > now) break;   // time-sorted: nothing beyond here has arrived yet
+                if (_judgedIndices.Contains(i)) continue;
+                if (!IsPlayableNote(notes[i].midiNumber)) continue; // no key to play here — don't wait on it
+                hold = true;
+                break;
+            }
+
+            fallingNotesController.HoldClock = hold;
+        }
+
+        /// <summary>True if the note can actually be played on the assigned keyboard. Notes outside the
+        /// keyboard range never spawn and could never be pressed, so the wait gate must not block on them.</summary>
+        private bool IsPlayableNote(int midiNumber)
+        {
+            var kb = fallingNotesController != null ? fallingNotesController.keyboard : null;
+            return kb == null || kb.ContainsNote(midiNumber);
         }
 
         // ----------------------------------------------------------------

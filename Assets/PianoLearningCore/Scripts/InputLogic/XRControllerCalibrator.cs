@@ -75,6 +75,8 @@ namespace PianoLearningCore
             if (!isActive) return;
             if (!Application.isPlaying) return;
 
+            LogControllerStateIfChanged();
+
             float dt = Time.deltaTime;
             float speedMul = GetTriggerHeld(true) ? fastMultiplier : 1f;
 
@@ -149,28 +151,86 @@ namespace PianoLearningCore
             return v.normalized * Mathf.Clamp01(scaled);
         }
 
+        // ---- Input helpers ------------------------------------------------
+        //
+        // Every OVRInput query here names its controller EXPLICITLY. The
+        // parameterless overloads default to Controller.Active — whatever the
+        // runtime currently considers "the active controller" — and on-device
+        // that can silently exclude the LEFT Touch controller (it sleeps while
+        // resting next to the piano, or the OS flirts with hand tracking).
+        // That made left stick + X/Y dead while every right-hand control kept
+        // working. Each read therefore asks the specific hand AND the combined
+        // Touch pair, keeping the stronger signal: between them they cover
+        // every connection state OVRInput can report for a live controller.
+
         private static Vector2 GetThumbstick(bool left)
         {
-            return left
-                ? OVRInput.Get(OVRInput.RawAxis2D.LThumbstick)
-                : OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+            Vector2 single = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick,
+                left ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch);
+            Vector2 pair = OVRInput.Get(
+                left ? OVRInput.RawAxis2D.LThumbstick : OVRInput.RawAxis2D.RThumbstick,
+                OVRInput.Controller.Touch);
+            return single.sqrMagnitude >= pair.sqrMagnitude ? single : pair;
         }
 
         private static bool GetTriggerHeld(bool right)
         {
-            float v = right
-                ? OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger)
-                : OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger);
-            return v > 0.5f;
+            float single = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger,
+                right ? OVRInput.Controller.RTouch : OVRInput.Controller.LTouch);
+            float pair = OVRInput.Get(
+                right ? OVRInput.RawAxis1D.RIndexTrigger : OVRInput.RawAxis1D.LIndexTrigger,
+                OVRInput.Controller.Touch);
+            return Mathf.Max(single, pair) > 0.5f;
         }
 
-        private struct ButtonRef { public OVRInput.Button button; public OVRInput.Controller controller; }
-        private static ButtonRef RightA => new ButtonRef { button = OVRInput.Button.One, controller = OVRInput.Controller.RTouch };
-        private static ButtonRef RightB => new ButtonRef { button = OVRInput.Button.Two, controller = OVRInput.Controller.RTouch };
-        private static ButtonRef LeftX  => new ButtonRef { button = OVRInput.Button.One, controller = OVRInput.Controller.LTouch };
-        private static ButtonRef LeftY  => new ButtonRef { button = OVRInput.Button.Two, controller = OVRInput.Controller.LTouch };
+        private struct ButtonRef
+        {
+            public OVRInput.Button button;       // per-controller virtual mapping
+            public OVRInput.Controller controller;
+            public OVRInput.RawButton raw;       // same physical button on the combined pair
+        }
 
-        private static bool GetButtonHeld(ButtonRef b) => OVRInput.Get(b.button, b.controller);
-        private static bool GetButtonDown(ButtonRef b) => OVRInput.GetDown(b.button, b.controller);
+        private static ButtonRef RightA => new ButtonRef { button = OVRInput.Button.One, controller = OVRInput.Controller.RTouch, raw = OVRInput.RawButton.A };
+        private static ButtonRef RightB => new ButtonRef { button = OVRInput.Button.Two, controller = OVRInput.Controller.RTouch, raw = OVRInput.RawButton.B };
+        private static ButtonRef LeftX  => new ButtonRef { button = OVRInput.Button.One, controller = OVRInput.Controller.LTouch, raw = OVRInput.RawButton.X };
+        private static ButtonRef LeftY  => new ButtonRef { button = OVRInput.Button.Two, controller = OVRInput.Controller.LTouch, raw = OVRInput.RawButton.Y };
+
+        private static bool GetButtonHeld(ButtonRef b) =>
+            OVRInput.Get(b.button, b.controller) || OVRInput.Get(b.raw, OVRInput.Controller.Touch);
+
+        private static bool GetButtonDown(ButtonRef b) =>
+            OVRInput.GetDown(b.button, b.controller) || OVRInput.GetDown(b.raw, OVRInput.Controller.Touch);
+
+        // ---- Connection diagnostics ----------------------------------------
+        //
+        // A controller that is asleep / handed off by the OS reads as zeros with
+        // NO error anywhere, which looks exactly like "the mapping is broken".
+        // Logging every connection-state change while calibration is active
+        // makes the truth visible in logcat.
+
+        private OVRInput.Controller _lastConnected = OVRInput.Controller.None;
+
+        private void LogControllerStateIfChanged()
+        {
+            OVRInput.Controller connected = OVRInput.GetConnectedControllers();
+            if (connected == _lastConnected) return;
+            _lastConnected = connected;
+
+            bool leftOk = (connected & OVRInput.Controller.LTouch) != 0;
+            bool rightOk = (connected & OVRInput.Controller.RTouch) != 0;
+
+            if (leftOk && rightOk)
+            {
+                Debug.Log("[XRControllerCalibrator] Both controllers connected — all calibration controls available.");
+            }
+            else
+            {
+                Debug.LogWarning("[XRControllerCalibrator] Connected controllers: " + connected +
+                                 " (active: " + OVRInput.GetActiveController() + "). " +
+                                 (leftOk ? "" : "LEFT controller not detected — rotate / raise-lower (left stick) " +
+                                                "and width (X/Y) won't respond until it wakes; press any button on it. ") +
+                                 (rightOk ? "" : "RIGHT controller not detected — move / fast-mode / reset / done won't respond."), this);
+            }
+        }
     }
 }

@@ -32,6 +32,10 @@ namespace PianoLearningCore
                  "FallingNotesController component into this slot.")]
         public FallingNotesController controller;
 
+        [Tooltip("Optional. The NoteEvaluator to put into the chosen Practice/Assessment mode " +
+                 "(and reset) when a song is launched from the menu. Auto-found if left empty.")]
+        public NoteEvaluator noteEvaluator;
+
         [Header("Song source")]
         public SongSource source = SongSource.BuiltInDemo;
 
@@ -40,7 +44,9 @@ namespace PianoLearningCore
                  "(Place the .mid file at Assets/StreamingAssets/Songs/MaryHadALittleLamb.mid)")]
         public string streamingAssetsRelativePath = "Songs/example.mid";
 
-        [Tooltip("Used when source = AbsoluteFile. Full path on disk. EDITOR / DESKTOP ONLY (not for Quest builds).")]
+        [Tooltip("Used when source = AbsoluteFile. Full path on disk. Works on Quest too, as " +
+                 "long as the path is somewhere the app can read — that's how songs the user " +
+                 "imported are played (see UserSongLibrary).")]
         public string absoluteFilePath = "";
 
         [Tooltip("Used when source = TextAssetBytes. Drag a *.bytes asset here (rename your .mid -> .bytes).")]
@@ -52,6 +58,15 @@ namespace PianoLearningCore
 
         [Tooltip("Print a one-line summary of the loaded song to the Console.")]
         public bool logSummary = true;
+
+        /// <summary>The Practice/Assessment mode of the most recent launch.</summary>
+        public SessionMode CurrentMode { get; private set; } = SessionMode.Practice;
+
+        // One-shot friendly title applied to the next loaded song (set by PlayStreamingAssetsSong).
+        private string _pendingTitleOverride;
+
+        // One-shot: reset the NoteEvaluator's score after the next song finishes loading.
+        private bool _resetEvaluatorOnLoad;
 
         private void Start()
         {
@@ -73,6 +88,69 @@ namespace PianoLearningCore
         public void Pause()   { if (ValidateController()) controller.Pause(); }
         public void Stop()    { if (ValidateController()) controller.Stop(); }
         public void Restart() { if (ValidateController()) controller.Restart(); }
+
+        /// <summary>
+        /// Load + play a specific StreamingAssets song at runtime, in the given mode. Used by
+        /// SongSelectionMenu so a menu selection works regardless of the Inspector source.
+        /// </summary>
+        /// <param name="relativePath">Path relative to StreamingAssets, e.g. "Songs/twinkle.mid".</param>
+        /// <param name="displayTitle">Optional friendly title shown instead of the .mid filename.</param>
+        /// <param name="mode">Practice (guidance) or Assessment (graded).</param>
+        public void PlayStreamingAssetsSong(string relativePath, string displayTitle = null,
+                                            SessionMode mode = SessionMode.Practice)
+        {
+            if (string.IsNullOrEmpty(relativePath))
+            {
+                Debug.LogError("[SongLauncher] PlayStreamingAssetsSong called with an empty path.", this);
+                return;
+            }
+            source = SongSource.StreamingAssetsFile;
+            streamingAssetsRelativePath = relativePath;
+            _pendingTitleOverride = displayTitle;
+            _resetEvaluatorOnLoad = true;
+            SetMode(mode);
+            LoadAndPlay();
+        }
+
+        /// <summary>
+        /// Load + play a .mid from an absolute path — used for songs the user imported, which
+        /// live in a writable folder rather than inside the APK. Same contract as
+        /// <see cref="PlayStreamingAssetsSong"/> otherwise.
+        /// </summary>
+        /// <param name="path">Full path to the .mid, e.g. from <see cref="UserSongLibrary"/>.</param>
+        /// <param name="displayTitle">Optional friendly title shown instead of the .mid filename.</param>
+        /// <param name="mode">Practice (guidance) or Assessment (graded).</param>
+        public void PlayFileSong(string path, string displayTitle = null,
+                                 SessionMode mode = SessionMode.Practice)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                Debug.LogError("[SongLauncher] PlayFileSong called with an empty path.", this);
+                return;
+            }
+            source = SongSource.AbsoluteFile;
+            absoluteFilePath = path;
+            _pendingTitleOverride = displayTitle;
+            _resetEvaluatorOnLoad = true;
+            SetMode(mode);
+            LoadAndPlay();
+        }
+
+        /// <summary>Record the Practice/Assessment mode and push it to the NoteEvaluator.</summary>
+        public void SetMode(SessionMode mode)
+        {
+            CurrentMode = mode;
+            var evaluator = EnsureEvaluator();
+            if (evaluator != null) evaluator.SetMode(mode);
+        }
+
+        private NoteEvaluator EnsureEvaluator()
+        {
+#pragma warning disable CS0618 // FindObjectOfType works on every Unity version
+            if (noteEvaluator == null) noteEvaluator = FindObjectOfType<NoteEvaluator>();
+#pragma warning restore CS0618
+            return noteEvaluator;
+        }
 
         // -------- Internal --------
 
@@ -100,7 +178,17 @@ namespace PianoLearningCore
                     }
                     else
                     {
-                        song = MidiSongLoader.LoadFromFile(absoluteFilePath);
+                        // The Add Song button parses a file before accepting it, but one copied
+                        // straight into the songs folder from a PC never went through that check
+                        // — and an unhandled parse exception here would kill this coroutine.
+                        try
+                        {
+                            song = MidiSongLoader.LoadFromFile(absoluteFilePath);
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debug.LogError($"[SongLauncher] Couldn't read '{absoluteFilePath}': {e.Message}", this);
+                        }
                     }
                     break;
 
@@ -122,6 +210,12 @@ namespace PianoLearningCore
                 song = Song.BuildCMajorScaleDemo();
             }
 
+            // Apply an optional friendly title (e.g. from the song-selection menu) so the
+            // displayed title can differ from the .mid filename. One-shot: cleared after use.
+            if (!string.IsNullOrEmpty(_pendingTitleOverride) && song != null)
+                song.title = _pendingTitleOverride;
+            _pendingTitleOverride = null;
+
             if (logSummary)
             {
                 Debug.Log($"[SongLauncher] Loaded \"{song.title}\" — {song.notes.Count} notes, " +
@@ -129,6 +223,15 @@ namespace PianoLearningCore
             }
 
             controller.LoadSong(song); // controller's autoStart will Play() if set
+
+            // When launched from the song menu, reset the evaluator's score now that the song
+            // (and therefore its note count) is actually loaded — so accuracy isn't stuck at 0.
+            if (_resetEvaluatorOnLoad)
+            {
+                _resetEvaluatorOnLoad = false;
+                var evaluator = EnsureEvaluator();
+                if (evaluator != null) evaluator.ResetScore();
+            }
         }
 
         private bool ValidateController()
