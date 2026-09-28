@@ -15,6 +15,10 @@ namespace PianoLearningCore
     /// NotesCorrect/Incorrect/Missed, BestStreak, TotalNotes) — this just displays them, so the
     /// Assessment mode finally becomes visible to the player.
     ///
+    /// Practice is unscored, so a Practice song gets the same board with every score line hidden:
+    /// just "Song Complete!", the song, and the two buttons, shrunk to fit. Without it a Practice
+    /// song simply stopped, with nothing to say it was over.
+    ///
     /// Lifecycle mirrors the song-selection menu: put this component on the Canvas ROOT
     /// (which stays active) and point <see cref="panelRoot"/> at the visual PANEL child, so the
     /// component keeps running while the panel is hidden and can re-show itself on song complete.
@@ -123,8 +127,6 @@ namespace PianoLearningCore
 
         private void HandleSongComplete(int score, int correct, int incorrect, int missed)
         {
-            // Assessment only: Practice is a guided, unscored mode, so it shows no results board.
-            if (evaluator != null && evaluator.mode != SessionMode.Assessment) return;
             Populate();
             Show();
         }
@@ -139,6 +141,28 @@ namespace PianoLearningCore
                 : "Song";
             if (subtitleText != null)
                 subtitleText.text = $"{songTitle}  ({evaluator.mode})";
+
+            // Practice is the guided, unscored mode, so its board shows no numbers at all — only that
+            // the song is over, and Play Again / Close. Visibility is set both ways every time,
+            // because the same board serves Practice and Assessment runs in any order.
+            bool scored = evaluator.mode == SessionMode.Assessment;
+            SetTextVisible(accuracyText, scored);
+            SetTextVisible(gradeText, scored);
+            SetStatRowVisible(scoreText, scored);
+            SetStatRowVisible(correctText, scored);
+            SetStatRowVisible(missedText, scored);
+
+            // "Incorrect" and "Best streak" are deliberately hidden. Both are driven by OnNoteOn,
+            // which the detector also fires for room noise, so on current hardware neither is a
+            // measurement of the PLAYER: a phantom note inflates the wrong-note count and breaks
+            // the streak through no fault of theirs. Showing a number we cannot stand behind would
+            // mislead a study participant. Correct and Missed stay — those are counted against the
+            // song's own notes, so noise cannot invent them — and wrong notes are simply
+            // TotalNotes minus Correct if anyone wants them.
+            SetStatRowVisible(incorrectText, scored && !hideUnreliableStats);
+            SetStatRowVisible(streakText, scored && !hideUnreliableStats);
+
+            if (!scored) return;
 
             float accuracy = evaluator.AccuracyPercent;
             string grade = GradeFor(accuracy, out Color gradeColor);
@@ -158,19 +182,7 @@ namespace PianoLearningCore
             if (correctText != null)   correctText.text   = $"{evaluator.NotesCorrect} / {evaluator.TotalNotes}";
             if (missedText != null)    missedText.text    = evaluator.NotesMissed.ToString();
 
-            // "Incorrect" and "Best streak" are deliberately hidden. Both are driven by OnNoteOn,
-            // which the detector also fires for room noise, so on current hardware neither is a
-            // measurement of the PLAYER: a phantom note inflates the wrong-note count and breaks
-            // the streak through no fault of theirs. Showing a number we cannot stand behind would
-            // mislead a study participant. Correct and Missed stay — those are counted against the
-            // song's own notes, so noise cannot invent them — and wrong notes are simply
-            // TotalNotes minus Correct if anyone wants them.
-            if (hideUnreliableStats)
-            {
-                HideStatRow(incorrectText);
-                HideStatRow(streakText);
-            }
-            else
+            if (!hideUnreliableStats)
             {
                 if (incorrectText != null) incorrectText.text = evaluator.NotesIncorrect.ToString();
                 if (streakText != null)    streakText.text    = evaluator.BestStreak.ToString();
@@ -178,17 +190,24 @@ namespace PianoLearningCore
         }
 
         /// <summary>
-        /// Hide a whole stat row. The builder nests each row as [Label | Value], so the value's
-        /// parent is the row — deactivating it takes the label with it and lets the vertical
+        /// Show or hide a whole stat row. The builder nests each row as [Label | Value], so the
+        /// value's parent is the row — toggling it takes the label with it and lets the vertical
         /// layout close the gap.
         /// </summary>
-        private static void HideStatRow(TMP_Text value)
+        private static void SetStatRowVisible(TMP_Text value, bool visible)
         {
             if (value == null) return;
             GameObject row = value.transform.parent != null
                 ? value.transform.parent.gameObject
                 : value.gameObject;
-            if (row.activeSelf) row.SetActive(false);
+            if (row.activeSelf != visible) row.SetActive(visible);
+        }
+
+        /// <summary>Show or hide a text that sits directly in the layout (accuracy, grade) — unlike a
+        /// stat row, its parent is the whole content stack, so only the text itself is toggled.</summary>
+        private static void SetTextVisible(TMP_Text text, bool visible)
+        {
+            if (text != null && text.gameObject.activeSelf != visible) text.gameObject.SetActive(visible);
         }
 
         // ----------------------------------------------------------------
@@ -218,12 +237,38 @@ namespace PianoLearningCore
             onClosed?.Invoke();
         }
 
-        public void Show() { if (panelRoot != null) panelRoot.SetActive(true); }
+        public void Show()
+        {
+            if (panelRoot == null) return;
+            panelRoot.SetActive(true);
+            FitHeightToContent(); // after activating: layout skips inactive rows, so it can't measure a hidden panel
+        }
+
         public void Hide() { if (panelRoot != null) panelRoot.SetActive(false); }
 
         // ----------------------------------------------------------------
         // Helpers
         // ----------------------------------------------------------------
+
+        /// <summary>
+        /// Resize the board to the rows actually showing. The Practice board keeps only the heading and
+        /// the buttons, which would otherwise sit at the top of a tall, mostly empty panel. The builder
+        /// stretches the content stack inside the canvas, so the board's height is the stack's
+        /// preferred height plus the fixed margin around it.
+        /// </summary>
+        private void FitHeightToContent()
+        {
+            var board = transform as RectTransform;
+            var content = subtitleText != null ? subtitleText.transform.parent as RectTransform : null;
+            if (board == null || content == null || !content.IsChildOf(board)) return;
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+            float stack = LayoutUtility.GetPreferredHeight(content);
+            if (stack <= 0f) return;
+
+            float margin = board.rect.height - content.rect.height;
+            board.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, stack + margin);
+        }
 
         // A..F letter grade plus a colour band, driven by the two accuracy thresholds.
         private string GradeFor(float accuracy, out Color color)

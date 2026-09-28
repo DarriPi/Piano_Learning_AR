@@ -95,16 +95,14 @@ namespace PianoLearningCore
         private void Update()
         {
             // Show during an active session (loaded + not finished) so a Pause doesn't hide Resume,
-            // and so the bar is gone at song-end when the Assessment score board (and its laser) takes
-            // over. In Practice there IS no board to hand off to, so the bar stays up after the song
-            // ends — keeping Restart/tempo reachable, and still only one laser on screen.
+            // and so the bar is gone at song-end when the end-of-song board (and its laser) takes
+            // over — in both modes, as Practice gets a "Song Complete!" board too. Left up, the bar
+            // would draw a second laser and offer a Resume that does nothing on a finished song.
             // A fresh playback clears the Stop latch so the bar returns for the next song.
             if (controller != null && controller.IsPlaying) _sessionEnded = false;
 
-            bool finished = controller != null && controller.IsFinished;
-            bool practiceMode = evaluator != null && evaluator.mode == SessionMode.Practice;
             bool sessionActive = !_sessionEnded && controller != null && controller.Song != null
-                                 && (!finished || practiceMode);
+                                 && !controller.IsFinished;
             if (sessionActive != _visible) SetVisible(sessionActive);
 
             // The play/pause state can change outside our button (song end, external Pause), so keep

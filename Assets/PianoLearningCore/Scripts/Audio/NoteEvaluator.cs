@@ -274,19 +274,21 @@ namespace PianoLearningCore
 
                 var note = notes[i];
                 float deadline = note.startTime + hitWindowSeconds + missGraceSeconds;
-                if (now > deadline)
-                {
-                    _judgedIndices.Add(i);
-                    NotesMissed++;
-                    CurrentStreak = 0;
-                    FlashNote(note.midiNumber, missedColor);
-
-                    if (logEvents)
-                        Debug.Log($"[NoteEvaluator] MISS {NoteUtils.GetNoteName(note.midiNumber)}");
-
-                    OnNoteMissed?.Invoke(note.midiNumber);
-                }
+                if (now > deadline) MarkMissed(i, note);
             }
+        }
+
+        private void MarkMissed(int index, PianoNote note)
+        {
+            _judgedIndices.Add(index);
+            NotesMissed++;
+            CurrentStreak = 0;
+            FlashNote(note.midiNumber, missedColor);
+
+            if (logEvents)
+                Debug.Log($"[NoteEvaluator] MISS {NoteUtils.GetNoteName(note.midiNumber)}");
+
+            OnNoteMissed?.Invoke(note.midiNumber);
         }
 
         // ----------------------------------------------------------------
@@ -296,15 +298,18 @@ namespace PianoLearningCore
         private void CheckSongComplete()
         {
             if (_songCompleteFired) return;
-            if (!IsControllerReady() && !IsControllerFinished()) return;
-            if (fallingNotesController?.Song == null) return;
+            if (!IsControllerFinished() || fallingNotesController.Song == null) return;
 
             var notes = fallingNotesController.Song.notes;
             if (notes.Count == 0) return;
-            if (_judgedIndices.Count < notes.Count) return;
 
-            // Wait until playback also reports finished (or has stopped).
-            if (!fallingNotesController.IsFinished && fallingNotesController.IsPlaying) return;
+            // Playback is over, so a note that is still unjudged can never be played now: count it
+            // missed. Waiting for its miss deadline would wait forever, because the clock stops at the
+            // end — a song whose last note leaves the keys inside hitWindow + missGrace (a note shorter
+            // than that, or one outside the keyboard's range) never completed, so no end-of-song
+            // board appeared and, with the playback bar gone, the player had no way out.
+            for (int i = 0; i < notes.Count; i++)
+                if (!_judgedIndices.Contains(i)) MarkMissed(i, notes[i]);
 
             _songCompleteFired = true;
             if (logEvents)
