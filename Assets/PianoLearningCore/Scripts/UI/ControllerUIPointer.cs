@@ -49,20 +49,14 @@ namespace PianoLearningCore
         public Material laserMaterial;
 
         [Header("Put-down detection")]
-        [Tooltip("Hide the laser while the controller is lying on a surface, so it doesn't stand out " +
-                 "of the desk or the user's hand.")]
+        [Tooltip("Hide the laser while the controller is put down, so it doesn't stand out of the " +
+                 "desk or the user's hand.")]
         public bool hideWhenPutDown = true;
-        [Tooltip("Seconds with no finger on the controller and no movement before the laser hides.")]
-        public float putDownDelay = 1.5f;
-        [Tooltip("How far the controller must move (metres) to count as picked up. Bigger than " +
-                 "tracking jitter on a resting controller, smaller than a hand-held one drifts.")]
-        public float moveThreshold = 0.01f;
-        [Tooltip("How far the controller must turn (degrees) to count as picked up.")]
-        public float turnThreshold = 3f;
+        [Tooltip("Seconds the controller must stay put down before the laser hides, so a brief " +
+                 "blip in the headset's in-hand detection can't blink the laser off.")]
+        public float putDownDelay = 0.5f;
 
         private LineRenderer _line;
-        private Vector3 _restPosition;
-        private Quaternion _restRotation;
         private float _lastHeldTime = float.NegativeInfinity;
         private GameObject _laserObject;
         private GameObject _currentHover;
@@ -196,35 +190,37 @@ namespace PianoLearningCore
             }
         }
 
-        // True while the controller looks like it is in a hand: a finger on (or hovering over) any
-        // capacitive surface, a button held, or recent movement. A controller put on the desk shows
-        // none of these, so after putDownDelay the laser hides; any touch or movement brings it back.
+        // True while the controller is in a hand. The headset runtime works this out by itself
+        // (OVRPlugin.GetControllerIsInHand): on device on 2026-09-29 it went false the moment the
+        // controller was set on the desk, with hand tracking off. The SDK's own wrapper,
+        // OVRInput.GetControllerIsInHandState, answers NoHand unless tracked HANDS are connected,
+        // which never happens in this controllers-only app, so the plugin is asked directly. A
+        // runtime that can't answer returns true, so the laser just stays up as it used to.
+        //
+        // A finger on any sensor or a held button also counts, in case the runtime is slow to notice
+        // a pick-up. Movement deliberately does NOT: on the same test a controller resting on the
+        // desk jittered by 2-4 degrees, more than a hand holding it still, so no threshold can tell
+        // the two apart.
         //
         // Touch and button data come from the same OVRPlugin.GetControllerState that the runtime
-        // leaves EMPTY while the app has no VR input focus (poses keep flowing). Trusting it then
-        // would hide the laser and turn the "laser moves but nothing clicks" symptom of lost focus
-        // into "laser gone" — so without focus the pointer behaves exactly as it did before.
+        // leaves EMPTY while the app has no VR input focus (poses keep flowing). Hiding the laser
+        // then would turn the "laser moves but nothing clicks" symptom of lost focus into "laser
+        // gone" — so without focus the pointer behaves exactly as it did before.
         private bool IsControllerHeld()
         {
-            if (!OVRManager.hasInputFocus) return true;
-
+            bool focused = OVRManager.hasInputFocus;
+            bool inHand = OVRPlugin.GetControllerIsInHand(OVRPlugin.Step.Render, ControllerNode);
             bool touched = OVRInput.Get(OVRInput.Touch.Any, controller)
                         || OVRInput.Get(OVRInput.NearTouch.Any, controller)
                         || OVRInput.Get(OVRInput.Button.Any, controller);
 
-            // Compare against the pose at the last "held" moment rather than the previous frame,
-            // so slow drift or tracking jitter on a resting controller can't add up to movement.
-            bool moved = Vector3.Distance(pointerOrigin.position, _restPosition) > moveThreshold
-                      || Quaternion.Angle(pointerOrigin.rotation, _restRotation) > turnThreshold;
-
-            if (touched || moved)
-            {
-                _lastHeldTime = Time.unscaledTime;
-                _restPosition = pointerOrigin.position;
-                _restRotation = pointerOrigin.rotation;
-            }
+            if (!focused || inHand || touched) _lastHeldTime = Time.unscaledTime;
             return Time.unscaledTime - _lastHeldTime < putDownDelay;
         }
+
+        private OVRPlugin.Node ControllerNode => controller == OVRInput.Controller.LTouch
+            ? OVRPlugin.Node.ControllerLeft
+            : OVRPlugin.Node.ControllerRight;
 
         private void CollectButtons()
         {
