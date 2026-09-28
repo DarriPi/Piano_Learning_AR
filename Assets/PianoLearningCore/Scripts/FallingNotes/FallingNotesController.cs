@@ -45,7 +45,8 @@ namespace PianoLearningCore
 
         [Tooltip("Real-time countdown (seconds) before the song starts. Counts down at real " +
                  "speed regardless of playbackSpeed, so the player always has the same prep time. " +
-                 "Each remaining whole second is logged to the Console for debugging.")]
+                 "Shown in the headset by StartCountdownDisplay; each remaining whole second is " +
+                 "also logged to the Console for debugging.")]
         public float startDelay = 0f;
 
         [Tooltip("Multiplier on song playback speed. 1.0 = normal tempo. 0.5 = half speed " +
@@ -72,6 +73,16 @@ namespace PianoLearningCore
         /// an automatic, transient hold the gate releases the instant the note is judged.
         /// </summary>
         public bool HoldClock { get; set; }
+
+        /// <summary>
+        /// True while the pre-roll countdown (<see cref="startDelay"/>) is running: the song is playing
+        /// but its clock hasn't reached zero yet. Drives <see cref="StartCountdownDisplay"/>.
+        /// </summary>
+        public bool IsCountingDown => IsPlaying && CurrentTime < 0f;
+
+        /// <summary>Whole seconds left in the pre-roll countdown, rounded up (…3, 2, 1), or 0 once the
+        /// song clock has reached zero.</summary>
+        public int CountdownSecondsLeft => CurrentTime < 0f ? Mathf.CeilToInt(-CurrentTime) : 0;
 
         /// <summary>Speed of all falling notes, derived from spawnDistance and leadTime.</summary>
         public float Speed => leadTime > 0.0001f ? spawnDistance / leadTime : 1f;
@@ -128,7 +139,7 @@ namespace PianoLearningCore
 
         private void LogCountdownIfChanged()
         {
-            int secondsLeft = Mathf.CeilToInt(-CurrentTime);
+            int secondsLeft = CountdownSecondsLeft;
             if (secondsLeft <= 0 || secondsLeft == _lastCountdownLogged) return;
             _lastCountdownLogged = secondsLeft;
             Debug.Log($"[FallingNotesController] Starting in {secondsLeft}...");
