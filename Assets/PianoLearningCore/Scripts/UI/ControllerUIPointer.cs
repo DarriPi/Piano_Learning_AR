@@ -48,7 +48,22 @@ namespace PianoLearningCore
                  "(works under URP and supports the per-end colours).")]
         public Material laserMaterial;
 
+        [Header("Put-down detection")]
+        [Tooltip("Hide the laser while the controller is lying on a surface, so it doesn't stand out " +
+                 "of the desk or the user's hand.")]
+        public bool hideWhenPutDown = true;
+        [Tooltip("Seconds with no finger on the controller and no movement before the laser hides.")]
+        public float putDownDelay = 1.5f;
+        [Tooltip("How far the controller must move (metres) to count as picked up. Bigger than " +
+                 "tracking jitter on a resting controller, smaller than a hand-held one drifts.")]
+        public float moveThreshold = 0.01f;
+        [Tooltip("How far the controller must turn (degrees) to count as picked up.")]
+        public float turnThreshold = 3f;
+
         private LineRenderer _line;
+        private Vector3 _restPosition;
+        private Quaternion _restRotation;
+        private float _lastHeldTime = float.NegativeInfinity;
         private GameObject _laserObject;
         private GameObject _currentHover;
         private PointerEventData _pointerData;
@@ -136,6 +151,13 @@ namespace PianoLearningCore
                 return;
             }
 
+            if (hideWhenPutDown && !IsControllerHeld())
+            {
+                ClearHover();
+                SetLaser(false);
+                return;
+            }
+
             Vector3 origin = pointerOrigin.position;
             Vector3 dir = pointerOrigin.forward;
             Button hit = RaycastButtons(origin, dir, out Vector3 hitPoint);
@@ -172,6 +194,36 @@ namespace PianoLearningCore
                     hit.onClick.Invoke();
                 }
             }
+        }
+
+        // True while the controller looks like it is in a hand: a finger on (or hovering over) any
+        // capacitive surface, a button held, or recent movement. A controller put on the desk shows
+        // none of these, so after putDownDelay the laser hides; any touch or movement brings it back.
+        //
+        // Touch and button data come from the same OVRPlugin.GetControllerState that the runtime
+        // leaves EMPTY while the app has no VR input focus (poses keep flowing). Trusting it then
+        // would hide the laser and turn the "laser moves but nothing clicks" symptom of lost focus
+        // into "laser gone" — so without focus the pointer behaves exactly as it did before.
+        private bool IsControllerHeld()
+        {
+            if (!OVRManager.hasInputFocus) return true;
+
+            bool touched = OVRInput.Get(OVRInput.Touch.Any, controller)
+                        || OVRInput.Get(OVRInput.NearTouch.Any, controller)
+                        || OVRInput.Get(OVRInput.Button.Any, controller);
+
+            // Compare against the pose at the last "held" moment rather than the previous frame,
+            // so slow drift or tracking jitter on a resting controller can't add up to movement.
+            bool moved = Vector3.Distance(pointerOrigin.position, _restPosition) > moveThreshold
+                      || Quaternion.Angle(pointerOrigin.rotation, _restRotation) > turnThreshold;
+
+            if (touched || moved)
+            {
+                _lastHeldTime = Time.unscaledTime;
+                _restPosition = pointerOrigin.position;
+                _restRotation = pointerOrigin.rotation;
+            }
+            return Time.unscaledTime - _lastHeldTime < putDownDelay;
         }
 
         private void CollectButtons()
