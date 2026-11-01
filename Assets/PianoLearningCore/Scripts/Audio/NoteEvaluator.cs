@@ -21,6 +21,10 @@ namespace PianoLearningCore
     ///
     /// Attach this to any GameObject (or the same one as PianoAudioDetector for clarity).
     /// Wire up the two References in the Inspector and call ResetScore() before each song.
+    ///
+    /// Also owns how the app hears the player (<see cref="detection"/>): the microphone, a USB MIDI
+    /// keyboard (<see cref="MidiNoteInput"/>, whose note-ons are judged exactly like the mic's), or
+    /// nothing at all in Free Play, where no note is judged; see <see cref="SetDetection"/>.
     /// </summary>
     [DisallowMultipleComponent]
     public class NoteEvaluator : MonoBehaviour
@@ -36,12 +40,42 @@ namespace PianoLearningCore
         [Tooltip("The FallingNotesController driving song playback.")]
         public FallingNotesController fallingNotesController;
 
+        [Tooltip("USB MIDI keyboard input, used in MIDI detection mode. Added to this GameObject at " +
+                 "runtime if left empty.")]
+        public MidiNoteInput midiInput;
+
         [Header("Mode")]
         [Tooltip("Practice = guidance on: a wrong press reveals the expected note(s) in red.\n" +
                  "Assessment = graded run: that answer-reveal is withheld (you still see your own " +
                  "correct/green hits, and the score still counts errors).\n" +
                  "Set automatically when a song is chosen from the SongSelectionMenu.")]
         public SessionMode mode = SessionMode.Practice;
+
+        [Header("Detection")]
+        [Tooltip("How the app hears the player.\n" +
+                 "Microphone = the audio detector judges every note (normal Practice / Assessment); " +
+                 "Practice moves on from a note it hasn't heard after 'Mic Practice Timeout Seconds'.\n" +
+                 "Midi = a USB MIDI keyboard reports each key press; judged and scored the same way, " +
+                 "with the mic switched off.\n" +
+                 "FreePlay = nothing listens: the mic is switched off and no note is marked or scored. " +
+                 "Practice waits 'Free Play Hold Seconds' on each note instead of for the right key; " +
+                 "Assessment plays in real time with no score.\n" +
+                 "Set from the song menu's Detection strip, via SetDetection().")]
+        public DetectionMode detection = DetectionMode.Microphone;
+
+        [Range(0f, 10f)]
+        [Tooltip("Free Play only: how long (seconds) the song holds on each note — or chord — at the " +
+                 "line before moving on. Nothing can hear the player in Free Play, so the song can't " +
+                 "tell when the note was played; it simply gives them this long.")]
+        public float freePlayHoldSeconds = 3f;
+
+        [Range(0f, 10f)]
+        [Tooltip("Practice with the Microphone: the longest (seconds) the song waits on a note — or " +
+                 "chord — that the detector hasn't heard. Then the note is marked missed and the song " +
+                 "moves on, so a note the detector fails to hear can't stall the song. A stop-gap until " +
+                 "detection improves; 0 = wait until it's heard, however long. MIDI never gives up: the " +
+                 "keyboard can't fail to report a key.")]
+        public float micPracticeTimeoutSeconds = 3f;
 
         [Header("Timing")]
         [Tooltip("Seconds before/after a note's start time in which a press counts as correct. " +
@@ -127,28 +161,51 @@ namespace PianoLearningCore
             ? 100f
             : NotesCorrect / (float)NotesJudged * 100f;
 
+        /// <summary>False in Free Play: nothing is listening, so no note is judged or scored. True for
+        /// both the microphone and MIDI.</summary>
+        public bool IsListening => detection != DetectionMode.FreePlay;
+
         // ----------------------------------------------------------------
         // Internals
         // ----------------------------------------------------------------
 
-        // Song-note indices already judged (hit or missed); prevents double-counting.
+        // Song-note indices already judged (hit or missed); prevents double-counting. In Free Play it
+        // holds the notes whose wait is over instead — nothing is judged there.
         private readonly HashSet<int> _judgedIndices = new HashSet<int>();
         private bool _songCompleteFired;
+
+        // Set when Free Play or MIDI switched a running mic off, so going back to Microphone restarts
+        // exactly that.
+        private bool _micStoppedByMode;
+
+        // Seconds the current Practice wait has lasted (paused time excluded); see WaitLimitSeconds.
+        private float _waitSeconds;
 
         // ----------------------------------------------------------------
         // Unity lifecycle
         // ----------------------------------------------------------------
 
+        private void Awake()
+        {
+            // Built at runtime so the scene needs no edit (same idea as the menu's Detection strip).
+            if (midiInput == null) midiInput = GetComponent<MidiNoteInput>();
+            if (midiInput == null) midiInput = gameObject.AddComponent<MidiNoteInput>();
+        }
+
         private void OnEnable()
         {
             if (audioDetector != null)
-                audioDetector.OnNoteOn += HandleNoteOn;
+                audioDetector.OnNoteOn += HandleMicNoteOn;
+            if (midiInput != null)
+                midiInput.OnNoteOn += HandleMidiNoteOn;
         }
 
         private void OnDisable()
         {
             if (audioDetector != null)
-                audioDetector.OnNoteOn -= HandleNoteOn;
+                audioDetector.OnNoteOn -= HandleMicNoteOn;
+            if (midiInput != null)
+                midiInput.OnNoteOn -= HandleMidiNoteOn;
         }
 
         private void Update()
@@ -169,18 +226,71 @@ namespace PianoLearningCore
             CurrentStreak = BestStreak = 0;
             _judgedIndices.Clear();
             _songCompleteFired = false;
+            _waitSeconds = 0f;
         }
 
         /// <summary>Switch between Practice (guidance) and Assessment (graded) mode.</summary>
         public void SetMode(SessionMode newMode) => mode = newMode;
 
+        /// <summary>
+        /// Switch how the app hears the player (see <see cref="DetectionMode"/>). Only the chosen
+        /// source runs: the microphone in Microphone mode, the MIDI keyboard in MIDI mode. Free Play
+        /// and MIDI turn the microphone OFF rather than just ignoring it, so the head-locked MIC ON
+        /// badge goes too and truthfully shows that the mic isn't listening. Going back to Microphone
+        /// restarts only a mic that one of them stopped: one that never started (permission denied)
+        /// isn't asked for again here.
+        /// </summary>
+        public void SetDetection(DetectionMode newDetection)
+        {
+            detection = newDetection;
+
+            if (midiInput != null)
+            {
+                if (detection == DetectionMode.Midi) midiInput.StartInput();
+                else midiInput.StopInput();
+            }
+
+            if (audioDetector == null) return;
+
+            if (detection != DetectionMode.Microphone)
+            {
+                if (audioDetector.IsRunning)
+                {
+                    audioDetector.StopDetection();
+                    _micStoppedByMode = true;
+                    Debug.Log($"[NoteEvaluator] {detection}: microphone switched off.");
+                }
+            }
+            else if (_micStoppedByMode)
+            {
+                _micStoppedByMode = false;
+                Debug.Log("[NoteEvaluator] Back to Microphone: restarting the microphone.");
+                audioDetector.StartDetection();
+            }
+        }
+
         // ----------------------------------------------------------------
-        // Detection handler — one call per keystroke
+        // Detection handlers — one call per keystroke
         // ----------------------------------------------------------------
+
+        // Each source counts only in its own mode. Switching modes stops the other source, but the
+        // mic can still be started elsewhere (its permission callback), and a note must never be
+        // judged twice — once heard by the mic and once reported by the keyboard.
+        private void HandleMicNoteOn(int detectedMidi)
+        {
+            if (detection == DetectionMode.Microphone) HandleNoteOn(detectedMidi);
+        }
+
+        private void HandleMidiNoteOn(int pressedMidi)
+        {
+            if (detection == DetectionMode.Midi) HandleNoteOn(pressedMidi);
+        }
 
         private void HandleNoteOn(int detectedMidi)
         {
-            if (!IsControllerReady()) return;
+            // Free Play promises that nothing is judged. (The source handlers above already filter by
+            // mode; this keeps that promise for any future caller too.)
+            if (!IsListening || !IsControllerReady()) return;
 
             float now = fallingNotesController.CurrentTime;
             var notes = fallingNotesController.Song.notes;
@@ -263,7 +373,9 @@ namespace PianoLearningCore
 
         private void CheckMissedNotes()
         {
-            if (!IsControllerReady()) return;
+            // Nothing can play a note "on time" in Free Play, so nothing can miss one either: without
+            // this every note would flash grey as it passed.
+            if (!IsListening || !IsControllerReady()) return;
 
             float now = fallingNotesController.CurrentTime;
             var notes = fallingNotesController.Song.notes;
@@ -308,8 +420,13 @@ namespace PianoLearningCore
             // end — a song whose last note leaves the keys inside hitWindow + missGrace (a note shorter
             // than that, or one outside the keyboard's range) never completed, so no end-of-song
             // board appeared and, with the playback bar gone, the player had no way out.
-            for (int i = 0; i < notes.Count; i++)
-                if (!_judgedIndices.Contains(i)) MarkMissed(i, notes[i]);
+            // Free Play judges nothing, so it has nothing to mark — but it still fires the event
+            // below: its "Song Complete!" board is the way back to the menu all the same.
+            if (IsListening)
+            {
+                for (int i = 0; i < notes.Count; i++)
+                    if (!_judgedIndices.Contains(i)) MarkMissed(i, notes[i]);
+            }
 
             _songCompleteFired = true;
             if (logEvents)
@@ -335,6 +452,10 @@ namespace PianoLearningCore
         /// next note the moment the current one is judged. Out-of-range notes (no physical key to play)
         /// are skipped so they can never soft-lock the song — they fall through to the normal
         /// missed-note path instead.
+        ///
+        /// A wait can also run out, and then the song moves on without the note(s): always in Free
+        /// Play, where nothing can hear the note, and with the Microphone as a stop-gap, so a note the
+        /// detector fails to hear can't stall the song. See <see cref="WaitLimitSeconds"/>.
         /// </summary>
         private void UpdateWaitGate()
         {
@@ -359,7 +480,74 @@ namespace PianoLearningCore
                 break;
             }
 
+            // Time each wait, and start again from zero at the next one: with the mic a wait also ends
+            // when the note is played, and the next note must not inherit the time that one used.
+            // Paused time doesn't count — a pause clears IsPlaying, which returns above first.
+            if (!hold)
+            {
+                _waitSeconds = 0f;
+            }
+            else
+            {
+                _waitSeconds += Time.deltaTime;
+                if (_waitSeconds >= WaitLimitSeconds())
+                {
+                    ReleaseArrivedNotes(now);
+                    hold = false;
+                }
+            }
+
             fallingNotesController.HoldClock = hold;
+        }
+
+        /// <summary>
+        /// How long one Practice wait may last before the song moves on without the note(s).
+        /// Free Play: <see cref="freePlayHoldSeconds"/>, always — nothing can hear the note, so a fixed
+        /// time is all it can give. Microphone: <see cref="micPracticeTimeoutSeconds"/> (0 = no limit),
+        /// a stop-gap so a note the detector fails to hear can't stall the song. MIDI: no limit — the
+        /// keyboard can't fail to report a key, so a note still at the line hasn't been played yet.
+        /// </summary>
+        private float WaitLimitSeconds()
+        {
+            switch (detection)
+            {
+                case DetectionMode.FreePlay:
+                    return freePlayHoldSeconds;
+                case DetectionMode.Microphone:
+                    return micPracticeTimeoutSeconds > 0f ? micPracticeTimeoutSeconds : float.PositiveInfinity;
+                default:
+                    return float.PositiveInfinity;
+            }
+        }
+
+        /// <summary>
+        /// The wait ran out: settle every note that has reached the line so the wait gate moves on to
+        /// the next one. A chord's notes arrive together, so they share one wait. In Free Play they are
+        /// marked done silently — no score, colour or event, since nothing was listening. Otherwise the
+        /// detector never heard them, so they are missed, just like an unheard note in Assessment: grey
+        /// flash, counted, <see cref="OnNoteMissed"/>.
+        /// </summary>
+        private void ReleaseArrivedNotes(float now)
+        {
+            var notes = fallingNotesController.Song.notes;
+            string unheard = null;
+            for (int i = 0; i < notes.Count && notes[i].startTime <= now; i++)
+            {
+                if (_judgedIndices.Contains(i)) continue;
+                if (!IsListening)
+                {
+                    _judgedIndices.Add(i);
+                    continue;
+                }
+                unheard = (unheard == null ? "" : unheard + " ") + NoteUtils.GetNoteName(notes[i].midiNumber);
+                MarkMissed(i, notes[i]);
+            }
+
+            // Always logged: which notes the detector keeps failing to hear is what to fix next.
+            if (unheard != null)
+                Debug.Log($"[NoteEvaluator] Practice: {unheard} not heard in {_waitSeconds:F1} s — " +
+                          "marked missed, moving on.");
+            _waitSeconds = 0f;
         }
 
         /// <summary>True if the note can actually be played on the assigned keyboard. Notes outside the

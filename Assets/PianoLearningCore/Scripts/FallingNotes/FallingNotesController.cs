@@ -31,6 +31,20 @@ namespace PianoLearningCore
         [Tooltip("Extra vertical gap between the key surface and the note, so they don't visually z-fight.")]
         public float noteHoverHeight = 0.0005f;
 
+        [Tooltip("Gap (metres) cut from the END of every falling block, so two notes in a row on the " +
+                 "same key show as two blocks instead of one long bar. Timing is unchanged: a block's " +
+                 "front edge still reaches the line exactly on its beat. A block is never shortened " +
+                 "below half its length.")]
+        public float noteGap = 0.03f;
+
+        [Tooltip("Print each note's letter (C, D, F# ...) flat on its falling block, near the front " +
+                 "edge, so the player can read which key comes next.")]
+        public bool showNoteLabels = true;
+
+        [Tooltip("Colour of the note letters. Dark reads well on both the light (white-key) and the " +
+                 "darker (black-key) blue blocks.")]
+        public Color noteLabelColor = new Color(0.05f, 0.08f, 0.15f, 1f);
+
         [Header("Timing / motion")]
         [Tooltip("How many seconds before a note's hit time it spawns and starts approaching.")]
         public float leadTime = 3f;
@@ -151,11 +165,30 @@ namespace PianoLearningCore
         {
             Stop();
             Song = song;
+            DropNotesOffKeyboard(song);
             CurrentTime = -startDelay; // negative time = pre-roll
             _nextSpawnIndex = 0;
             IsFinished = false;
             _lastCountdownLogged = int.MaxValue;
             if (autoStart) Play();
+        }
+
+        /// <summary>
+        /// Remove the notes this keyboard doesn't have — an 88-key piece on the 76-key board, say.
+        /// Nobody can play them: they never spawn and Practice already skips them, but Assessment
+        /// still counted each one missed and in the total, so such a song could never reach 100%.
+        /// The rest of the file's clean-up happens when it loads (<see cref="MidiNoteCleanup"/>);
+        /// this part is here because only the controller knows which keyboard the song is on.
+        /// </summary>
+        private void DropNotesOffKeyboard(Song song)
+        {
+            // Without a configured keyboard every note would look "off the keyboard".
+            if (song == null || keyboard == null || keyboard.config == null) return;
+
+            int removed = song.notes.RemoveAll(n => !keyboard.ContainsNote(n.midiNumber));
+            if (removed > 0)
+                Debug.Log($"[FallingNotesController] '{song.title}': removed {removed} note(s) this " +
+                          $"keyboard doesn't have; {song.notes.Count} left.");
         }
 
         public void Play()

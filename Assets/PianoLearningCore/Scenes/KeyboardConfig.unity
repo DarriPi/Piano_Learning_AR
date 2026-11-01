@@ -1441,6 +1441,8 @@ MonoBehaviour:
   idleColor: {r: 0.4, g: 0.7, b: 1, a: 0.85}
   hoverColor: {r: 0.3, g: 1, b: 0.55, a: 1}
   laserMaterial: {fileID: 0}
+  hideWhenPutDown: 1
+  putDownDelay: 0.5
 --- !u!114 &141800754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,7 +1560,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141800752}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.22683004}
+  m_LocalPosition: {x: 0, y: 0, z: 0.41500002}
   m_LocalScale: {x: 0.0009, y: 0.0009, z: 0.0009}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3854,6 +3856,8 @@ MonoBehaviour:
   idleColor: {r: 0.4, g: 0.7, b: 1, a: 0.85}
   hoverColor: {r: 0.3, g: 1, b: 0.55, a: 1}
   laserMaterial: {fileID: 0}
+  hideWhenPutDown: 1
+  putDownDelay: 0.5
 --- !u!114 &479916993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3960,7 +3964,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479916991}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.25083002}
+  m_LocalPosition: {x: 0, y: 0, z: 0.439}
   m_LocalScale: {x: 0.0009, y: 0.0009, z: 0.0009}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4070,8 +4074,10 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -4104,7 +4110,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 0.3, b: 0.6, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 1, g: 0.29999998, b: 0.6, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &505537591
@@ -6419,6 +6425,8 @@ MonoBehaviour:
   idleColor: {r: 0.4, g: 0.7, b: 1, a: 0.85}
   hoverColor: {r: 0.3, g: 1, b: 0.55, a: 1}
   laserMaterial: {fileID: 0}
+  hideWhenPutDown: 1
+  putDownDelay: 0.5
 --- !u!114 &776150001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6556,8 +6564,10 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -6590,7 +6600,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 0.85, b: 0.2, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 1, g: 0.85, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &780031650
@@ -7713,8 +7723,10 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -7747,7 +7759,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.2, g: 1, b: 0.85, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 0.19999996, g: 1, b: 0.85, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &916261086

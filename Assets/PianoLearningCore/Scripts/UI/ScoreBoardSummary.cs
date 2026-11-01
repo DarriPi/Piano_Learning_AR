@@ -139,13 +139,19 @@ namespace PianoLearningCore
             string songTitle = controller != null && controller.Song != null
                 ? controller.Song.title
                 : "Song";
+            // Name any detection mode other than the default Microphone: Free Play is why an Assessment
+            // run has no score, and a MIDI score must not be mistaken for a microphone one.
+            string modeName = evaluator.detection == DetectionMode.Microphone ? evaluator.mode.ToString()
+                : evaluator.detection == DetectionMode.Midi ? $"{evaluator.mode}, MIDI"
+                : $"{evaluator.mode}, Free Play";
             if (subtitleText != null)
-                subtitleText.text = $"{songTitle}  ({evaluator.mode})";
+                subtitleText.text = $"{songTitle}  ({modeName})";
 
             // Practice is the guided, unscored mode, so its board shows no numbers at all — only that
             // the song is over, and Play Again / Close. Visibility is set both ways every time,
-            // because the same board serves Practice and Assessment runs in any order.
-            bool scored = evaluator.mode == SessionMode.Assessment;
+            // because the same board serves Practice and Assessment runs in any order. Free Play
+            // never has a score: nothing was listening.
+            bool scored = evaluator.mode == SessionMode.Assessment && evaluator.IsListening;
             SetTextVisible(accuracyText, scored);
             SetTextVisible(gradeText, scored);
             SetStatRowVisible(scoreText, scored);

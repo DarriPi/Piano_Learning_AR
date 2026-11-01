@@ -116,7 +116,13 @@ namespace PianoLearningCore
 
         public static Song LoadFromBytes(byte[] bytes, string title)
         {
-            var rawNotes = MidiFileParser.Parse(bytes, out _);
+            // Every song comes through here — built-in, added with "+ Add Song", or copied in over
+            // USB — so this one clean-up covers them all. The file itself is never modified.
+            var rawNotes = MidiNoteCleanup.Clean(MidiFileParser.Parse(bytes, out _), out var cleanup);
+            if (cleanup.Changed)
+                Debug.Log($"[MidiSongLoader] '{title}': merged {cleanup.duplicatesMerged} duplicate " +
+                          $"note(s), removed {cleanup.drumNotesRemoved} drum note(s); " +
+                          $"{rawNotes.Count} notes left.");
 
             var song = new Song { title = title };
             song.notes.Capacity = rawNotes.Count;

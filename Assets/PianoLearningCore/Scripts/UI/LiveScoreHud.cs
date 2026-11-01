@@ -77,8 +77,10 @@ namespace PianoLearningCore
             // IsPlaying has no event, so visibility is the one thing we poll. Guarded so we only
             // toggle on a CHANGE — no per-frame SetActive or string formatting. The score HUD is an
             // Assessment-mode element: Practice is a guided, unscored mode, so it stays hidden there.
+            // So does Free Play's Assessment: nothing is listening, so there is no score to show.
             bool shouldShow = controller != null && controller.IsPlaying
-                              && evaluator != null && evaluator.mode == SessionMode.Assessment;
+                              && evaluator != null && evaluator.mode == SessionMode.Assessment
+                              && evaluator.IsListening;
             if (shouldShow != _visible) SetVisible(shouldShow);
         }
 

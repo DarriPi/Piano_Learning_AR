@@ -255,6 +255,9 @@ namespace PianoLearningCore
             SongRow.EnsureRemoveButton(rowTemplate);
             AddSongButton.EnsureFor(this);
 
+            // And for the Detection strip (Microphone / MIDI / Free Play) above the list.
+            DetectionModeSelector.EnsureFor(this);
+
             foreach (var entry in songs)
             {
                 if (entry == null) continue;

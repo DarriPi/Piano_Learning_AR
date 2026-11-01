@@ -605,11 +605,13 @@ namespace PianoLearningCore
             try
             {
                 byte[] bytes = File.ReadAllBytes(path);
-                var notes = MidiFileParser.Parse(bytes, out _);
-                if (notes.Count == 0)
+                // Through the same clean-up the song gets every time it loads, so a file that is
+                // only drums is turned away here instead of becoming a song with nothing to play.
+                var song = MidiSongLoader.LoadFromBytes(bytes, title);
+                if (song.notes.Count == 0)
                 {
                     UserSongLibrary.Delete(path);
-                    return Fail($"\"{title}\" has no notes in it.");
+                    return Fail($"\"{title}\" has no notes to play in it.");
                 }
             }
             catch (Exception e)

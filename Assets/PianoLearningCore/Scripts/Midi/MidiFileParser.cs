@@ -216,6 +216,7 @@ namespace PianoLearningCore
                         // Most MIDI authoring tools never overlap the same pitch on the same channel,
                         // but if a NoteOn arrives while one is still pending, we end the previous one first.
                         int key = (ev.channel << 8) | ev.noteNumber;
+                        bool restruck = false;
                         if (pending.TryGetValue(key, out var existing))
                         {
                             result.Add(new RawNote
@@ -226,11 +227,14 @@ namespace PianoLearningCore
                                 durationSeconds = (float)(currentSeconds - existing.startSeconds),
                                 velocity = existing.velocity
                             });
+                            restruck = existing.startTick < ev.absTick;
                         }
                         pending[key] = new NoteOnInfo
                         {
                             startSeconds = currentSeconds,
-                            velocity = ev.velocity
+                            velocity = ev.velocity,
+                            startTick = ev.absTick,
+                            restruck = restruck
                         };
                         break;
                     }
@@ -240,6 +244,12 @@ namespace PianoLearningCore
                         int key = (ev.channel << 8) | ev.noteNumber;
                         if (pending.TryGetValue(key, out var info))
                         {
+                            // A key struck again where the file writes the new NoteOn BEFORE the old
+                            // note's NoteOff, both at this tick. That NoteOff is the old note's, which
+                            // the NoteOn above already ended. Applied to the new note it would cut it
+                            // to zero length: a 5 mm sliver that still waits for its key press.
+                            if (info.restruck && info.startTick == ev.absTick) break;
+
                             result.Add(new RawNote
                             {
                                 midiNumber = ev.noteNumber,
@@ -295,6 +305,8 @@ namespace PianoLearningCore
         {
             public double startSeconds;
             public byte velocity;
+            public long startTick;
+            public bool restruck;   // this NoteOn ended a still-sounding note on the same key
         }
 
         // ----------------------------------------------------------------

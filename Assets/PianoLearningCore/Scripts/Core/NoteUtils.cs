@@ -58,6 +58,12 @@ namespace PianoLearningCore
             return NoteNames[pc] + octave;
         }
 
+        /// <summary>Get the note's letter without its octave, like "C", "F#", "A".</summary>
+        public static string GetPitchName(int midiNumber)
+        {
+            return NoteNames[((midiNumber % 12) + 12) % 12];
+        }
+
         // ----- White-key index (used to lay out white keys side-by-side) -----
 
         /// <summary>
